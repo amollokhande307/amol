@@ -1,0 +1,653 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* Navy Blue, Light Yellow & Black Theme Variables */
+:root {
+  --navy-primary: #1e3a8a;
+  --navy-secondary: #1e40af;
+  --navy-dark: #0f172a;
+  --yellow-light: #fef3c7;
+  --yellow-accent: #f59e0b;
+  --yellow-bright: #fbbf24;
+  --black-primary: #000000;
+  --black-secondary: #1f2937;
+  --white-cream: #fefefe;
+}
+
+[data-theme="dark"] {
+  --navy-primary: #3b82f6;
+  --navy-secondary: #60a5fa;
+  --navy-dark: #0f172a;
+  --yellow-light: #fef3c7;
+  --yellow-accent: #fbbf24;
+  --yellow-bright: #fcd34d;
+  --black-primary: #000000;
+  --black-secondary: #374151;
+  --white-cream: #f8fafc;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--yellow-light);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--black-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--navy-primary);
+  border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--navy-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--navy-secondary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow-accent);
+}
+
+/* Writing mode for vertical text */
+.writing-vertical {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  letter-spacing: 0.2em;
+  color: var(--navy-primary);
+}
+
+[data-theme="dark"] .writing-vertical {
+  color: var(--yellow-bright);
+}
+
+/* Ripple effect */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(251, 191, 36, 0.4);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+/* Navy Blue Hero Background with Classic Patterns */
+.hero-background {
+  background: 
+    /* Classic Damask Pattern */
+    radial-gradient(ellipse at center, rgba(251, 191, 36, 0.2) 0%, transparent 50%),
+    /* Royal Textile Weave Pattern */
+    repeating-linear-gradient(
+      45deg,
+      rgba(251, 191, 36, 0.08) 0px,
+      rgba(251, 191, 36, 0.08) 2px,
+      transparent 2px,
+      transparent 15px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(30, 58, 138, 0.12) 0px,
+      rgba(30, 58, 138, 0.12) 2px,
+      transparent 2px,
+      transparent 15px
+    ),
+    /* Black Navy Base Gradient */
+    linear-gradient(135deg, 
+      #000000 0%, 
+      #1e3a8a 25%,
+      #000000 50%,
+      #0f172a 75%,
+      #000000 100%
+    );
+}
+
+[data-theme="dark"] .hero-background {
+  background: 
+    /* Classic Damask Pattern - Dark */
+    radial-gradient(ellipse at center, rgba(251, 191, 36, 0.25) 0%, transparent 50%),
+    /* Royal Textile Weave Pattern - Dark */
+    repeating-linear-gradient(
+      45deg,
+      rgba(251, 191, 36, 0.1) 0px,
+      rgba(251, 191, 36, 0.1) 2px,
+      transparent 2px,
+      transparent 15px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(30, 58, 138, 0.15) 0px,
+      rgba(30, 58, 138, 0.15) 2px,
+      transparent 2px,
+      transparent 15px
+    ),
+    /* Deep Black Navy Gradient Base */
+    linear-gradient(135deg, 
+      #000000 0%, 
+      #0f172a 25%,
+      #000000 50%,
+      #1e3a8a 75%,
+      #000000 100%
+    );
+}
+
+/* Professional Royal Textile Pattern */
+.royal-textile-pattern {
+  background-image: 
+    /* Herringbone Pattern with Navy & Yellow */
+    linear-gradient(45deg, rgba(30, 58, 138, 0.06) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(30, 58, 138, 0.06) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(251, 191, 36, 0.04) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(251, 191, 36, 0.04) 75%);
+  background-size: 80px 80px;
+  background-position: 0 0, 0 40px, 40px -40px, -40px 0px;
+  animation: royalTextileMove 30s linear infinite;
+}
+
+@keyframes royalTextileMove {
+  0% { background-position: 0 0, 0 40px, 40px -40px, -40px 0px; }
+  100% { background-position: 80px 80px, 80px 120px, 120px 40px, 40px 80px; }
+}
+
+/* Classic Royal Ornamental Border */
+.royal-ornamental-border {
+  position: relative;
+}
+
+.royal-ornamental-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(30, 58, 138, 0.4) 10%, 
+    rgba(251, 191, 36, 0.6) 30%, 
+    rgba(0, 0, 0, 0.3) 50%, 
+    rgba(251, 191, 36, 0.6) 70%, 
+    rgba(30, 58, 138, 0.4) 90%, 
+    transparent 100%
+  );
+  animation: royalBorderPulse 4s ease-in-out infinite;
+}
+
+.royal-ornamental-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(30, 58, 138, 0.4) 10%, 
+    rgba(251, 191, 36, 0.6) 30%, 
+    rgba(0, 0, 0, 0.3) 50%, 
+    rgba(251, 191, 36, 0.6) 70%, 
+    rgba(30, 58, 138, 0.4) 90%, 
+    transparent 100%
+  );
+  animation: royalBorderPulse 4s ease-in-out infinite reverse;
+}
+
+@keyframes royalBorderPulse {
+  0%, 100% { opacity: 0.6; transform: scaleX(0.9); }
+  50% { opacity: 1; transform: scaleX(1.1); }
+}
+
+/* Elegant Royal Floating Elements */
+.royal-elegant-float {
+  position: absolute;
+  background: radial-gradient(circle, 
+    rgba(30, 58, 138, 0.15), 
+    rgba(251, 191, 36, 0.08), 
+    rgba(0, 0, 0, 0.05)
+  );
+  border-radius: 50%;
+  filter: blur(3px);
+  animation: royalElegantFloat 10s ease-in-out infinite;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.royal-elegant-float:nth-child(1) { 
+  width: 150px; height: 150px; 
+  top: 10%; left: 5%; 
+  animation-delay: 0s; 
+}
+.royal-elegant-float:nth-child(2) { 
+  width: 100px; height: 100px; 
+  top: 20%; right: 8%; 
+  animation-delay: 3s; 
+}
+.royal-elegant-float:nth-child(3) { 
+  width: 120px; height: 120px; 
+  bottom: 20%; left: 10%; 
+  animation-delay: 6s; 
+}
+.royal-elegant-float:nth-child(4) { 
+  width: 80px; height: 80px; 
+  bottom: 30%; right: 15%; 
+  animation-delay: 2s; 
+}
+
+@keyframes royalElegantFloat {
+  0%, 100% { 
+    transform: translateY(0px) scale(1) rotate(0deg); 
+    opacity: 0.5; 
+  }
+  33% { 
+    transform: translateY(-40px) scale(1.1) rotate(120deg); 
+    opacity: 0.8; 
+  }
+  66% { 
+    transform: translateY(-20px) scale(0.9) rotate(240deg); 
+    opacity: 0.6; 
+  }
+}
+
+/* Professional Royal Accent Lines */
+.royal-accent-lines {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(30, 58, 138, 0.3) 20%, 
+    rgba(251, 191, 36, 0.6) 40%, 
+    rgba(0, 0, 0, 0.4) 50%, 
+    rgba(251, 191, 36, 0.6) 60%, 
+    rgba(30, 58, 138, 0.3) 80%, 
+    transparent 100%
+  );
+  animation: royalAccentPulse 5s ease-in-out infinite;
+}
+
+@keyframes royalAccentPulse {
+  0%, 100% { 
+    opacity: 0.4; 
+    transform: translate(-50%, -50%) scaleX(0.7); 
+  }
+  50% { 
+    opacity: 0.9; 
+    transform: translate(-50%, -50%) scaleX(1.3); 
+  }
+}
+
+/* Luxury Royal Card Background */
+.royal-luxury-card {
+  background: 
+    /* Subtle royal texture */
+    repeating-linear-gradient(
+      0deg,
+      rgba(251, 191, 36, 0.08) 0px,
+      rgba(251, 191, 36, 0.08) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(30, 58, 138, 0.06) 0px,
+      rgba(30, 58, 138, 0.06) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    /* Black Royal gradient base */
+    linear-gradient(145deg, 
+      rgba(0, 0, 0, 0.95) 0%, 
+      rgba(30, 58, 138, 0.8) 30%,
+      rgba(0, 0, 0, 0.9) 70%,
+      rgba(15, 23, 42, 0.95) 100%
+    );
+  backdrop-filter: blur(25px);
+  border: 2px solid rgba(251, 191, 36, 0.5);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.6),
+    0 4px 16px rgba(251, 191, 36, 0.3),
+    inset 0 2px 0 rgba(251, 191, 36, 0.4),
+    0 0 30px rgba(30, 58, 138, 0.3);
+}
+
+[data-theme="dark"] .royal-luxury-card {
+  background: 
+    /* Subtle royal texture - dark */
+    repeating-linear-gradient(
+      0deg,
+      rgba(251, 191, 36, 0.1) 0px,
+      rgba(251, 191, 36, 0.1) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(30, 58, 138, 0.08) 0px,
+      rgba(30, 58, 138, 0.08) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    /* Deep Black Royal gradient base */
+    linear-gradient(145deg, 
+      rgba(0, 0, 0, 0.98) 0%, 
+      rgba(0, 0, 0, 0.9) 50%,
+      rgba(30, 58, 138, 0.85) 100%
+    );
+  border: 2px solid rgba(251, 191, 36, 0.6);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.8),
+    0 4px 16px rgba(251, 191, 36, 0.4),
+    inset 0 2px 0 rgba(251, 191, 36, 0.5),
+    0 0 40px rgba(30, 58, 138, 0.4);
+}
+
+/* Professional Royal Section Backgrounds */
+.royal-section-bg-light {
+  background: 
+    /* Fine royal grain texture */
+    radial-gradient(circle at 2px 2px, rgba(30, 58, 138, 0.08) 2px, transparent 0),
+    radial-gradient(circle at 1px 1px, rgba(251, 191, 36, 0.06) 1px, transparent 0),
+    /* Black Royal gradient */
+    linear-gradient(180deg, 
+      rgba(0, 0, 0, 1) 0%, 
+      rgba(30, 58, 138, 0.9) 30%,
+      rgba(0, 0, 0, 1) 70%,
+      rgba(15, 23, 42, 1) 100%
+    );
+  background-size: 25px 25px, 15px 15px, 100% 100%;
+}
+
+.royal-section-bg-dark {
+  background: 
+    /* Fine royal grain texture - dark */
+    radial-gradient(circle at 2px 2px, rgba(30, 58, 138, 0.1) 2px, transparent 0),
+    radial-gradient(circle at 1px 1px, rgba(251, 191, 36, 0.08) 1px, transparent 0),
+    /* Deep Black Royal gradient */
+    linear-gradient(180deg, 
+      rgba(0, 0, 0, 1) 0%, 
+      rgba(0, 0, 0, 1) 30%,
+      rgba(30, 58, 138, 0.95) 70%,
+      rgba(0, 0, 0, 1) 100%
+    );
+  background-size: 25px 25px, 15px 15px, 100% 100%;
+}
+
+/* Sophisticated Royal Code Pattern */
+.royal-code-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.royal-code-pattern::before {
+  content: "⚜️ { DevOps } ⚜️ < Cloud /> ⚜️ [ AI ] ⚜️ { Automation } ⚜️ < Infrastructure /> ⚜️ [ Security ] ⚜️";
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 150%;
+  font-family: 'Inter', monospace;
+  font-size: 16px;
+  line-height: 50px;
+  color: rgba(30, 58, 138, 0.6);
+  animation: royalCodePattern 35s linear infinite;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  letter-spacing: 3px;
+}
+
+[data-theme="dark"] .royal-code-pattern::before {
+  color: rgba(251, 191, 36, 0.5);
+}
+
+@keyframes royalCodePattern {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(50%) rotate(360deg); }
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Royal Glassmorphism effect */
+.royal-glass {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(251, 191, 36, 0.5);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(251, 191, 36, 0.3);
+}
+
+[data-theme="dark"] .royal-glass {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(251, 191, 36, 0.6);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(251, 191, 36, 0.4);
+}
+
+/* Royal Hover glow effect */
+.royal-hover-glow {
+  transition: all 0.4s ease;
+}
+
+.royal-hover-glow:hover {
+  box-shadow: 
+    0 0 40px rgba(30, 58, 138, 0.6),
+    0 0 80px rgba(251, 191, 36, 0.4),
+    inset 0 0 20px rgba(251, 191, 36, 0.1);
+  transform: translateY(-8px) scale(1.02);
+}
+
+[data-theme="dark"] .royal-hover-glow:hover {
+  box-shadow: 
+    0 0 40px rgba(59, 130, 246, 0.5),
+    0 0 80px rgba(251, 191, 36, 0.6),
+    inset 0 0 20px rgba(251, 191, 36, 0.2);
+}
+
+/* Focus styles */
+input:focus, textarea:focus, button:focus {
+  outline: none;
+  ring: 3px;
+  ring-color: var(--yellow-accent);
+  border-color: var(--navy-primary);
+}
+
+/* Smooth animations */
+* {
+  transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Royal Loading animation */
+@keyframes royalPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.animate-royal-pulse {
+  animation: royalPulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Royal Bounce animation */
+@keyframes royalBounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -20px, 0);
+  }
+  70% {
+    transform: translate3d(0, -10px, 0);
+  }
+  90% {
+    transform: translate3d(0, -5px, 0);
+  }
+}
+
+.animate-royal-bounce {
+  animation: royalBounce 1.2s infinite;
+}
+
+/* Royal Fade in animation */
+@keyframes royalFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-royal-fade-in-up {
+  animation: royalFadeInUp 0.8s ease-out;
+}
+
+/* Royal Grid Animation */
+@keyframes royalGridMove {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(60px, 60px) rotate(45deg); }
+}
+
+/* Enhanced Royal Hover Effects */
+.royal-tech-glow {
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.royal-tech-glow:hover {
+  box-shadow: 
+    0 0 40px rgba(30, 58, 138, 0.8),
+    0 0 80px rgba(251, 191, 36, 0.6),
+    0 0 120px rgba(0, 0, 0, 0.9),
+    inset 0 0 40px rgba(251, 191, 36, 0.3);
+  transform: translateY(-8px) scale(1.03);
+  border-color: rgba(251, 191, 36, 0.8);
+}
+
+.royal-tech-glow:hover::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(30, 58, 138, 0.3), 
+    rgba(251, 191, 36, 0.4), 
+    rgba(0, 0, 0, 0.2), 
+    rgba(251, 191, 36, 0.4), 
+    rgba(30, 58, 138, 0.3)
+  );
+  border-radius: inherit;
+  z-index: -1;
+  animation: royalGlowRotate 2s linear infinite;
+}
+
+@keyframes royalGlowRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Royal Particle Burst Effect */
+@keyframes royalParticleBurst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.royal-particle-burst {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, 
+    var(--yellow-bright), 
+    var(--navy-primary), 
+    var(--black-primary)
+  );
+  border-radius: 50%;
+  animation: royalParticleBurst 1s ease-out forwards;
+}
+
+/* Royal Typography Colors */
+.text-royal-navy {
+  color: var(--navy-primary);
+}
+
+.text-royal-yellow {
+  color: var(--yellow-accent);
+}
+
+.text-royal-black {
+  color: var(--black-primary);
+}
+
+[data-theme="dark"] .text-royal-navy {
+  color: var(--navy-secondary);
+}
+
+[data-theme="dark"] .text-royal-yellow {
+  color: var(--yellow-bright);
+}
+
+[data-theme="dark"] .text-royal-black {
+  color: var(--white-cream);
+}
+
+/* Royal Background Colors */
+.bg-royal-navy {
+  background-color: var(--navy-primary);
+}
+
+.bg-royal-yellow {
+  background-color: var(--yellow-light);
+}
+
+.bg-royal-black {
+  background-color: var(--black-primary);
+}
