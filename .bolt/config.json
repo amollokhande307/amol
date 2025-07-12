@@ -1,3 +1,5 @@
 {
-  "template": "bolt-vite-react-ts"
+  "scripts": {
+    "deploy": "gh-pages -d dist"
+  }
 }
