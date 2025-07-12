@@ -4,45 +4,39 @@ import { Github } from 'lucide-react';
 export const Projects: React.FC = () => {
   const projects = [
     {
-      title: 'Docker Menu-Based Project',
+      title: 'MenuBase',
       description: 'Comprehensive Docker management system with an intuitive menu interface for container orchestration and automation.',
       tech: ['Docker', 'Linux', 'Bash', 'DevOps'],
-      github: 'https://github.com/amollokhande8999/docker-menu-based-project',
       image: 'https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      title: 'Streamlit College Student Info',
+      title: 'College Student',
       description: 'Interactive dashboard application for managing and visualizing college student information with real-time data processing.',
       tech: ['Python', 'Streamlit', 'Pandas', 'Data Visualization'],
-      github: 'https://github.com/amollokhande8999/college-student-info',
       image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      title: 'Generative AI - Bank Manager',
+      title: 'Bank Manager',
       description: 'AI-powered banking assistant that uses generative AI to provide intelligent customer service and transaction management.',
       tech: ['Python', 'AI/ML', 'OpenAI', 'Flask'],
-      github: 'https://github.com/amollokhande8999/gen-ai-bank-manager',
       image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      title: 'Unified Social Media Toolkit',
+      title: 'WhatsApp',
       description: 'Comprehensive toolkit for managing multiple social media platforms with unified analytics and automation features.',
       tech: ['Python', 'API Integration', 'Automation', 'Analytics'],
-      github: 'https://github.com/amollokhande8999/unified-social-media-toolkit',
       image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      title: 'Instagram Messenger UI',
+      title: 'Insta',
       description: 'Modern UI clone of Instagram messenger with real-time chat functionality and responsive design.',
       tech: ['React', 'TypeScript', 'CSS', 'UI/UX'],
-      github: 'https://github.com/amollokhande8999/insta-message-ui',
       image: 'https://images.pexels.com/photos/7681091/pexels-photo-7681091.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      title: 'Twitter Toolkit with Tweepy',
+      title: 'Twitter',
       description: 'Advanced Twitter automation and analytics toolkit built with Tweepy for social media management.',
       tech: ['Python', 'Tweepy', 'Twitter API', 'Data Analysis'],
-      github: 'https://github.com/amollokhande8999/twitter-toolkit',
       image: 'https://images.pexels.com/photos/7681091/pexels-photo-7681091.jpeg?auto=compress&cs=tinysrgb&w=800'
     }
   ];
@@ -90,7 +84,11 @@ export const Projects: React.FC = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-xl royal-luxury-card transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
+              className="group relative overflow-hidden rounded-xl royal-luxury-card transition-all duration-500 transform hover:scale-105 hover:shadow-2xl project-card"
+              style={{ 
+                animationDelay: `${index * 0.1}s`,
+                transition: 'all 0.3s ease-in-out'
+              }}
             >
               {/* Project Image */}
               <div className="relative overflow-hidden h-48 bg-gradient-to-br from-blue-500 to-purple-600">
@@ -127,7 +125,7 @@ export const Projects: React.FC = () => {
                 {/* Code Button */}
                 <div className="flex justify-center">
                   <a
-                    href={project.github}
+                    href="https://github.com/amollokhande307/summer-internship-.git"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={handleRippleClick}
