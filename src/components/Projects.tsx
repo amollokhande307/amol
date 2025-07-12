@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Github, Star } from 'lucide-react';
+import { Github } from 'lucide-react';
 
 export const Projects: React.FC = () => {
   const projects = [
@@ -7,25 +7,43 @@ export const Projects: React.FC = () => {
       title: 'Docker Menu-Based Project',
       description: 'Comprehensive Docker management system with an intuitive menu interface for container orchestration and automation.',
       tech: ['Docker', 'Linux', 'Bash', 'DevOps'],
-      github: 'https://github.com/amollokhande307',
-      featured: true,
+      github: 'https://github.com/amollokhande8999/docker-menu-based-project',
       image: 'https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      title: 'Streamlit College Student Info Dashboard',
+      title: 'Streamlit College Student Info',
       description: 'Interactive dashboard application for managing and visualizing college student information with real-time data processing.',
       tech: ['Python', 'Streamlit', 'Pandas', 'Data Visualization'],
-      github: 'https://github.com/amollokhande307',
-      featured: false,
+      github: 'https://github.com/amollokhande8999/college-student-info',
       image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      title: 'Generative AI Project: Bank Manager',
+      title: 'Generative AI - Bank Manager',
       description: 'AI-powered banking assistant that uses generative AI to provide intelligent customer service and transaction management.',
       tech: ['Python', 'AI/ML', 'OpenAI', 'Flask'],
-      github: 'https://github.com/amollokhande307',
-      featured: false,
+      github: 'https://github.com/amollokhande8999/gen-ai-bank-manager',
       image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800'
+    },
+    {
+      title: 'Unified Social Media Toolkit',
+      description: 'Comprehensive toolkit for managing multiple social media platforms with unified analytics and automation features.',
+      tech: ['Python', 'API Integration', 'Automation', 'Analytics'],
+      github: 'https://github.com/amollokhande8999/unified-social-media-toolkit',
+      image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800'
+    },
+    {
+      title: 'Instagram Messenger UI',
+      description: 'Modern UI clone of Instagram messenger with real-time chat functionality and responsive design.',
+      tech: ['React', 'TypeScript', 'CSS', 'UI/UX'],
+      github: 'https://github.com/amollokhande8999/insta-message-ui',
+      image: 'https://images.pexels.com/photos/7681091/pexels-photo-7681091.jpeg?auto=compress&cs=tinysrgb&w=800'
+    },
+    {
+      title: 'Twitter Toolkit with Tweepy',
+      description: 'Advanced Twitter automation and analytics toolkit built with Tweepy for social media management.',
+      tech: ['Python', 'Tweepy', 'Twitter API', 'Data Analysis'],
+      github: 'https://github.com/amollokhande8999/twitter-toolkit',
+      image: 'https://images.pexels.com/photos/7681091/pexels-photo-7681091.jpeg?auto=compress&cs=tinysrgb&w=800'
     }
   ];
 
@@ -72,19 +90,8 @@ export const Projects: React.FC = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className={`group relative overflow-hidden rounded-xl royal-luxury-card transition-all duration-500 transform hover:scale-105 hover:shadow-2xl royal-tech-glow ${
-                project.featured ? 'lg:col-span-2' : ''
-              }`}
+              className="group relative overflow-hidden rounded-xl royal-luxury-card transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
             >
-              {project.featured && (
-                <div className="absolute top-4 right-4 z-10">
-                  <div className="flex items-center gap-1 px-3 py-1 bg-yellow-400 text-black rounded-full text-sm font-medium">
-                    <Star className="w-4 h-4" />
-                    Featured
-                  </div>
-                </div>
-              )}
-
               {/* Project Image */}
               <div className="relative overflow-hidden h-48 bg-gradient-to-br from-blue-500 to-purple-600">
                 <img 
@@ -97,7 +104,7 @@ export const Projects: React.FC = () => {
 
               {/* Project Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-royal-navy dark:text-royal-yellow mb-3 group-hover:text-yellow-600 dark:group-hover:text-yellow-300 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-royal-navy dark:text-royal-yellow mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors duration-300">
                   {project.title}
                 </h3>
                 
@@ -110,30 +117,25 @@ export const Projects: React.FC = () => {
                   {project.tech.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className="px-3 py-1 bg-yellow-200 dark:bg-blue-900/30 text-royal-navy dark:text-yellow-300 rounded-full text-sm font-medium"
+                      className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-royal-navy dark:text-yellow-300 rounded-full text-sm font-medium"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-4">
-                  <button
+                {/* Code Button */}
+                <div className="flex justify-center">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={handleRippleClick}
-                    className="relative overflow-hidden flex items-center gap-2 px-4 py-2 bg-blue-900 hover:bg-blue-800 text-yellow-100 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 active:scale-95"
+                    className="relative overflow-hidden flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
                   >
                     <Github className="w-4 h-4" />
                     Code
-                  </button>
-                  
-                  <button
-                    onClick={handleRippleClick}
-                    className="relative overflow-hidden flex items-center gap-2 px-4 py-2 royal-glass text-royal-navy dark:text-royal-yellow rounded-lg font-medium hover:bg-white/20 transition-all duration-300 transform hover:scale-105 active:scale-95"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    Demo
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -146,7 +148,7 @@ export const Projects: React.FC = () => {
             href="https://github.com/amollokhande307"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-black dark:bg-yellow-400 text-yellow-100 dark:text-black rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-black dark:bg-blue-600 text-white rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 active:scale-95"
           >
             <Github className="w-5 h-5" />
             View All Projects on GitHub

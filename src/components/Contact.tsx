@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Mail, 
-  Phone, 
   Github, 
   Linkedin, 
   Instagram,
@@ -79,38 +78,23 @@ export const Contact: React.FC = () => {
             </h3>
             
             <div className="space-y-6">
-              <div className="flex items-center gap-4 p-4 royal-luxury-card rounded-lg transition-all duration-500 royal-tech-glow">
-                <div className="p-3 bg-yellow-200 dark:bg-blue-900/30 rounded-full">
-                  <Mail className="w-6 h-6 text-blue-900 dark:text-yellow-400" />
+              <div className="flex items-center gap-4 p-4 royal-luxury-card rounded-lg transition-all duration-500">
+                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                  <Mail className="w-6 h-6 text-blue-900 dark:text-blue-400" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-royal-navy dark:text-royal-yellow">Email</h4>
                   <a 
                     href="mailto:amollokhande8999@gmail.com"
-                    className="text-royal-black dark:text-yellow-300 hover:text-blue-900 dark:hover:text-yellow-200 transition-colors duration-300"
+                    className="text-royal-black dark:text-yellow-300 hover:text-blue-900 dark:hover:text-blue-200 transition-colors duration-300"
                   >
                     amollokhande8999@gmail.com
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-4 royal-luxury-card rounded-lg transition-all duration-500 royal-tech-glow">
-                <div className="p-3 bg-yellow-200 dark:bg-green-900/30 rounded-full">
-                  <Phone className="w-6 h-6 text-green-600 dark:text-green-400" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-royal-navy dark:text-royal-yellow">Phone</h4>
-                  <a 
-                    href="tel:1234567890"
-                    className="text-royal-black dark:text-yellow-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300"
-                  >
-                    +91 1234567890
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 p-4 royal-luxury-card rounded-lg transition-all duration-500 royal-tech-glow">
-                <div className="p-3 bg-yellow-200 dark:bg-purple-900/30 rounded-full">
+              <div className="flex items-center gap-4 p-4 royal-luxury-card rounded-lg transition-all duration-500">
+                <div className="p-3 bg-blue-100 dark:bg-purple-900/30 rounded-full">
                   <MapPin className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
@@ -119,8 +103,8 @@ export const Contact: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-4 royal-luxury-card rounded-lg transition-all duration-500 royal-tech-glow">
-                <div className="p-3 bg-yellow-200 dark:bg-orange-900/30 rounded-full">
+              <div className="flex items-center gap-4 p-4 royal-luxury-card rounded-lg transition-all duration-500">
+                <div className="p-3 bg-blue-100 dark:bg-orange-900/30 rounded-full">
                   <Clock className="w-6 h-6 text-orange-600 dark:text-orange-400" />
                 </div>
                 <div>
@@ -138,7 +122,7 @@ export const Contact: React.FC = () => {
                   href="https://github.com/amollokhande307"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 bg-black text-yellow-100 rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:scale-110 active:scale-95"
+                  className="p-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:scale-110 active:scale-95"
                 >
                   <Github className="w-5 h-5" />
                 </a>
@@ -146,7 +130,7 @@ export const Contact: React.FC = () => {
                   href="https://www.linkedin.com/in/amol-lokhande-382976361"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 bg-blue-900 text-yellow-100 rounded-lg hover:bg-blue-800 transition-all duration-300 transform hover:scale-110 active:scale-95"
+                  className="p-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-all duration-300 transform hover:scale-110 active:scale-95"
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>
@@ -180,7 +164,7 @@ export const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-500 text-royal-navy dark:text-royal-yellow placeholder-gray-500 dark:placeholder-gray-400"
+                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-500 text-royal-navy dark:text-royal-yellow placeholder-gray-500 dark:placeholder-gray-400"
                   placeholder="Your Name"
                 />
               </div>
@@ -196,7 +180,7 @@ export const Contact: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-500 text-royal-navy dark:text-royal-yellow placeholder-gray-500 dark:placeholder-gray-400"
+                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-500 text-royal-navy dark:text-royal-yellow placeholder-gray-500 dark:placeholder-gray-400"
                   placeholder="your@email.com"
                 />
               </div>
@@ -212,7 +196,7 @@ export const Contact: React.FC = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-500 text-royal-navy dark:text-royal-yellow placeholder-gray-500 dark:placeholder-gray-400 resize-none"
+                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-500 text-royal-navy dark:text-royal-yellow placeholder-gray-500 dark:placeholder-gray-400 resize-none"
                   placeholder="Tell me about your project..."
                 />
               </div>
@@ -220,7 +204,7 @@ export const Contact: React.FC = () => {
               <button
                 type="submit"
                 onClick={handleRippleClick}
-                className="relative overflow-hidden w-full px-8 py-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                className="relative overflow-hidden w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
               >
                 <Send className="w-5 h-5" />
                 Send Message

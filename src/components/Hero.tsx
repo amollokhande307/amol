@@ -78,11 +78,11 @@ export const Hero: React.FC = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Animated Background */}
+      {/* Professional Background */}
       <div className="absolute inset-0 hero-background" />
       
       {/* Professional Textile Pattern */}
-      <div className="absolute inset-0 royal-textile-pattern opacity-30" />
+      <div className="absolute inset-0 royal-textile-pattern opacity-20" />
       
       {/* Elegant Floating Elements */}
       <div className="absolute inset-0">
@@ -104,9 +104,9 @@ export const Hero: React.FC = () => {
           <div
             key={i}
             className={`absolute animate-royal-pulse ${
-              i % 4 === 0 ? 'w-1 h-1 bg-yellow-400/30 rounded-full' :
+              i % 4 === 0 ? 'w-1 h-1 bg-blue-400/30 rounded-full' :
               i % 4 === 1 ? 'w-1.5 h-1.5 bg-blue-900/25 rounded-full' :
-              i % 4 === 2 ? 'w-2 h-0.5 bg-yellow-500/20 rounded-full' :
+              i % 4 === 2 ? 'w-2 h-0.5 bg-blue-500/20 rounded-full' :
               'w-0.5 h-2 bg-black/15 rounded-full'
             }`}
             style={{
@@ -133,21 +133,21 @@ export const Hero: React.FC = () => {
           <div className="mb-8 relative inline-block">
             <div 
               onClick={handleProfileClick}
-              className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-yellow-400 via-blue-900 to-black p-1 shadow-2xl hover:shadow-yellow-500/50 transition-all duration-500 hover:scale-110 cursor-pointer group relative"
+              className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-blue-400 via-blue-900 to-black p-1 shadow-2xl hover:shadow-blue-500/50 transition-all duration-500 hover:scale-110 cursor-pointer group relative"
             >
-              <div className="w-full h-full rounded-full overflow-hidden bg-yellow-50 dark:bg-gray-800 relative">
+              <div className="w-full h-full rounded-full overflow-hidden bg-white dark:bg-gray-800 relative">
                 <img 
-                  src="/public/WhatsApp Image 2025-07-07 at 21.49.05_ef2d8c6b.jpg" 
+                  src="/WhatsApp%20Image%202025-07-07%20at%2021.49.05_ef2d8c6b.jpg" 
                   alt="Amol Lokhande"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-yellow-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
             </div>
-            <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-yellow-100 dark:border-gray-800"></div>
+            <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white dark:border-gray-800"></div>
             
             {/* Floating Tech Icons */}
-            <div className="absolute -top-4 -left-4 w-6 h-6 bg-yellow-500/30 rounded-full flex items-center justify-center animate-royal-pulse">
+            <div className="absolute -top-4 -left-4 w-6 h-6 bg-blue-500/30 rounded-full flex items-center justify-center animate-royal-pulse">
               <span className="text-xs">⚙️</span>
             </div>
             <div className="absolute -bottom-4 -right-4 w-6 h-6 bg-blue-900/30 rounded-full flex items-center justify-center animate-royal-pulse" style={{ animationDelay: '1s' }}>
@@ -159,18 +159,18 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-yellow-50 dark:text-yellow-100 leading-tight">
-            Hi, I'm <span className="text-yellow-300 dark:text-yellow-200">Amol Lokhande</span>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white dark:text-white leading-tight">
+            Hi, I'm <span className="text-blue-300 dark:text-blue-200">Amol Lokhande</span>
             <br />
-            <span className="text-2xl md:text-3xl font-normal text-yellow-200 dark:text-yellow-300">
+            <span className="text-2xl md:text-3xl font-normal text-blue-200 dark:text-blue-300">
               {currentText}
-              <span className="inline-block w-0.5 h-8 bg-yellow-400 dark:bg-yellow-300 ml-1 animate-royal-pulse"></span>
+              <span className="inline-block w-0.5 h-8 bg-blue-400 dark:bg-blue-300 ml-1 animate-royal-pulse"></span>
               {' '}Enthusiast
             </span>
           </h1>
 
           {/* Bio */}
-          <p className="text-lg md:text-xl text-yellow-100 dark:text-yellow-200 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-blue-100 dark:text-blue-200 mb-8 max-w-2xl mx-auto leading-relaxed">
             I build scalable cloud infrastructure and automate workflows.
             <br />
             Passionate about DevOps, coding, and creating AI-driven solutions.
@@ -180,7 +180,7 @@ export const Hero: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <button 
               onClick={handleRippleClick}
-              className="relative overflow-hidden px-8 py-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center gap-2"
+              className="relative overflow-hidden px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center gap-2"
             >
               <Download className="w-5 h-5" />
               Download Resume
@@ -193,7 +193,7 @@ export const Hero: React.FC = () => {
                 rel="noopener noreferrer"
                 className="p-3 royal-glass rounded-lg hover:bg-white/20 transition-all duration-300 hover:scale-110 active:scale-95"
               >
-                <Github className="w-5 h-5 text-yellow-100 dark:text-yellow-200" />
+                <Github className="w-5 h-5 text-white" />
               </a>
               <a 
                 href="https://www.linkedin.com/in/amol-lokhande-382976361" 
@@ -217,7 +217,7 @@ export const Hero: React.FC = () => {
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-royal-bounce">
-          <ChevronDown className="w-6 h-6 text-yellow-300 dark:text-yellow-200" />
+          <ChevronDown className="w-6 h-6 text-blue-300 dark:text-blue-200" />
         </div>
       </div>
     </section>
