@@ -10,50 +10,56 @@ import { Contact } from './components/Contact';
 import { Navbar } from './components/Navbar';
 
 // Loader component
-const Loader: React.FC = () => (
-  <div
-    style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100vw',
-      height: '100vh',
-      background: '#0f172a',
-      zIndex: 9999,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      transition: 'opacity 0.7s ease',
-    }}
-    className="loader-screen"
-  >
-    <h1
-      className="text-4xl md:text-6xl font-extrabold text-center animate-gradient-text"
+const Loader: React.FC = () => {
+  const [visible, setVisible] = useState(true);
+  const [fade, setFade] = useState(false);
+
+  useEffect(() => {
+    setFade(true); // Start fade-in immediately
+    const timer = setTimeout(() => setFade(false), 2500); // Start fade-out after 2.5s
+    const hideTimer = setTimeout(() => setVisible(false), 3000); // Hide after 3s
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <div
       style={{
-        fontFamily: 'Poppins, Inter, Roboto, sans-serif',
-        color: '#fff',
-        letterSpacing: '0.04em',
-        background: 'linear-gradient(90deg, #fff, #007BFF, #fff)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
-        animation: 'gradientMove 2s linear infinite',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        background: '#0f172a',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'opacity 0.5s ease',
+        opacity: fade ? 1 : 0,
+        pointerEvents: 'all',
       }}
+      className="loader-screen"
     >
-      Welcome to Amol Lokhande's Portfolio
-    </h1>
-    <style>{`
-      @keyframes gradientMove {
-        0% { background-position: 0% 50%; }
-        100% { background-position: 100% 50%; }
-      }
-      .animate-gradient-text {
-        background-size: 200% 200%;
-        animation: gradientMove 2.5s linear infinite;
-      }
-    `}</style>
-  </div>
-);
+      <h1
+        style={{
+          fontFamily: 'Poppins, Inter, sans-serif',
+          fontWeight: 700,
+          fontSize: '2.5rem',
+          color: '#fff',
+          textAlign: 'center',
+          letterSpacing: '0.04em',
+        }}
+      >
+        Welcome to My Portfolio
+      </h1>
+    </div>
+  );
+};
 
 function App() {
   const [loading, setLoading] = useState(true);
