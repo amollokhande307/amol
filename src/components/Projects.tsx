@@ -1,5 +1,27 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Github, Linkedin } from 'lucide-react';
+
+// Custom hook for Intersection Observer
+function useInView(threshold = 0.15) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return [ref, inView] as const;
+}
 
 const projects = [
   {
@@ -67,38 +89,42 @@ export const Projects: React.FC = () => {
           <h2 className="text-4xl font-bold mb-2 text-[#222] dark:text-white border-b-4 border-[#007BFF] inline-block pb-2">My Projects</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
-            <div
-              key={project.title}
-              className="bg-white dark:bg-[#23272f] rounded-xl p-8 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl flex flex-col justify-between min-h-[220px] project-card"
-              style={{ borderRadius: 12 }}
-            >
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-[#222] dark:text-white font-poppins">{project.title}</h3>
-                <p className="text-[#333] dark:text-[#ccc] mb-6 text-base font-medium">{project.description}</p>
+          {projects.map((project, idx) => {
+            const [ref, inView] = useInView();
+            return (
+              <div
+                key={project.title}
+                ref={ref}
+                className={`bg-white dark:bg-[#23272f] rounded-xl p-8 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl flex flex-col justify-between min-h-[220px] project-card ${inView ? 'fade-in-up' : 'opacity-0 translate-y-8'}`}
+                style={{ borderRadius: 12 }}
+              >
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-[#222] dark:text-white font-poppins">{project.title}</h3>
+                  <p className="text-[#333] dark:text-[#ccc] mb-6 text-base font-medium">{project.description}</p>
+                </div>
+                <div className="flex gap-4 mt-auto">
+                  <a
+                    href="https://github.com/amollokhande307/summer-internship-.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-[#007BFF] text-white rounded-lg font-medium transition-all duration-300 hover:bg-[#0056b3] focus:outline-none"
+                    style={{ borderRadius: 8 }}
+                  >
+                    <Github className="w-5 h-5" /> GitHub
+                  </a>
+                  <a
+                    href={project.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-[#007BFF] text-white rounded-lg font-medium transition-all duration-300 hover:bg-[#0056b3] focus:outline-none"
+                    style={{ borderRadius: 8 }}
+                  >
+                    <Linkedin className="w-5 h-5" /> LinkedIn
+                  </a>
+                </div>
               </div>
-              <div className="flex gap-4 mt-auto">
-                <a
-                  href="https://github.com/amollokhande307/summer-internship-.git"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 bg-[#007BFF] text-white rounded-lg font-medium transition-all duration-300 hover:bg-[#0056b3] focus:outline-none"
-                  style={{ borderRadius: 8 }}
-                >
-                  <Github className="w-5 h-5" /> GitHub
-                </a>
-                <a
-                  href={project.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 bg-[#007BFF] text-white rounded-lg font-medium transition-all duration-300 hover:bg-[#0056b3] focus:outline-none"
-                  style={{ borderRadius: 8 }}
-                >
-                  <Linkedin className="w-5 h-5" /> LinkedIn
-                </a>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

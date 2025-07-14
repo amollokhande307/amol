@@ -1,4 +1,26 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+
+// Custom hook for Intersection Observer
+function useInView(threshold = 0.15) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return [ref, inView] as const;
+}
 
 const blogPosts = [
   {
@@ -43,21 +65,25 @@ export const BlogCaseStudy: React.FC = () => (
   <section className="py-20 bg-[#f7f7f7] dark:bg-[#222]">
     <div className="container mx-auto px-6">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold mb-2 text-[#222] dark:text-white border-b-4 border-[#007BFF] inline-block pb-2">Blog &amp; Case Study</h2>
+        <h2 className="section-title">Blog &amp; Case Study</h2>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-        {blogPosts.map((post) => (
-          <a
-            key={post.title}
-            href={post.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block bg-[#f7f7f7] dark:bg-[#23272f] rounded-xl p-8 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl text-[#222] dark:text-white font-poppins text-lg font-semibold"
-            style={{ borderRadius: 12 }}
-          >
-            {post.title}
-          </a>
-        ))}
+        {blogPosts.map((post) => {
+          const [ref, inView] = useInView();
+          return (
+            <a
+              key={post.title}
+              ref={ref}
+              href={post.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`block blog-card text-[#222] dark:text-white font-poppins text-lg font-semibold ${inView ? 'fade-in-up' : 'opacity-0 translate-y-8'}`}
+              style={{ borderRadius: 12 }}
+            >
+              {post.title}
+            </a>
+          );
+        })}
       </div>
     </div>
   </section>
