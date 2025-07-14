@@ -67,13 +67,7 @@ export const Certifications: React.FC = () => {
             ))}
           </div>
 
-          {/* Future Plans */}
-          <div className="mt-12 text-center">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-200 dark:bg-blue-900/30 text-blue-900 dark:text-yellow-300 rounded-full font-medium">
-              <Award className="w-5 h-5" />
-              Target: 5+ Certifications by End of 2024
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
