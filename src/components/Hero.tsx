@@ -77,149 +77,35 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Professional Background */}
-      <div className="absolute inset-0 hero-background" />
-      
-      {/* Professional Textile Pattern */}
-      <div className="absolute inset-0 royal-textile-pattern opacity-20" />
-      
-      {/* Elegant Floating Elements */}
-      <div className="absolute inset-0">
-        <div className="royal-elegant-float"></div>
-        <div className="royal-elegant-float"></div>
-        <div className="royal-elegant-float"></div>
-        <div className="royal-elegant-float"></div>
+    <section className="relative min-h-[70vh] flex flex-col justify-center items-center bg-gradient-to-b from-[#0f172a] to-[#19376d] text-white font-['Inter','Poppins',sans-serif] pt-24 pb-16">
+      <div className="z-10 flex flex-col items-center">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Hi, I'm Amol Lokhande</h1>
+        <h2 className="text-xl md:text-2xl font-medium mb-6 text-[#38bdf8]">DevOps Engineer | Cloud Enthusiast</h2>
+        <p className="max-w-xl text-center mb-8 text-[#cbd5e1]">I build scalable cloud solutions, automate workflows, and love all things DevOps, Docker, and Kubernetes.</p>
+        <a
+          href="/assets/resume.pdf"
+          download
+          className="inline-block bg-[#007BFF] hover:bg-[#2563eb] text-white font-semibold px-8 py-3 rounded-full shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#007BFF] focus:ring-offset-2 text-lg"
+        >
+          Download Resume
+        </a>
       </div>
-      
-      {/* Professional Accent Lines */}
-      <div className="royal-accent-lines hidden lg:block"></div>
-      
-      {/* Sophisticated Code Pattern */}
-      <div className="royal-code-pattern hidden lg:block"></div>
-      
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute animate-royal-pulse ${
-              i % 4 === 0 ? 'w-1 h-1 bg-blue-400/30 rounded-full' :
-              i % 4 === 1 ? 'w-1.5 h-1.5 bg-blue-900/25 rounded-full' :
-              i % 4 === 2 ? 'w-2 h-0.5 bg-blue-500/20 rounded-full' :
-              'w-0.5 h-2 bg-black/15 rounded-full'
-            }`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${3 + Math.random() * 2}s`
-            }}
-          />
-        ))}
+      {/* Animated Wave at Bottom */}
+      <div className="absolute left-0 bottom-0 w-full overflow-hidden pointer-events-none" style={{height: 90}}>
+        <svg viewBox="0 0 1440 90" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full animate-hero-wave">
+          <path d="M0,40 C480,90 960,0 1440,40 L1440,90 L0,90 Z" fill="#38bdf8" fillOpacity="0.5" />
+          <path d="M0,60 C360,20 1080,100 1440,60 L1440,90 L0,90 Z" fill="#007BFF" fillOpacity="0.7" />
+        </svg>
       </div>
-
-      {/* Fixed Name Element */}
-      <div className="fixed left-8 top-1/2 transform -translate-y-1/2 z-40 hidden lg:block">
-        <div className="writing-vertical text-lg font-bold">
-          AMOL LOKHANDE
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="container mx-auto px-6 z-10 text-center">
-        <div className="max-w-4xl mx-auto">
-          {/* Profile Image */}
-          <div className="mb-8 relative inline-block">
-            <div 
-              onClick={handleProfileClick}
-              className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-blue-400 via-blue-900 to-black p-1 shadow-2xl hover:shadow-blue-500/50 transition-all duration-500 hover:scale-110 cursor-pointer group relative"
-            >
-              <div className="w-full h-full rounded-full overflow-hidden bg-white dark:bg-gray-800 relative">
-                <img 
-                  src="/WhatsApp%20Image%202025-07-07%20at%2021.49.05_ef2d8c6b.jpg" 
-                  alt="Amol Lokhande"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-            </div>
-            <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white dark:border-gray-800"></div>
-            
-            {/* Floating Tech Icons */}
-            <div className="absolute -top-4 -left-4 w-6 h-6 bg-blue-500/30 rounded-full flex items-center justify-center animate-royal-pulse">
-              <span className="text-xs">⚙️</span>
-            </div>
-            <div className="absolute -bottom-4 -right-4 w-6 h-6 bg-blue-900/30 rounded-full flex items-center justify-center animate-royal-pulse" style={{ animationDelay: '1s' }}>
-              <span className="text-xs">☁️</span>
-            </div>
-            <div className="absolute top-0 -right-8 w-4 h-4 bg-black/20 rounded-full flex items-center justify-center animate-royal-pulse" style={{ animationDelay: '2s' }}>
-              <span className="text-xs">🐳</span>
-            </div>
-          </div>
-
-          {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white dark:text-white leading-tight">
-            Hi, I'm <span className="text-blue-300 dark:text-blue-200">Amol Lokhande</span>
-            <br />
-            <span className="text-2xl md:text-3xl font-normal text-blue-200 dark:text-blue-300">
-              {currentText}
-              <span className="inline-block w-0.5 h-8 bg-blue-400 dark:bg-blue-300 ml-1 animate-royal-pulse"></span>
-              {' '}Enthusiast
-            </span>
-          </h1>
-
-          {/* Bio */}
-          <p className="text-lg md:text-xl text-blue-100 dark:text-blue-200 mb-8 max-w-2xl mx-auto leading-relaxed">
-            I build scalable cloud infrastructure and automate workflows.
-            <br />
-            Passionate about DevOps, coding, and creating AI-driven solutions.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <button 
-              onClick={handleRippleClick}
-              className="relative overflow-hidden px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download Resume
-            </button>
-            
-            <div className="flex gap-4">
-              <a 
-                href="https://github.com/amollokhande307" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-3 royal-glass rounded-lg hover:bg-white/20 transition-all duration-300 hover:scale-110 active:scale-95"
-              >
-                <Github className="w-5 h-5 text-white" />
-              </a>
-              <a 
-                href="https://www.linkedin.com/in/amol-lokhande-382976361" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-3 royal-glass rounded-lg hover:bg-white/20 transition-all duration-300 hover:scale-110 active:scale-95"
-              >
-                <Linkedin className="w-5 h-5 text-blue-300" />
-              </a>
-              <a 
-                href="https://www.instagram.com/amol_lokhande_02" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-3 royal-glass rounded-lg hover:bg-white/20 transition-all duration-300 hover:scale-110 active:scale-95"
-              >
-                <Instagram className="w-5 h-5 text-pink-400" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-royal-bounce">
-          <ChevronDown className="w-6 h-6 text-blue-300 dark:text-blue-200" />
-        </div>
-      </div>
+      <style>{`
+        .animate-hero-wave {
+          animation: heroWaveMove 5s linear infinite alternate;
+        }
+        @keyframes heroWaveMove {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-40px); }
+        }
+      `}</style>
     </section>
   );
 };

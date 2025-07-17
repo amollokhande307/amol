@@ -1,90 +1,79 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
+import { Linkedin } from 'lucide-react';
 
-// Custom hook for Intersection Observer
-function useInView(threshold = 0.15) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new window.IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return [ref, inView] as const;
-}
-
-const blogPosts = [
-  {
-    title: 'TCS × Kubernetes: Case Study',
-    url: 'https://www.linkedin.com/posts/amol-lokhande-382976361_tcs-kubernetes-case-study-enterprise-scale-activity-7348546271445450752-eFMh',
-  },
-  {
-    title: 'Why Netflix Uses AWS',
-    url: 'https://www.linkedin.com/posts/amol-lokhande-382976361_case-netflix-aws-activity-7348998616750927872-1xbL',
-  },
-  {
-    title: 'Why Big Companies Use Linux',
-    url: 'https://www.linkedin.com/posts/amol-lokhande-382976361_vimal-vimal-linuxworld-activity-7349371583548813312-SDTG',
-  },
-  {
-    title: 'Change the Logo in Linux',
-    url: 'https://www.linkedin.com/posts/amol-lokhande-382976361_linux-customization-linuxtheming-activity-7350335733989097472-LRVD',
-  },
-  {
-    title: 'What Happens on Ctrl+C / Ctrl+Z?',
-    url: 'https://www.linkedin.com/posts/amol-lokhande-382976361_linux-unix-systemprogramming-activity-7350135860282978305-zwXv',
-  },
-  {
-    title: 'Why Companies Use Docker',
-    url: 'https://www.linkedin.com/posts/amol-lokhande-382976361_docker-devops-casestudy-activity-7350180961893937152-7ZUc',
-  },
-  {
-    title: '5 GUI Programs in Linux',
-    url: 'https://www.linkedin.com/posts/amol-lokhande-382976361_linuxworld-linuxworld-vimaldagasir-activity-7350222519255085058-r--y',
-  },
-  {
-    title: 'More Terminals & GUI Interfaces',
-    url: 'https://www.linkedin.com/posts/amol-lokhande-382976361_linuxworld-vimaldagasir-terminalpower-activity-7350331958012297216-Ys3V',
-  },
-  {
-    title: 'Change Any Linux App Icon',
-    url: 'https://www.linkedin.com/posts/amol-lokhande-382976361_linux-customization-desktoptheming-activity-7349663811089371136-Ajrd',
-  },
+const blogs = [
+  { title: 'TCS × Kubernetes: Case Study', linkedin: 'https://linkedin.com/in/your-link' },
+  { title: 'Case Study: Why Netflix Uses AWS', linkedin: 'https://linkedin.com/in/your-link' },
+  { title: 'Why Big Companies Use Linux', linkedin: 'https://linkedin.com/in/your-link' },
+  { title: 'Change the Logo in Linux', linkedin: 'https://linkedin.com/in/your-link' },
+  { title: 'What Really Happens When You Press Ctrl+C or Ctrl+Z?', linkedin: 'https://linkedin.com/in/your-link' },
+  { title: 'Why Leading Companies Use Docker', linkedin: 'https://linkedin.com/in/your-link' },
+  { title: '5 GUI Programs in Linux', linkedin: 'https://linkedin.com/in/your-link' },
+  { title: 'Add More Terminals & GUI Interfaces', linkedin: 'https://linkedin.com/in/your-link' },
+  { title: 'Change the Icon of Any Application', linkedin: 'https://linkedin.com/in/your-link' },
+  { title: 'AWS Neptune Case Study', linkedin: 'https://linkedin.com/in/your-link' },
 ];
 
-export const BlogCaseStudy: React.FC = () => (
-  <section className="py-20 bg-[#f7f7f7] dark:bg-[#222]">
-    <div className="container mx-auto px-6">
-      <div className="text-center mb-12">
-        <h2 className="section-title">Blog &amp; Case Study</h2>
+export const BlogCaseStudy: React.FC = () => {
+  return (
+    <section className="py-16 px-4 bg-gradient-to-b from-[#0a2342] to-[#19376d] font-['Inter','Poppins',sans-serif]">
+      <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-10">Blog & Case Studies</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {blogs.map((blog, idx) => (
+          <a
+            key={blog.title}
+            href={blog.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative bg-[#1e293b] bg-opacity-90 rounded-2xl shadow-xl p-6 flex flex-col gap-4 transition-transform duration-200 cursor-pointer group overflow-hidden blog-card"
+          >
+            <h3 className="text-xl font-bold text-[#38bdf8] mb-2">{blog.title}</h3>
+            <div className="flex gap-2 mt-auto">
+              <span className="p-2 bg-[#22223b] rounded-full hover:bg-[#38bdf8] transition">
+                <Linkedin className="w-5 h-5 text-[#007BFF] group-hover:text-white" />
+              </span>
+            </div>
+            {/* Water Ripple Animation */}
+            <span className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="ripple-effect"></span>
+            </span>
+          </a>
+        ))}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-        {blogPosts.map((post) => {
-          const [ref, inView] = useInView();
-          return (
-            <a
-              key={post.title}
-              ref={ref}
-              href={post.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`block blog-card text-[#222] dark:text-white font-poppins text-lg font-semibold ${inView ? 'fade-in-up' : 'opacity-0 translate-y-8'}`}
-              style={{ borderRadius: 12 }}
-            >
-              {post.title}
-            </a>
-          );
-        })}
+      {/* Wave Animation at Bottom */}
+      <div className="absolute left-0 bottom-0 w-full overflow-hidden pointer-events-none" style={{height: 60}}>
+        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full animate-blog-wave">
+          <path d="M0,20 C480,60 960,0 1440,20 L1440,60 L0,60 Z" fill="#38bdf8" fillOpacity="0.5" />
+          <path d="M0,40 C360,0 1080,60 1440,40 L1440,60 L0,60 Z" fill="#007BFF" fillOpacity="0.7" />
+        </svg>
       </div>
-    </div>
-  </section>
-); 
+      <style>{`
+        .blog-card {
+          overflow: hidden;
+        }
+        .blog-card .ripple-effect {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, #38bdf8 0%, transparent 70%);
+          opacity: 0.18;
+          transform: translate(-50%, -50%) scale(0.7);
+          animation: rippleAnim 1.2s infinite alternate;
+        }
+        @keyframes rippleAnim {
+          0% { opacity: 0.18; transform: translate(-50%, -50%) scale(0.7); }
+          100% { opacity: 0.28; transform: translate(-50%, -50%) scale(1.1); }
+        }
+        .animate-blog-wave {
+          animation: blogWaveMove 5s linear infinite alternate;
+        }
+        @keyframes blogWaveMove {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-40px); }
+        }
+      `}</style>
+    </section>
+  );
+}; 
