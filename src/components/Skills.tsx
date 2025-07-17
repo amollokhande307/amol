@@ -11,8 +11,7 @@ import {
 } from 'lucide-react';
 
 const skills = [
-  'AWS', 'Azure', 'Docker', 'Kubernetes', 'Terraform', 'Linux', 'CI/CD', 'Git', 'Python', 'Shell Scripting',
-  'Jenkins', 'GitHub Actions', 'Prometheus', 'Grafana', 'Ansible', 'React', 'TypeScript', 'Node.js',
+  'AWS', 'Docker', 'Kubernetes', 'Terraform', 'Linux', 'CI/CD', 'Git', 'Python', 'Jenkins', 'GitHub Actions', 'Prometheus', 'Grafana', 'TypeScript', 'Node.js',
 ];
 
 export const Skills: React.FC = () => {

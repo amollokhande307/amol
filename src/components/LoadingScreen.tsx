@@ -25,6 +25,16 @@ const LoadingScreen: React.FC = () => {
             fill="#007BFF" fillOpacity="0.7"
           />
         </svg>
+        {/* Subtle Ship Silhouette (Going Merry inspired) */}
+        <svg viewBox="0 0 120 40" width="80" height="30" className="absolute left-1/2 -translate-x-1/2 bottom-8 animate-ship" style={{zIndex:2}}>
+          <g opacity="0.7">
+            <ellipse cx="60" cy="35" rx="28" ry="5" fill="#0a2342" />
+            <rect x="40" y="20" width="40" height="12" rx="6" fill="#f1f5f9" />
+            <rect x="55" y="10" width="10" height="15" rx="2" fill="#fbbf24" />
+            <rect x="58" y="5" width="4" height="8" rx="1" fill="#fbbf24" />
+            <circle cx="60" cy="8" r="2" fill="#dc2626" />
+          </g>
+        </svg>
       </div>
       {/* Luffy's Hat (SVG) */}
       <div className="mb-8 relative z-10">
@@ -58,6 +68,13 @@ const LoadingScreen: React.FC = () => {
         @keyframes waveMove {
           0% { transform: translateX(0); }
           100% { transform: translateX(-40px); }
+        }
+        .animate-ship {
+          animation: shipFloat 3s ease-in-out infinite alternate;
+        }
+        @keyframes shipFloat {
+          0% { transform: translate(-50%, 0); }
+          100% { transform: translate(-50%, -10px); }
         }
         .animate-bubble {
           animation: bubbleUp 3.5s linear infinite;
