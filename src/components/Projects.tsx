@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Github, Linkedin } from 'lucide-react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
 
 const projects = [
   {
@@ -88,15 +88,15 @@ const projectsVariants = {
   },
 };
 const cardVariants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  hidden: { opacity: 0, y: 32, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6 } },
 };
 
-function isTouchDevice() {
-  return typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-}
-
 export const Projects: React.FC = () => {
+  // Animated filtering (future-ready)
+  const [filter, setFilter] = useState('all');
+  const filteredProjects = projects; // For now, show all
+
   // Water ripple effect on click
   const handleRipple = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const card = e.currentTarget;
@@ -110,7 +110,7 @@ export const Projects: React.FC = () => {
 
   // 3D tilt effect handler
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, cardRef: React.RefObject<HTMLDivElement>, set: (x: number, y: number) => void) => {
-    if (isTouchDevice()) return;
+    if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) return;
     const card = cardRef.current;
     if (!card) return;
     const rect = card.getBoundingClientRect();
@@ -135,59 +135,75 @@ export const Projects: React.FC = () => {
       variants={projectsVariants}
     >
       <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-10">Projects</h2>
+      {/* Animated filtering controls (future) */}
+      {/* <div className="flex justify-center mb-8 gap-4">
+        <button onClick={() => setFilter('all')}>All</button>
+        <button onClick={() => setFilter('web')}>Web</button>
+        <button onClick={() => setFilter('cloud')}>Cloud</button>
+      </div> */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {projects.map((project, idx) => {
-          const cardRef = useRef<HTMLDivElement>(null);
-          const x = useMotionValue(0);
-          const y = useMotionValue(0);
-          const rotateX = useTransform(x, v => v);
-          const rotateY = useTransform(y, v => v);
-          const setTilt = (rx: number, ry: number) => {
-            x.set(rx);
-            y.set(ry);
-          };
-          return (
-            <motion.div
-              key={project.title}
-              ref={cardRef}
-              className="relative glass-card bg-opacity-90 rounded-2xl shadow-xl p-6 flex flex-col gap-4 transition-transform duration-200 cursor-pointer group overflow-hidden project-card"
-              style={{
-                rotateX,
-                rotateY,
-                boxShadow: '0 8px 32px 0 #38bdf855, 0 2px 8px #007BFF33',
-                willChange: 'transform',
-                backdropFilter: 'blur(14px)',
-                background: 'rgba(30, 41, 59, 0.35)',
-                border: '1.5px solid rgba(56, 189, 248, 0.18)',
-              }}
-              onMouseMove={e => handleMouseMove(e, cardRef, setTilt)}
-              onMouseLeave={() => handleMouseLeave(setTilt)}
-              onClick={handleRipple}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              <h3 className="text-xl font-bold text-[#38bdf8] mb-2">{project.title}</h3>
-              <div className="flex gap-3 mt-auto">
-                {project.github && (
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-[#22223b] rounded-full hover:bg-[#007BFF] transition">
-                    <Github className="w-5 h-5 text-[#38bdf8] group-hover:text-white" />
-                  </a>
-                )}
-                {project.linkedin && (
-                  <a href={project.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-[#22223b] rounded-full hover:bg-[#38bdf8] transition">
-                    <Linkedin className="w-5 h-5 text-[#007BFF] group-hover:text-white" />
-                  </a>
-                )}
-              </div>
-              {/* Water Ripple Animation */}
-              <span className="absolute inset-0 pointer-events-none">
-                {/* Ripple will be injected here on click */}
-              </span>
-            </motion.div>
-          );
-        })}
+        <AnimatePresence>
+          {filteredProjects.map((project, idx) => {
+            const cardRef = useRef<HTMLDivElement>(null);
+            const x = useMotionValue(0);
+            const y = useMotionValue(0);
+            const rotateX = useTransform(x, v => v);
+            const rotateY = useTransform(y, v => v);
+            const setTilt = (rx: number, ry: number) => {
+              x.set(rx);
+              y.set(ry);
+            };
+            return (
+              <motion.div
+                key={project.title}
+                ref={cardRef}
+                className="relative glass-card bg-opacity-90 rounded-2xl shadow-xl p-6 flex flex-col gap-4 transition-transform duration-200 cursor-pointer group overflow-hidden project-card"
+                style={{
+                  rotateX,
+                  rotateY,
+                  boxShadow: '0 8px 32px 0 #38bdf855, 0 2px 8px #007BFF33',
+                  willChange: 'transform',
+                  backdropFilter: 'blur(14px)',
+                  background: 'rgba(30, 41, 59, 0.35)',
+                  border: '1.5px solid rgba(56, 189, 248, 0.18)',
+                  perspective: 800,
+                }}
+                onMouseMove={e => handleMouseMove(e, cardRef, setTilt)}
+                onMouseLeave={() => handleMouseLeave(setTilt)}
+                onClick={handleRipple}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                whileHover={{
+                  scale: 1.04,
+                  zIndex: 2,
+                  boxShadow: '0 0 32px 8px #38bdf8, 0 2px 8px #007BFF33',
+                  border: '1.5px solid #38bdf8',
+                }}
+                transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+              >
+                <h3 className="text-xl font-bold text-[#38bdf8] mb-2">{project.title}</h3>
+                <div className="flex gap-3 mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="code-btn p-2 bg-[#22223b] rounded-full hover:bg-[#007BFF] transition">
+                      <Github className="w-5 h-5 text-[#38bdf8] group-hover:text-white" />
+                    </a>
+                  )}
+                  {project.linkedin && (
+                    <a href={project.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-[#22223b] rounded-full hover:bg-[#38bdf8] transition">
+                      <Linkedin className="w-5 h-5 text-[#007BFF] group-hover:text-white" />
+                    </a>
+                  )}
+                </div>
+                {/* Water Ripple Animation */}
+                <span className="absolute inset-0 pointer-events-none">
+                  {/* Ripple will be injected here on click */}
+                </span>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
       </div>
       <style>{`
         .project-card {
@@ -219,6 +235,29 @@ export const Projects: React.FC = () => {
         @keyframes rippleAnim {
           0% { opacity: 0.7; transform: scale(0.2); }
           100% { opacity: 0; transform: scale(1.5); }
+        }
+        .code-btn {
+          position: relative;
+          overflow: hidden;
+        }
+        .code-btn::after {
+          content: '';
+          position: absolute;
+          left: 0; bottom: 0;
+          width: 0%; height: 2px;
+          background: linear-gradient(90deg, #38bdf8 0%, #007BFF 100%);
+          transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .code-btn:hover::after {
+          width: 100%;
+        }
+        .code-btn:active {
+          animation: codePulse 0.3s;
+        }
+        @keyframes codePulse {
+          0% { box-shadow: 0 0 0 0 #38bdf8; }
+          70% { box-shadow: 0 0 0 8px #38bdf822; }
+          100% { box-shadow: 0 0 0 0 #38bdf8; }
         }
       `}</style>
     </motion.section>

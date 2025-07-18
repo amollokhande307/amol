@@ -9,6 +9,7 @@ import {
   Clock
 } from 'lucide-react';
 import MagneticButton from './MagneticButton';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,12 +17,13 @@ export const Contact: React.FC = () => {
     email: '',
     message: ''
   });
+  const [submitted, setSubmitted] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    // Reset form
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 1800);
     setFormData({ name: '', email: '', message: '' });
   };
 
@@ -33,15 +35,24 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden contact-gradient-bg font-['Inter','Poppins',sans-serif]">
-      {/* Sophisticated Background */}
-      <div className="absolute inset-0 opacity-8">
-        <div className="royal-code-pattern"></div>
-        <div className="absolute top-1/3 left-20 w-20 h-20 royal-elegant-float"></div>
-        <div className="absolute bottom-1/3 right-20 w-28 h-28 royal-elegant-float" style={{ animationDelay: '3.5s' }}></div>
+    <section className="py-20 relative overflow-hidden contact-gradient-bg font-['Inter','Poppins',sans-serif] min-h-[80vh]">
+      {/* Animated Stars/Particles */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {[...Array(32)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full bg-white/20 animate-star"
+            style={{
+              width: `${4 + Math.random() * 4}px`,
+              height: `${4 + Math.random() * 4}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+            }}
+          />
+        ))}
       </div>
-      
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-royal-navy dark:text-royal-yellow mb-4">
             Let's Connect
@@ -50,14 +61,12 @@ export const Contact: React.FC = () => {
             Ready to collaborate on your next project? Let's build something amazing together.
           </p>
         </div>
-
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div>
             <h3 className="text-2xl font-bold text-royal-navy dark:text-royal-yellow mb-8">
               Get in Touch
             </h3>
-            
             <div className="space-y-6">
               <div className="flex items-center gap-4 p-4 royal-luxury-card rounded-lg transition-all duration-500">
                 <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
@@ -73,17 +82,28 @@ export const Contact: React.FC = () => {
                   </a>
                 </div>
               </div>
-
               <div className="flex items-center gap-4 p-4 royal-luxury-card rounded-lg transition-all duration-500">
-                <div className="p-3 bg-blue-100 dark:bg-purple-900/30 rounded-full">
-                  <MapPin className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <div className="p-3 bg-blue-100 dark:bg-purple-900/30 rounded-full relative">
+                  <MapPin className="w-6 h-6 text-purple-600 dark:text-purple-400 cursor-pointer" onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)} />
+                  <AnimatePresence>
+                    {showTooltip && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute left-10 top-1/2 -translate-y-1/2 bg-[#22223b] text-white px-4 py-2 rounded-lg shadow-lg text-xs font-semibold whitespace-nowrap z-20"
+                      >
+                        📍Chh Sambhaji Nagar
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
                 <div>
                   <h4 className="font-semibold text-royal-navy dark:text-royal-yellow">Location</h4>
                   <p className="text-royal-black dark:text-yellow-300">Maharashtra, India</p>
                 </div>
               </div>
-
               <div className="flex items-center gap-4 p-4 royal-luxury-card rounded-lg transition-all duration-500">
                 <div className="p-3 bg-blue-100 dark:bg-orange-900/30 rounded-full">
                   <Clock className="w-6 h-6 text-orange-600 dark:text-orange-400" />
@@ -94,7 +114,6 @@ export const Contact: React.FC = () => {
                 </div>
               </div>
             </div>
-
             {/* Social Links */}
             <div className="mt-8">
               <h4 className="font-semibold text-royal-navy dark:text-royal-yellow mb-4">Follow Me</h4>
@@ -129,13 +148,11 @@ export const Contact: React.FC = () => {
               </div>
             </div>
           </div>
-
           {/* Contact Form */}
           <div>
             <h3 className="text-2xl font-bold text-royal-navy dark:text-royal-yellow mb-8">
               Send a Message
             </h3>
-            
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-royal-navy dark:text-yellow-200 mb-2">
@@ -148,11 +165,10 @@ export const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow"
+                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow input-glow"
                   placeholder="Your Name"
                 />
               </div>
-
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-royal-navy dark:text-yellow-200 mb-2">
                   Email
@@ -164,11 +180,10 @@ export const Contact: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow"
+                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow input-glow"
                   placeholder="your@email.com"
                 />
               </div>
-
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-royal-navy dark:text-yellow-200 mb-2">
                   Message
@@ -180,18 +195,31 @@ export const Contact: React.FC = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow resize-none"
+                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow input-glow resize-none"
                   placeholder="Tell me about your project..."
                 />
               </div>
-
-              <MagneticButton
+              <motion.button
                 type="submit"
-                className="relative overflow-hidden w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                className="relative overflow-hidden w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 submit-btn"
+                whileHover={{ boxShadow: '0 0 24px 4px #38bdf8' }}
+                whileTap={{ scale: 0.95 }}
+                disabled={submitted}
               >
-                <Send className="w-5 h-5" />
-                Send Message
-              </MagneticButton>
+                {submitted ? (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+                    className="inline-block"
+                  >
+                    ✅
+                  </motion.span>
+                ) : (
+                  <Send className="w-5 h-5" />
+                )}
+                {submitted ? 'Sent!' : 'Send Message'}
+              </motion.button>
             </form>
           </div>
         </div>
@@ -204,9 +232,21 @@ export const Contact: React.FC = () => {
           box-shadow: 0 0 0 3px #38bdf8cc, 0 2px 8px #007BFF33;
           border-color: #38bdf8;
         }
-        .royal-luxury-card {
-          background: rgba(30, 41, 59, 0.25);
-          backdrop-filter: blur(8px);
+        .input-glow:focus {
+          outline: none;
+          box-shadow: 0 0 0 3px #38bdf8cc, 0 2px 8px #007BFF33;
+          border-color: #38bdf8;
+        }
+        .animate-star {
+          animation: starFloat 6s linear infinite alternate;
+        }
+        @keyframes starFloat {
+          0% { transform: translateY(0); opacity: 0.7; }
+          100% { transform: translateY(-24px); opacity: 0.3; }
+        }
+        .submit-btn:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
         }
       `}</style>
     </section>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Github, Linkedin, Instagram } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Github, Linkedin, Instagram, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 
@@ -14,7 +14,57 @@ const heroVariants = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8 } },
 };
 
+const typewriterPhrases = [
+  "Hi, I'm Amol Lokhande",
+  'DevOps',
+  'Cloud',
+];
+
 const Hero: React.FC = () => {
+  // Typewriter effect
+  const [displayed, setDisplayed] = useState('');
+  const [phraseIdx, setPhraseIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+  const [typing, setTyping] = useState(true);
+  const [deleting, setDeleting] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (typing && charIdx < typewriterPhrases[phraseIdx].length) {
+      timeout = setTimeout(() => {
+        setDisplayed(prev => prev + typewriterPhrases[phraseIdx][charIdx]);
+        setCharIdx(charIdx + 1);
+      }, 70);
+    } else if (typing && charIdx === typewriterPhrases[phraseIdx].length) {
+      timeout = setTimeout(() => setTyping(false), 1200);
+    } else if (!typing && charIdx > 0) {
+      setDeleting(true);
+      timeout = setTimeout(() => {
+        setDisplayed(prev => prev.slice(0, -1));
+        setCharIdx(charIdx - 1);
+      }, 40);
+    } else if (!typing && charIdx === 0) {
+      setDeleting(false);
+      setTyping(true);
+      setPhraseIdx((phraseIdx + 1) % typewriterPhrases.length);
+    }
+    return () => clearTimeout(timeout);
+  }, [typing, charIdx, phraseIdx]);
+
+  // Blinking cursor
+  useEffect(() => {
+    const cursorInterval = setInterval(() => setShowCursor(c => !c), 500);
+    return () => clearInterval(cursorInterval);
+  }, []);
+
+  // Social icon animation variants
+  const socialIconVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0 },
+    hover: { boxShadow: '0 0 0 4px #38bdf8, 0 0 16px #38bdf8', scale: 1.15 },
+  };
+
   return (
     <motion.section
       className="relative min-h-[70vh] flex flex-col md:flex-row justify-center items-center bg-gradient-to-b from-[#0f172a] to-[#19376d] text-white font-['Inter','Poppins',sans-serif] pt-24 pb-16 overflow-hidden"
@@ -30,52 +80,81 @@ const Hero: React.FC = () => {
           <path d="M0,60 C360,20 1080,100 1440,60 L1440,90 L0,90 Z" fill="#007BFF" fillOpacity="0.2" />
         </svg>
       </div>
-      {/* Profile Photo with floating animation */}
+      {/* Profile Photo with floating animation and glow */}
       <div className="flex-shrink-0 mb-8 md:mb-0 md:mr-12 flex justify-center items-center w-full md:w-auto z-10">
-        <div className="hero-float-img">
+        <motion.div
+          className="hero-float-img-glow"
+          animate={{ y: [0, -18, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        >
           <img
             src="/profile.jpg"
             alt="Amol Lokhande"
-            className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-4 border-[#007BFF] shadow-xl bg-white"
+            className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-4 border-[#38bdf8] shadow-xl bg-white profile-glow"
           />
-        </div>
+        </motion.div>
       </div>
       {/* Main Content */}
       <div className="flex flex-col items-center md:items-start text-center md:text-left z-10">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
-          Hi, I'm Amol Lokhande
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg typewriter-text">
+          {displayed}
+          <span className="typewriter-cursor">{showCursor ? '|' : ' '}</span>
         </h1>
         <h2 className="text-xl md:text-2xl font-medium mb-6 text-[#38bdf8]">DevOps Engineer | Cloud Enthusiast</h2>
         <p className="max-w-xl mb-8 text-[#cbd5e1]">I build scalable cloud solutions, automate workflows, and love all things DevOps, Docker, and Kubernetes.</p>
-        {/* Social Icons */}
-        <div className="flex gap-5 mt-2">
+        <div className="flex gap-4 mb-4">
+          {/* Resume Button Example (add your link) */}
           <MagneticButton
             as="a"
-            href={socialLinks.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-[#1e293b] rounded-full hover:bg-[#38bdf8] transition shadow-lg"
+            href="/assets/resume.pdf"
+            className="cta-btn"
+            download
           >
-            <Linkedin className="w-6 h-6 text-[#007BFF] group-hover:text-white" />
+            <Download className="w-5 h-5 cta-icon" />
+            Resume
           </MagneticButton>
           <MagneticButton
             as="a"
             href={socialLinks.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-3 bg-[#1e293b] rounded-full hover:bg-[#007BFF] transition shadow-lg"
+            className="cta-btn"
           >
-            <Github className="w-6 h-6 text-[#38bdf8] group-hover:text-white" />
+            <Github className="w-5 h-5 cta-icon" />
+            GitHub
           </MagneticButton>
           <MagneticButton
             as="a"
-            href={socialLinks.instagram}
+            href={socialLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-3 bg-[#1e293b] rounded-full hover:bg-pink-500 transition shadow-lg"
+            className="cta-btn"
           >
-            <Instagram className="w-6 h-6 text-pink-400 group-hover:text-white" />
+            <Linkedin className="w-5 h-5 cta-icon" />
+            LinkedIn
           </MagneticButton>
+        </div>
+        {/* Social Icons */}
+        <div className="flex gap-5 mt-2">
+          {[socialLinks.linkedin, socialLinks.github, socialLinks.instagram].map((link, i) => {
+            const Icon = [Linkedin, Github, Instagram][i];
+            return (
+              <motion.a
+                key={link}
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-[#1e293b] rounded-full transition shadow-lg social-glow"
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+                variants={socialIconVariants}
+                transition={{ delay: 0.3 + i * 0.15, type: 'spring', stiffness: 400, damping: 18 }}
+              >
+                <Icon className="w-6 h-6" />
+              </motion.a>
+            );
+          })}
         </div>
       </div>
       {/* Bottom Animated Wave */}
@@ -93,12 +172,64 @@ const Hero: React.FC = () => {
           0% { transform: translateX(0); }
           100% { transform: translateX(-40px); }
         }
-        .hero-float-img {
-          animation: floatProfile 3.2s ease-in-out infinite;
+        .hero-float-img-glow {
+          filter: drop-shadow(0 0 24px #38bdf8cc);
         }
-        @keyframes floatProfile {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-18px); }
+        .profile-glow {
+          box-shadow: 0 0 0 6px #38bdf855, 0 2px 8px #007BFF33;
+        }
+        .typewriter-text {
+          font-family: 'Poppins', 'Inter', sans-serif;
+          letter-spacing: 1px;
+          color: #fff;
+        }
+        .typewriter-cursor {
+          display: inline-block;
+          width: 1ch;
+          color: #38bdf8;
+          animation: blink 1s steps(1) infinite;
+        }
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        .cta-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(30, 41, 59, 0.35);
+          color: #fff;
+          font-weight: 600;
+          border-radius: 9999px;
+          padding: 0.75rem 1.5rem;
+          box-shadow: 0 2px 8px #007BFF33;
+          border: 1.5px solid rgba(56, 189, 248, 0.25);
+          position: relative;
+          overflow: hidden;
+          transition: box-shadow 0.2s, border 0.2s, background 0.2s, transform 0.15s;
+        }
+        .cta-btn:hover {
+          background: rgba(56, 189, 248, 0.18);
+          border: 1.5px solid #38bdf8;
+          box-shadow: 0 0 16px 4px #38bdf8, 0 2px 8px #007BFF33;
+        }
+        .cta-btn:active {
+          transform: scale(0.95);
+        }
+        .cta-btn .cta-icon {
+          transition: transform 0.18s;
+        }
+        .cta-btn:hover .cta-icon {
+          animation: bounceIcon 0.5s;
+        }
+        @keyframes bounceIcon {
+          0% { transform: translateY(0); }
+          30% { transform: translateY(-8px); }
+          60% { transform: translateY(2px); }
+          100% { transform: translateY(0); }
+        }
+        .social-glow:hover {
+          box-shadow: 0 0 0 4px #38bdf8, 0 0 16px #38bdf8;
         }
       `}</style>
     </motion.section>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Linkedin } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const blogs = [
   {
@@ -54,6 +55,14 @@ const blogs = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 32, scale: 0.95 },
+  visible: (i: number) => ({
+    opacity: 1, y: 0, scale: 1,
+    transition: { duration: 0.7, delay: i * 0.12 },
+  }),
+};
+
 export const BlogCaseStudy: React.FC = () => {
   // Water ripple effect on click
   const handleRipple = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -67,30 +76,42 @@ export const BlogCaseStudy: React.FC = () => {
   };
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-[#0a2342] to-[#19376d] font-['Inter','Poppins',sans-serif]">
+    <section className="py-16 px-4 bg-gradient-to-b from-[#0a2342] to-[#19376d] font-['Inter','Poppins',sans-serif] relative overflow-hidden">
       <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-10">Blog & Case Studies</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {blogs.map((blog, idx) => (
-          <a
+          <motion.a
             key={blog.title}
             href={blog.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="relative bg-[#1e293b] bg-opacity-90 rounded-2xl shadow-xl p-6 flex flex-col gap-4 transition-transform duration-200 cursor-pointer group overflow-hidden blog-card"
             onClick={handleRipple}
+            custom={idx}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={cardVariants}
+            whileHover={{ scale: 1.04, background: 'rgba(20, 30, 50, 0.98)' }}
+            transition={{ type: 'spring', stiffness: 300, damping: 22 }}
           >
-            <h3 className="text-xl font-bold text-[#38bdf8] mb-2">{blog.title}</h3>
-            <p className="text-[#cbd5e1] mb-4 flex-1">{blog.intro}</p>
-            <div className="flex gap-2 mt-auto">
+            <h3 className="text-xl font-bold text-[#38bdf8] mb-2 group-hover:scale-105 transition-transform duration-200">{blog.title}</h3>
+            <p className="text-[#cbd5e1] mb-4 flex-1 group-hover:scale-105 transition-transform duration-200">{blog.intro}</p>
+            <div className="flex gap-2 mt-auto items-center">
               <span className="p-2 bg-[#22223b] rounded-full hover:bg-[#38bdf8] transition">
                 <Linkedin className="w-5 h-5 text-[#007BFF] group-hover:text-white" />
+              </span>
+              {/* Read More link (if present) */}
+              <span className="read-more-link group flex items-center gap-1 ml-auto">
+                <span>Read More</span>
+                <span className="arrow group-hover:animate-arrow-bounce">→</span>
               </span>
             </div>
             {/* Water Ripple Animation */}
             <span className="absolute inset-0 pointer-events-none">
               {/* Ripple will be injected here on click */}
             </span>
-          </a>
+          </motion.a>
         ))}
       </div>
       {/* Wave Animation at Bottom */}
@@ -124,6 +145,28 @@ export const BlogCaseStudy: React.FC = () => {
         @keyframes blogWaveMove {
           0% { transform: translateX(0); }
           100% { transform: translateX(-40px); }
+        }
+        .read-more-link {
+          color: #38bdf8;
+          font-weight: 600;
+          cursor: pointer;
+          transition: color 0.2s;
+        }
+        .read-more-link:hover {
+          color: #007BFF;
+        }
+        .arrow {
+          display: inline-block;
+          transition: transform 0.2s;
+        }
+        .arrow.group-hover\:animate-arrow-bounce {
+          animation: arrowBounce 0.7s;
+        }
+        @keyframes arrowBounce {
+          0% { transform: translateX(0); }
+          40% { transform: translateX(6px); }
+          60% { transform: translateX(-2px); }
+          100% { transform: translateX(0); }
         }
       `}</style>
     </section>
