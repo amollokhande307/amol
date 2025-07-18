@@ -10,6 +10,8 @@ import { Contact } from './components/Contact';
 import { Navbar } from './components/Navbar';
 import Resume from './components/Resume';
 import Loading from './components/Loading';
+import ParticlesBackground from './components/ParticlesBackground';
+import CursorTrail from './components/CursorTrail';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -21,6 +23,9 @@ function App() {
 
   return (
     <ThemeProvider>
+      {/* Global animated backgrounds (desktop only) */}
+      <ParticlesBackground />
+      <CursorTrail />
       {loading && <Loading />}
       <Navbar />
       <div className={loading ? 'pointer-events-none select-none opacity-0' : 'min-h-screen bg-[#f7f7f7] dark:bg-[#222] transition-colors duration-300 pt-20'}>

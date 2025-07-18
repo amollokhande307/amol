@@ -9,14 +9,26 @@ import {
   Zap,
   Cpu
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const skills = [
   'AWS', 'Docker', 'Kubernetes', 'Terraform', 'Linux', 'CI/CD', 'Git', 'Python', 'Jenkins', 'GitHub Actions', 'Prometheus', 'Grafana', 'TypeScript', 'Node.js',
 ];
 
+const skillsVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+};
+
 export const Skills: React.FC = () => {
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-[#0a2342] via-[#19376d] to-[#22223b] font-['Inter','Poppins',sans-serif]">
+    <motion.section
+      className="py-16 px-4 bg-gradient-to-br from-[#0a2342] via-[#19376d] to-[#22223b] font-['Inter','Poppins',sans-serif]"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={skillsVariants}
+    >
       <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-10">Skills & Tools</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
         {skills.map((skill, idx) => (
@@ -24,7 +36,7 @@ export const Skills: React.FC = () => {
             key={skill}
             className="bg-[#1e293b] bg-opacity-80 rounded-xl shadow-md flex items-center justify-center h-20 text-[#38bdf8] text-lg font-semibold transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-lg hover:bg-[#223] hover:text-[#007BFF] hover:underline hover:underline-offset-4 animate-skill-card"
             style={{
-              transform: idx % 2 === 0 ? 'rotateY(0deg)' : 'rotateY(0deg)',
+    
             }}
           >
             {skill}
@@ -37,6 +49,6 @@ export const Skills: React.FC = () => {
           transform: scale(1.08) rotateY(3deg);
         }
       `}</style>
-    </section>
+    </motion.section>
   );
 };

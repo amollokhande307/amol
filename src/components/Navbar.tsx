@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
+import MagneticButton from './MagneticButton';
 
 const navLinks = [
   { label: 'Home', href: '#hero' },
@@ -30,15 +31,15 @@ export const Navbar: React.FC = () => {
           ))}
         </div>
         <div className="hidden md:flex gap-3 items-center">
-          <a href="https://github.com/amollokhande307" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
+          <MagneticButton as="a" href="https://github.com/amollokhande307" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
             <Github className="w-5 h-5 text-[#1e293b] dark:text-white" />
-          </a>
-          <a href="https://www.linkedin.com/in/amol-lokhande-382976361" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
+          </MagneticButton>
+          <MagneticButton as="a" href="https://www.linkedin.com/in/amol-lokhande-382976361" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
             <Linkedin className="w-5 h-5 text-[#007BFF]" />
-          </a>
-          <a href="mailto:amollokhande8999@gmail.com" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
+          </MagneticButton>
+          <MagneticButton as="a" href="mailto:amollokhande8999@gmail.com" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
             <Mail className="w-5 h-5 text-[#1e293b] dark:text-white" />
-          </a>
+          </MagneticButton>
         </div>
         <button className="md:hidden p-2 rounded focus:outline-none" onClick={() => setOpen(!open)}>
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -59,15 +60,15 @@ export const Navbar: React.FC = () => {
               </a>
             ))}
             <div className="flex gap-3 mt-2">
-              <a href="https://github.com/amollokhande307" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
+              <MagneticButton as="a" href="https://github.com/amollokhande307" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
                 <Github className="w-5 h-5 text-[#1e293b] dark:text-white" />
-              </a>
-              <a href="https://www.linkedin.com/in/amol-lokhande-382976361" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
+              </MagneticButton>
+              <MagneticButton as="a" href="https://www.linkedin.com/in/amol-lokhande-382976361" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
                 <Linkedin className="w-5 h-5 text-[#007BFF]" />
-              </a>
-              <a href="mailto:amollokhande8999@gmail.com" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
+              </MagneticButton>
+              <MagneticButton as="a" href="mailto:amollokhande8999@gmail.com" className="p-2 hover:bg-[#f1f5f9] dark:hover:bg-[#1e293b] rounded-full transition">
                 <Mail className="w-5 h-5 text-[#1e293b] dark:text-white" />
-              </a>
+              </MagneticButton>
             </div>
           </div>
         </div>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Github, Linkedin, Instagram } from 'lucide-react';
+import { motion } from 'framer-motion';
+import MagneticButton from './MagneticButton';
 
 const socialLinks = {
   linkedin: 'https://www.linkedin.com/in/amol-lokhande-382976361',
@@ -7,9 +9,20 @@ const socialLinks = {
   instagram: 'https://www.instagram.com/amol_lokhande_02',
 };
 
+const heroVariants = {
+  hidden: { opacity: 0, y: 60, scale: 0.98 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8 } },
+};
+
 const Hero: React.FC = () => {
   return (
-    <section className="relative min-h-[70vh] flex flex-col md:flex-row justify-center items-center bg-gradient-to-b from-[#0f172a] to-[#19376d] text-white font-['Inter','Poppins',sans-serif] pt-24 pb-16">
+    <motion.section
+      className="relative min-h-[70vh] flex flex-col md:flex-row justify-center items-center bg-gradient-to-b from-[#0f172a] to-[#19376d] text-white font-['Inter','Poppins',sans-serif] pt-24 pb-16"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.4 }}
+      variants={heroVariants}
+    >
       {/* Profile Photo */}
       <div className="flex-shrink-0 mb-8 md:mb-0 md:mr-12 flex justify-center items-center w-full md:w-auto">
         <img
@@ -23,24 +36,43 @@ const Hero: React.FC = () => {
         <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Hi, I'm Amol Lokhande</h1>
         <h2 className="text-xl md:text-2xl font-medium mb-6 text-[#38bdf8]">DevOps Engineer | Cloud Enthusiast</h2>
         <p className="max-w-xl mb-8 text-[#cbd5e1]">I build scalable cloud solutions, automate workflows, and love all things DevOps, Docker, and Kubernetes.</p>
-        <a
+        <MagneticButton
+          as="a"
           href="/assets/resume.pdf"
-          download
           className="inline-block bg-gradient-to-r from-[#007BFF] to-[#38bdf8] hover:from-[#2563eb] hover:to-[#60a5fa] text-white font-semibold px-8 py-3 rounded-full shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#007BFF] focus:ring-offset-2 text-lg mb-4"
+          download
         >
           Download Resume
-        </a>
+        </MagneticButton>
         {/* Social Icons */}
         <div className="flex gap-5 mt-2">
-          <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#1e293b] rounded-full hover:bg-[#38bdf8] transition shadow-lg">
+          <MagneticButton
+            as="a"
+            href={socialLinks.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 bg-[#1e293b] rounded-full hover:bg-[#38bdf8] transition shadow-lg"
+          >
             <Linkedin className="w-6 h-6 text-[#007BFF] group-hover:text-white" />
-          </a>
-          <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#1e293b] rounded-full hover:bg-[#007BFF] transition shadow-lg">
+          </MagneticButton>
+          <MagneticButton
+            as="a"
+            href={socialLinks.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 bg-[#1e293b] rounded-full hover:bg-[#007BFF] transition shadow-lg"
+          >
             <Github className="w-6 h-6 text-[#38bdf8] group-hover:text-white" />
-          </a>
-          <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#1e293b] rounded-full hover:bg-pink-500 transition shadow-lg">
+          </MagneticButton>
+          <MagneticButton
+            as="a"
+            href={socialLinks.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 bg-[#1e293b] rounded-full hover:bg-pink-500 transition shadow-lg"
+          >
             <Instagram className="w-6 h-6 text-pink-400 group-hover:text-white" />
-          </a>
+          </MagneticButton>
         </div>
       </div>
       {/* Animated Wave at Bottom */}
@@ -59,7 +91,7 @@ const Hero: React.FC = () => {
           100% { transform: translateX(-40px); }
         }
       `}</style>
-    </section>
+    </motion.section>
   );
 };
 

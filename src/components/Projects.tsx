@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Github, Linkedin } from 'lucide-react';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const projects = [
   {
@@ -79,6 +80,15 @@ const projects = [
   },
 ];
 
+const projectsVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.98 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8 } },
+};
+
+function isTouchDevice() {
+  return typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+}
+
 export const Projects: React.FC = () => {
   // Water ripple effect on click
   const handleRipple = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -91,39 +101,84 @@ export const Projects: React.FC = () => {
     setTimeout(() => ripple.remove(), 700);
   };
 
+  // 3D tilt effect handler
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, cardRef: React.RefObject<HTMLDivElement>, set: (x: number, y: number) => void) => {
+    if (isTouchDevice()) return;
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * 10;
+    const rotateY = ((x - centerX) / centerX) * -10;
+    set(rotateX, rotateY);
+  };
+  const handleMouseLeave = (set: (x: number, y: number) => void) => {
+    set(0, 0);
+  };
+
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-[#19376d] to-[#0a2342] font-['Inter','Poppins',sans-serif]">
+    <motion.section
+      className="py-16 px-4 bg-gradient-to-b from-[#19376d] to-[#0a2342] font-['Inter','Poppins',sans-serif]"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={projectsVariants}
+    >
       <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-10">Projects</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {projects.map((project, idx) => (
-          <div
-            key={project.title}
-            className="relative bg-[#1e293b] bg-opacity-90 rounded-2xl shadow-xl p-6 flex flex-col gap-4 transition-transform duration-200 cursor-pointer group overflow-hidden project-card"
-            onClick={handleRipple}
-          >
-            <h3 className="text-xl font-bold text-[#38bdf8] mb-2">{project.title}</h3>
-            <div className="flex gap-3 mt-auto">
-              {project.github && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-[#22223b] rounded-full hover:bg-[#007BFF] transition">
-                  <Github className="w-5 h-5 text-[#38bdf8] group-hover:text-white" />
-                </a>
-              )}
-              {project.linkedin && (
-                <a href={project.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-[#22223b] rounded-full hover:bg-[#38bdf8] transition">
-                  <Linkedin className="w-5 h-5 text-[#007BFF] group-hover:text-white" />
-                </a>
-              )}
-            </div>
-            {/* Water Ripple Animation */}
-            <span className="absolute inset-0 pointer-events-none">
-              {/* Ripple will be injected here on click */}
-            </span>
-          </div>
-        ))}
+        {projects.map((project, idx) => {
+          const cardRef = useRef<HTMLDivElement>(null);
+          const x = useMotionValue(0);
+          const y = useMotionValue(0);
+          const rotateX = useTransform(x, v => v);
+          const rotateY = useTransform(y, v => v);
+          const setTilt = (rx: number, ry: number) => {
+            x.set(rx);
+            y.set(ry);
+          };
+          return (
+            <motion.div
+              key={project.title}
+              ref={cardRef}
+              className="relative bg-[#1e293b] bg-opacity-90 rounded-2xl shadow-xl p-6 flex flex-col gap-4 transition-transform duration-200 cursor-pointer group overflow-hidden project-card"
+              style={{
+                rotateX,
+                rotateY,
+                boxShadow: '0 8px 32px 0 #38bdf855, 0 2px 8px #007BFF33',
+                willChange: 'transform',
+              }}
+              onMouseMove={e => handleMouseMove(e, cardRef, setTilt)}
+              onMouseLeave={() => handleMouseLeave(setTilt)}
+              onClick={handleRipple}
+            >
+              <h3 className="text-xl font-bold text-[#38bdf8] mb-2">{project.title}</h3>
+              <div className="flex gap-3 mt-auto">
+                {project.github && (
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-[#22223b] rounded-full hover:bg-[#007BFF] transition">
+                    <Github className="w-5 h-5 text-[#38bdf8] group-hover:text-white" />
+                  </a>
+                )}
+                {project.linkedin && (
+                  <a href={project.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-[#22223b] rounded-full hover:bg-[#38bdf8] transition">
+                    <Linkedin className="w-5 h-5 text-[#007BFF] group-hover:text-white" />
+                  </a>
+                )}
+              </div>
+              {/* Water Ripple Animation */}
+              <span className="absolute inset-0 pointer-events-none">
+                {/* Ripple will be injected here on click */}
+              </span>
+            </motion.div>
+          );
+        })}
       </div>
       <style>{`
         .project-card {
           overflow: hidden;
+          perspective: 800px;
         }
         .project-card .ripple-effect {
           position: absolute;
@@ -140,6 +195,6 @@ export const Projects: React.FC = () => {
           100% { opacity: 0; transform: scale(1.5); }
         }
       `}</style>
-    </section>
+    </motion.section>
   );
 };

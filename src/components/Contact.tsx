@@ -8,6 +8,7 @@ import {
   MapPin,
   Clock
 } from 'lucide-react';
+import MagneticButton from './MagneticButton';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -29,26 +30,6 @@ export const Contact: React.FC = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
-  };
-
-  const handleRippleClick = (e: React.MouseEvent) => {
-    const button = e.currentTarget;
-    const rect = button.getBoundingClientRect();
-    const ripple = document.createElement('span');
-    const size = Math.max(rect.width, rect.height);
-    const x = e.clientX - rect.left - size / 2;
-    const y = e.clientY - rect.top - size / 2;
-    
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    ripple.classList.add('ripple');
-    
-    button.appendChild(ripple);
-    
-    setTimeout(() => {
-      ripple.remove();
-    }, 600);
   };
 
   return (
@@ -118,30 +99,33 @@ export const Contact: React.FC = () => {
             <div className="mt-8">
               <h4 className="font-semibold text-royal-navy dark:text-royal-yellow mb-4">Follow Me</h4>
               <div className="flex gap-4">
-                <a
+                <MagneticButton
+                  as="a"
                   href="https://github.com/amollokhande307"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:scale-110 active:scale-95"
                 >
                   <Github className="w-5 h-5" />
-                </a>
-                <a
+                </MagneticButton>
+                <MagneticButton
+                  as="a"
                   href="https://www.linkedin.com/in/amol-lokhande-382976361"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-all duration-300 transform hover:scale-110 active:scale-95"
                 >
                   <Linkedin className="w-5 h-5" />
-                </a>
-                <a
+                </MagneticButton>
+                <MagneticButton
+                  as="a"
                   href="https://www.instagram.com/amol_lokhande_02"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all duration-300 transform hover:scale-110 active:scale-95"
                 >
                   <Instagram className="w-5 h-5" />
-                </a>
+                </MagneticButton>
               </div>
             </div>
           </div>
@@ -201,14 +185,13 @@ export const Contact: React.FC = () => {
                 />
               </div>
 
-              <button
+              <MagneticButton
                 type="submit"
-                onClick={handleRippleClick}
                 className="relative overflow-hidden w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
               >
                 <Send className="w-5 h-5" />
                 Send Message
-              </button>
+              </MagneticButton>
             </form>
           </div>
         </div>
