@@ -12,7 +12,7 @@ export const Certifications: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 relative overflow-hidden royal-section-bg-light dark:royal-section-bg-dark royal-ornamental-border">
+    <section className="py-20 relative overflow-hidden bg-gradient-to-b from-[#233a5e] to-[#2b447a] royal-ornamental-border">
       {/* Professional Background */}
       <div className="absolute inset-0 opacity-12">
         <div className="royal-textile-pattern"></div>

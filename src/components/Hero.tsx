@@ -63,19 +63,11 @@ const Hero: React.FC = () => {
       {/* Main Content */}
       <div className="flex flex-col items-center md:items-start text-center md:text-left z-10">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
-          <span className="typewriter-text">{displayed}<span className="typewriter-cursor">{typing ? '|' : ''}</span></span>
+          Hi, I'm Amol Lokhande
         </h1>
         <h2 className="text-xl md:text-2xl font-medium mb-6 text-[#38bdf8]">DevOps Engineer | Cloud Enthusiast</h2>
         <p className="max-w-xl mb-8 text-[#cbd5e1]">I build scalable cloud solutions, automate workflows, and love all things DevOps, Docker, and Kubernetes.</p>
-        <MagneticButton
-          as="a"
-          href="/assets/resume.pdf"
-          className="glass-btn inline-block font-semibold px-8 py-3 rounded-full shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#38bdf8] focus:ring-offset-2 text-lg mb-4 flex items-center gap-2"
-          download
-        >
-          <Download className="w-5 h-5 resume-icon" />
-          Download Resume
-        </MagneticButton>
+        {/* Remove the MagneticButton for Download Resume */}
         {/* Social Icons */}
         <div className="flex gap-5 mt-2">
           <MagneticButton
