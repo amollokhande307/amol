@@ -38,10 +38,28 @@ function App() {
         <section id="contact"><Contact /></section>
         <section id="resume"><Resume /></section>
         {/* Footer */}
-        <footer className="py-8 bg-[#f7f7f7] dark:bg-[#222] text-[#222] dark:text-white text-center border-t-2 border-[#007BFF]/30">
-          <p className="text-[#007BFF] dark:text-[#007BFF]">
-            © 2024 Amol Lokhande. Built with React, TypeScript, and Tailwind CSS.
-          </p>
+        <footer className="relative py-8 bg-[#0a2342] text-[#222] dark:text-white text-center border-t-2 border-[#007BFF]/30 overflow-hidden">
+          {/* Animated Footer Waves */}
+          <div className="absolute left-0 top-0 w-full overflow-hidden pointer-events-none z-0" style={{height: 60}}>
+            <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full animate-footer-wave">
+              <path d="M0,20 C480,60 960,0 1440,20 L1440,60 L0,60 Z" fill="#38bdf8" fillOpacity="0.3" />
+              <path d="M0,40 C360,10 1080,50 1440,40 L1440,60 L0,60 Z" fill="#007BFF" fillOpacity="0.2" />
+            </svg>
+          </div>
+          <div className="relative z-10">
+            <p className="text-[#007BFF] dark:text-[#007BFF]">
+              © 2024 Amol Lokhande. Built with React, TypeScript, and Tailwind CSS.
+            </p>
+          </div>
+          <style>{`
+            .animate-footer-wave {
+              animation: footerWaveMove 8s linear infinite alternate;
+            }
+            @keyframes footerWaveMove {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-40px); }
+            }
+          `}</style>
         </footer>
       </div>
     </ThemeProvider>

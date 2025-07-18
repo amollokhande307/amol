@@ -82,7 +82,14 @@ const projects = [
 
 const projectsVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.98 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8 } },
+  visible: {
+    opacity: 1, y: 0, scale: 1,
+    transition: { duration: 0.8, staggerChildren: 0.12 }
+  },
+};
+const cardVariants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
 function isTouchDevice() {
@@ -143,16 +150,23 @@ export const Projects: React.FC = () => {
             <motion.div
               key={project.title}
               ref={cardRef}
-              className="relative bg-[#1e293b] bg-opacity-90 rounded-2xl shadow-xl p-6 flex flex-col gap-4 transition-transform duration-200 cursor-pointer group overflow-hidden project-card"
+              className="relative glass-card bg-opacity-90 rounded-2xl shadow-xl p-6 flex flex-col gap-4 transition-transform duration-200 cursor-pointer group overflow-hidden project-card"
               style={{
                 rotateX,
                 rotateY,
                 boxShadow: '0 8px 32px 0 #38bdf855, 0 2px 8px #007BFF33',
                 willChange: 'transform',
+                backdropFilter: 'blur(14px)',
+                background: 'rgba(30, 41, 59, 0.35)',
+                border: '1.5px solid rgba(56, 189, 248, 0.18)',
               }}
               onMouseMove={e => handleMouseMove(e, cardRef, setTilt)}
               onMouseLeave={() => handleMouseLeave(setTilt)}
               onClick={handleRipple}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
             >
               <h3 className="text-xl font-bold text-[#38bdf8] mb-2">{project.title}</h3>
               <div className="flex gap-3 mt-auto">
@@ -179,6 +193,18 @@ export const Projects: React.FC = () => {
         .project-card {
           overflow: hidden;
           perspective: 800px;
+        }
+        .glass-card {
+          background: rgba(30, 41, 59, 0.35);
+          backdrop-filter: blur(14px);
+          border: 1.5px solid rgba(56, 189, 248, 0.18);
+          box-shadow: 0 4px 32px 0 #38bdf822, 0 2px 8px #007BFF33;
+          transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+        }
+        .glass-card:hover, .glass-card:focus {
+          border: 1.5px solid #38bdf8;
+          box-shadow: 0 0 16px 4px #38bdf8, 0 2px 8px #007BFF33;
+          background: rgba(30, 41, 59, 0.45);
         }
         .project-card .ripple-effect {
           position: absolute;

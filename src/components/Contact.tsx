@@ -33,7 +33,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden royal-section-bg-light dark:royal-section-bg-dark royal-ornamental-border">
+    <section className="py-20 relative overflow-hidden contact-gradient-bg font-['Inter','Poppins',sans-serif]">
       {/* Sophisticated Background */}
       <div className="absolute inset-0 opacity-8">
         <div className="royal-code-pattern"></div>
@@ -148,7 +148,7 @@ export const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-500 text-royal-navy dark:text-royal-yellow placeholder-gray-500 dark:placeholder-gray-400"
+                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow"
                   placeholder="Your Name"
                 />
               </div>
@@ -164,7 +164,7 @@ export const Contact: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-500 text-royal-navy dark:text-royal-yellow placeholder-gray-500 dark:placeholder-gray-400"
+                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow"
                   placeholder="your@email.com"
                 />
               </div>
@@ -180,7 +180,7 @@ export const Contact: React.FC = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-500 text-royal-navy dark:text-royal-yellow placeholder-gray-500 dark:placeholder-gray-400 resize-none"
+                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow resize-none"
                   placeholder="Tell me about your project..."
                 />
               </div>
@@ -196,6 +196,19 @@ export const Contact: React.FC = () => {
           </div>
         </div>
       </div>
+      <style>{`
+        .contact-gradient-bg {
+          background: linear-gradient(135deg, #181c24 0%, #19376d 100%);
+        }
+        .focus\:shadow-glow:focus {
+          box-shadow: 0 0 0 3px #38bdf8cc, 0 2px 8px #007BFF33;
+          border-color: #38bdf8;
+        }
+        .royal-luxury-card {
+          background: rgba(30, 41, 59, 0.25);
+          backdrop-filter: blur(8px);
+        }
+      `}</style>
     </section>
   );
 };

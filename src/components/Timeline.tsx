@@ -1,5 +1,6 @@
 import React from 'react';
 import { GraduationCap, Code, Target, Calendar } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const Timeline: React.FC = () => {
   const timelineItems = [
@@ -37,8 +38,26 @@ export const Timeline: React.FC = () => {
     }
   ];
 
+  const timelineVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1, y: 0,
+      transition: { duration: 0.7, staggerChildren: 0.13 }
+    },
+  };
+  const cardVariants = {
+    hidden: { opacity: 0, y: 28 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
-    <section className="py-20 relative overflow-hidden royal-section-bg-light dark:royal-section-bg-dark royal-ornamental-border">
+    <motion.section
+      className="py-20 relative overflow-hidden royal-section-bg-light dark:royal-section-bg-dark royal-ornamental-border"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={timelineVariants}
+    >
       {/* Elegant Background Elements */}
       <div className="absolute inset-0 opacity-15">
         <div className="absolute top-1/4 left-10 w-28 h-28 royal-elegant-float"></div>
@@ -58,11 +77,15 @@ export const Timeline: React.FC = () => {
 
         <div className="max-w-4xl mx-auto">
           {timelineItems.map((item, index) => (
-            <div
+            <motion.div
               key={index}
               className={`relative flex items-center mb-12 ${
                 index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
               }`}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
             >
               {/* Timeline Line */}
               <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-yellow-400 dark:bg-yellow-500 transform -translate-x-1/2 hidden md:block" />
@@ -97,10 +120,10 @@ export const Timeline: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
