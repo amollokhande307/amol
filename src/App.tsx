@@ -9,7 +9,7 @@ import { Certifications } from './components/Certifications';
 import { Contact } from './components/Contact';
 import { Navbar } from './components/Navbar';
 import Resume from './components/Resume';
-import LoadingScreen from './components/LoadingScreen';
+import Loading from './components/Loading';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ function App() {
 
   return (
     <ThemeProvider>
-      {loading && <LoadingScreen />}
+      {loading && <Loading />}
       <Navbar />
       <div className={loading ? 'pointer-events-none select-none opacity-0' : 'min-h-screen bg-[#f7f7f7] dark:bg-[#222] transition-colors duration-300 pt-20'}>
         <ThemeToggle />
