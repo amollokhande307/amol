@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Github, Linkedin, Instagram, Download } from 'lucide-react';
+import React from 'react';
+import { Github, Linkedin, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 
@@ -14,27 +14,7 @@ const heroVariants = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8 } },
 };
 
-const typewriterText = 'Turning Cloud Dreams into Code Reality.';
-
 const Hero: React.FC = () => {
-  // Typewriter effect
-  const [displayed, setDisplayed] = useState('');
-  const [typing, setTyping] = useState(true);
-  const idx = useRef(0);
-
-  useEffect(() => {
-    if (!typing) return;
-    if (idx.current < typewriterText.length) {
-      const timeout = setTimeout(() => {
-        setDisplayed(prev => prev + typewriterText[idx.current]);
-        idx.current += 1;
-      }, 55);
-      return () => clearTimeout(timeout);
-    } else {
-      setTyping(false);
-    }
-  }, [displayed, typing]);
-
   return (
     <motion.section
       className="relative min-h-[70vh] flex flex-col md:flex-row justify-center items-center bg-gradient-to-b from-[#0f172a] to-[#19376d] text-white font-['Inter','Poppins',sans-serif] pt-24 pb-16 overflow-hidden"
@@ -67,7 +47,6 @@ const Hero: React.FC = () => {
         </h1>
         <h2 className="text-xl md:text-2xl font-medium mb-6 text-[#38bdf8]">DevOps Engineer | Cloud Enthusiast</h2>
         <p className="max-w-xl mb-8 text-[#cbd5e1]">I build scalable cloud solutions, automate workflows, and love all things DevOps, Docker, and Kubernetes.</p>
-        {/* Remove the MagneticButton for Download Resume */}
         {/* Social Icons */}
         <div className="flex gap-5 mt-2">
           <MagneticButton
@@ -120,41 +99,6 @@ const Hero: React.FC = () => {
         @keyframes floatProfile {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-18px); }
-        }
-        .typewriter-text {
-          font-family: 'Poppins', 'Inter', sans-serif;
-          letter-spacing: 1px;
-          color: #fff;
-        }
-        .typewriter-cursor {
-          display: inline-block;
-          width: 1ch;
-          color: #38bdf8;
-          animation: blink 1s steps(1) infinite;
-        }
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-        .glass-btn {
-          background: rgba(30, 41, 59, 0.35);
-          backdrop-filter: blur(10px);
-          border: 1.5px solid rgba(56, 189, 248, 0.25);
-          box-shadow: 0 4px 32px 0 #38bdf822, 0 2px 8px #007BFF33;
-          transition: box-shadow 0.2s, border 0.2s, background 0.2s;
-          position: relative;
-        }
-        .glass-btn:hover, .glass-btn:focus {
-          border: 1.5px solid #38bdf8;
-          box-shadow: 0 0 16px 4px #38bdf8, 0 2px 8px #007BFF33;
-          background: rgba(30, 41, 59, 0.45);
-        }
-        .glass-btn:active .resume-icon {
-          transform: translateX(6px);
-          transition: transform 0.18s;
-        }
-        .resume-icon {
-          transition: transform 0.18s;
         }
       `}</style>
     </motion.section>
