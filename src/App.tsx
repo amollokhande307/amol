@@ -8,7 +8,6 @@ import { BlogCaseStudy } from './components/BlogCaseStudy';
 import { Certifications } from './components/Certifications';
 import { Contact } from './components/Contact';
 import { Navbar } from './components/Navbar';
-import Resume from './components/Resume';
 import Loading from './components/Loading';
 import ParticlesBackground from './components/ParticlesBackground';
 import CursorTrail from './components/CursorTrail';
@@ -36,7 +35,6 @@ function App() {
         <section id="blog"><BlogCaseStudy /></section>
         <section id="certifications"><Certifications /></section>
         <section id="contact"><Contact /></section>
-        <section id="resume"><Resume /></section>
         {/* Footer */}
         <footer className="relative py-8 bg-[#0a2342] text-[#222] dark:text-white text-center border-t-2 border-[#007BFF]/30 overflow-hidden">
           {/* Animated Footer Waves */}
