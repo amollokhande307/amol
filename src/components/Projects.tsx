@@ -1,82 +1,97 @@
-import React, { useRef } from 'react';
-import { Github, Linkedin } from 'lucide-react';
-import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { Github, Linkedin, Code, Database, Cloud, Brain, Zap } from 'lucide-react';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 
 const projects = [
   {
     title: 'MenuBase',
     github: 'https://github.com/amollokhande307/summer-internship-/blob/main/manubase.py',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_vimal-ai-devops-activity-7349015234885398529-dRoy',
+    category: 'python',
   },
   {
     title: 'College Student',
     github: 'https://github.com/amollokhande307/summer-internship-/blob/main/college%20student.txt',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_my-first-project-college-student-profile-activity-7346395278616186880-fASR',
+    category: 'fullstack',
   },
   {
     title: 'Bank Manager',
     github: 'https://github.com/amollokhande307/summer-internship-/blob/main/bank%20manager.txt',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_my-first-ai-powered-banking-assistant-activity-7346942613884698624-nqnB',
+    category: 'devops',
   },
   {
     title: 'WhatsApp',
     github: 'https://github.com/amollokhande307/summer-internship-/blob/main/whatsapp.py',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_just-built-whatsapp-message-sender-app-using-activity-7348555003076186113-bhUL',
+    category: 'python',
   },
   {
     title: 'Instagram',
     github: 'https://github.com/amollokhande307/summer-internship-/blob/main/insta.py',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_python-streamlit-webdevelopment-activity-7349647561294544896-jd-E',
+    category: 'fullstack',
   },
   {
     title: 'Twitter',
     github: '',
     linkedin: '',
+    category: 'devops',
   },
   {
     title: 'Call App',
     github: 'https://github.com/amollokhande307/summer-internship-/blob/main/call.py',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_python-twilio-streamlit-activity-7349283860439793664-8YMs',
+    category: 'python',
   },
   {
     title: 'Email Tool',
     github: 'https://github.com/amollokhande307/summer-internship-/blob/main/email.py',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_python-smtp-streamlit-activity-7348572146006163457-H6U6',
+    category: 'fullstack',
   },
   {
     title: 'All-in-One Communication App',
     github: 'https://github.com/amollokhande307/summer-internship-/blob/main/python%20menu.py',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_summerinternship-python-streamlit-activity-7350000889304133632-uta_',
+    category: 'python',
   },
   {
     title: 'Video Recording & Email Delivery System',
     github: 'https://github.com/amollokhande307/summer-internship-/tree/main',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_linuxworld-mentorshipmatters-vimaldagasir-activity-7351544750178496512-XqDt',
+    category: 'devops',
   },
   {
     title: 'Grocery Store Finder',
     github: 'https://github.com/amollokhande307/summer-internship-/tree/main',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_webdevelopment-javascript-geolocation-activity-7351573926012928000-LGYV',
+    category: 'fullstack',
   },
   {
     title: 'Live Location',
     github: 'https://github.com/amollokhande307/summer-internship-/blob/main/Live%20Location.html',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_webdevelopment-javascript-html-activity-7351210348974080000-rfTy',
+    category: 'fullstack',
   },
   {
     title: 'AI-Powered Stock Market Prediction',
     github: 'https://github.com/amollokhande307/summer-internship-/blob/main/AI-Powered%20Stock%20Market%20Prediction.txt',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_aiinfinance-geminiai-streamlit-activity-7350407473926754304-iT8p',
+    category: 'ai',
   },
   {
     title: 'Apache Setup',
     github: 'https://github.com/amollokhande307/summer-internship-/tree/main/apache%20setup',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_devops-docker-apache-activity-7350381049182392321-ZTwX',
+    category: 'devops',
   },
   {
     title: 'Docker Inside Docker',
     github: '',
     linkedin: 'https://www.linkedin.com/posts/amol-lokhande-382976361_docker-devops-cloudcomputing-activity-7351604170392576002-oeX4',
+    category: 'devops',
   },
 ];
 
@@ -240,82 +255,290 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
 };
 
 export const Projects: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects);
+
+  // Project categories with icons
+  const categories = [
+    { id: 'all', name: 'All Projects', icon: Code, color: '#38bdf8' },
+    { id: 'python', name: '🐍 Python Projects', icon: Code, color: '#FF6B6B' },
+    { id: 'fullstack', name: '🌐 Full Stack Projects', icon: Database, color: '#4ECDC4' },
+    { id: 'devops', name: '🐳 Docker & DevOps Projects', icon: Cloud, color: '#45B7D1' },
+    { id: 'ai', name: '🧠 Agentic AI Projects', icon: Brain, color: '#96CEB4' }
+  ];
+
+  // Filter projects based on category
+  const filterProjects = (category: string) => {
+    setSelectedCategory(category);
+    if (category === 'all') {
+      setFilteredProjects(projects);
+    } else {
+      const filtered = projects.filter(project => 
+        project.category === category
+      );
+      setFilteredProjects(filtered);
+    }
+  };
+
+  // Animated Filter Button Component
+  const FilterButton: React.FC<{ category: typeof categories[0] }> = ({ category }) => {
+    const IconComponent = category.icon;
+    
+    return (
+      <motion.button
+        onClick={() => filterProjects(category.id)}
+        className={`filter-btn ${selectedCategory === category.id ? 'active' : ''}`}
+        whileHover={{ 
+          scale: 1.05,
+          boxShadow: `0 0 20px ${category.color}40`
+        }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ 
+          type: 'spring', 
+          stiffness: 300, 
+          damping: 20,
+          delay: categories.indexOf(category) * 0.1
+        }}
+      >
+        <motion.div
+          className="filter-btn-content"
+          whileHover={{ rotate: 5 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+        >
+          <IconComponent className="filter-icon" style={{ color: category.color }} />
+          <span className="filter-text">{category.name}</span>
+        </motion.div>
+        {/* Animated Border */}
+        <motion.div
+          className="filter-border"
+          initial={{ scaleX: 0 }}
+          animate={{ 
+            scaleX: selectedCategory === category.id ? 1 : 0 
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          style={{ backgroundColor: category.color }}
+        />
+        {/* Glow Effect */}
+        <motion.div
+          className="filter-glow"
+          animate={{ 
+            opacity: selectedCategory === category.id ? [0.5, 1, 0.5] : 0,
+            scale: selectedCategory === category.id ? [1, 1.1, 1] : 1
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: selectedCategory === category.id ? Infinity : 0,
+            ease: "easeInOut"
+          }}
+          style={{ backgroundColor: category.color }}
+        />
+      </motion.button>
+    );
+  };
+
   return (
     <motion.section
-      className="py-12 sm:py-10 px-2 sm:px-4 bg-gradient-to-b from-[#19376d] to-[#0a2342] font-['Inter','Poppins',sans-serif]"
+      id="projects"
+      className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.2 }}
       variants={projectsVariants}
     >
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-8 sm:mb-6">Projects</h2>
-      {/* Animated filtering controls (future) */}
-      {/* <div className="flex justify-center mb-8 gap-4">
-        <button onClick={() => setFilter('all')}>All</button>
-        <button onClick={() => setFilter('web')}>Web</button>
-        <button onClick={() => setFilter('cloud')}>Cloud</button>
-      </div> */}
-      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
-        <AnimatePresence>
-          {projects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b] via-[#334155] to-[#1e293b] opacity-50" />
+             <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%2338bdf8%22 fill-opacity=%220.1%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30" />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        <motion.div
+          className="text-center mb-16"
+          variants={projectsVariants} // Assuming textVariants is defined elsewhere or needs to be added
+        >
+          <h2 className="text-4xl sm:text-5xl font-bold text-black mb-6">
+            My Projects
+          </h2>
+          <p className="text-xl text-[#64748b] max-w-3xl mx-auto">
+            Explore my diverse portfolio of projects showcasing expertise in Python, Full Stack Development, DevOps, and AI.
+          </p>
+        </motion.div>
+
+        {/* Project Filter Buttons */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-4 mb-12"
+          variants={projectsVariants} // Assuming containerVariants is defined elsewhere or needs to be added
+          initial="hidden"
+          animate="visible"
+        >
+          {categories.map((category) => (
+            <FilterButton key={category.id} category={category} />
           ))}
+        </motion.div>
+
+        {/* Project Cards Grid */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedCategory}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: index * 0.1,
+                  ease: "easeOut"
+                }}
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+          </motion.div>
         </AnimatePresence>
+
+        {/* No Projects Message */}
+        {filteredProjects.length === 0 && (
+          <motion.div
+            className="text-center py-12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Zap className="w-16 h-16 mx-auto mb-4 text-[#64748b]" />
+            <h3 className="text-2xl font-semibold text-[#64748b] mb-2">
+              No projects in this category yet
+            </h3>
+            <p className="text-[#64748b]">
+              Check back soon for new projects!
+            </p>
+          </motion.div>
+        )}
       </div>
+
       <style>{`
-        .project-card {
+        .filter-btn {
+          position: relative;
+          padding: 12px 24px;
+          background: rgba(30, 41, 59, 0.8);
+          border: 2px solid rgba(56, 189, 248, 0.2);
+          border-radius: 12px;
+          color: white;
+          font-weight: 600;
+          cursor: pointer;
           overflow: hidden;
-          perspective: 800px;
+          backdrop-filter: blur(10px);
+          transition: all 0.3s ease;
         }
-        .glass-card {
-          background: rgba(30, 41, 59, 0.35);
-          backdrop-filter: blur(14px);
-          border: 1.5px solid rgba(56, 189, 248, 0.18);
-          box-shadow: 0 4px 32px 0 #38bdf822, 0 2px 8px #007BFF33;
-          transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+        .filter-btn:hover {
+          border-color: rgba(56, 189, 248, 0.5);
+          background: rgba(30, 41, 59, 0.9);
         }
-        .glass-card:hover, .glass-card:focus {
-          border: 1.5px solid #38bdf8;
-          box-shadow: 0 0 16px 4px #38bdf8, 0 2px 8px #007BFF33;
-          background: rgba(30, 41, 59, 0.45);
+        .filter-btn.active {
+          border-color: rgba(56, 189, 248, 0.8);
+          background: rgba(56, 189, 248, 0.1);
+          box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
         }
-        .project-card .ripple-effect {
+        .filter-btn-content {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          position: relative;
+          z-index: 2;
+        }
+        .filter-icon {
+          width: 20px;
+          height: 20px;
+        }
+        .filter-text {
+          font-size: 14px;
+          white-space: nowrap;
+        }
+        .filter-border {
           position: absolute;
-          border-radius: 50%;
-          background: rgba(56, 189, 248, 0.25);
-          width: 120px;
-          height: 120px;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 3px;
+          transform-origin: left;
+        }
+        .filter-glow {
+          position: absolute;
+          inset: -2px;
+          border-radius: inherit;
+          opacity: 0;
           pointer-events: none;
-          transform: translate(-50%, -50%);
-          animation: rippleAnim 0.7s linear;
+          z-index: 1;
         }
-        @keyframes rippleAnim {
-          0% { opacity: 0.7; transform: scale(0.2); }
-          100% { opacity: 0; transform: scale(1.5); }
+        .filter-btn.active .filter-glow {
+          opacity: 0.3;
         }
-        .code-btn {
+        
+        @media (max-width: 768px) {
+          .filter-btn {
+            padding: 10px 16px;
+            font-size: 12px;
+          }
+          .filter-text {
+            font-size: 12px;
+          }
+          .filter-icon {
+            width: 16px;
+            height: 16px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .filter-btn {
+            padding: 8px 12px;
+            font-size: 11px;
+          }
+          .filter-text {
+            font-size: 11px;
+          }
+        }
+        
+        /* Enhanced Project Card Styles */
+        .project-card {
           position: relative;
           overflow: hidden;
         }
-        .code-btn::after {
+        .project-card::before {
           content: '';
           position: absolute;
-          left: 0; bottom: 0;
-          width: 0%; height: 2px;
-          background: linear-gradient(90deg, #38bdf8 0%, #007BFF 100%);
-          transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+          inset: 0;
+          background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(0, 123, 255, 0.1));
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: -1;
         }
-        .code-btn:hover::after {
-          width: 100%;
+        .project-card:hover::before {
+          opacity: 1;
         }
-        .code-btn:active {
-          animation: codePulse 0.3s;
+        
+        /* Water Ripple Animation */
+        .ripple-effect {
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(56, 189, 248, 0.3);
+          transform: scale(0);
+          animation: ripple 0.7s linear;
+          pointer-events: none;
         }
-        @keyframes codePulse {
-          0% { box-shadow: 0 0 0 0 #38bdf8; }
-          70% { box-shadow: 0 0 0 8px #38bdf822; }
-          100% { box-shadow: 0 0 0 0 #38bdf8; }
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
         }
+        
+        /* Magnetic Project Card */
         .magnetic-project-card {
           transform-style: preserve-3d;
           perspective: 800px;

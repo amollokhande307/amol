@@ -163,7 +163,7 @@ const Hero: React.FC = () => {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="p-3 bg-[#1e293b] rounded-full transition shadow-lg social-glow magnetic-social"
+        className="p-3 bg-[#1e293b] rounded-full transition shadow-lg social-glow magnetic-social enhanced-social-icon"
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -172,12 +172,66 @@ const Hero: React.FC = () => {
         initial="hidden"
         animate="visible"
         whileHover="hover"
-        variants={socialIconVariants}
+        variants={{
+          hidden: { 
+            opacity: 0, 
+            x: -50, 
+            scale: 0.8,
+            rotateY: -15
+          },
+          visible: { 
+            opacity: 1, 
+            x: 0, 
+            scale: 1,
+            rotateY: 0,
+            transition: { 
+              type: 'spring', 
+              stiffness: 300, 
+              damping: 20,
+              delay: 0.3 + delay 
+            }
+          },
+          hover: { 
+            scale: 1.15,
+            rotateY: 5,
+            boxShadow: '0 0 0 4px #38bdf8, 0 0 20px #38bdf8, 0 0 40px #38bdf8',
+            filter: 'brightness(1.2)',
+            transition: { 
+              type: 'spring', 
+              stiffness: 400, 
+              damping: 15 
+            }
+          }
+        }}
         transition={{ delay: 0.3 + delay, type: 'spring', stiffness: 400, damping: 18 }}
       >
-        <motion.div style={{ transform: "translateZ(15px)" }}>
+        <motion.div 
+          style={{ transform: "translateZ(15px)" }}
+          className="social-icon-content"
+        >
           {children}
         </motion.div>
+        {/* Glowing Ring Effect */}
+        <motion.div
+          className="glowing-ring"
+          initial={{ scale: 0, opacity: 0 }}
+          whileHover={{ scale: 1.2, opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        />
+        {/* Pulse Effect */}
+        <motion.div
+          className="pulse-effect"
+          animate={{ 
+            scale: [1, 1.1, 1],
+            opacity: [0.5, 0, 0.5]
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: delay * 0.5
+          }}
+        />
       </motion.a>
     );
   };
@@ -327,6 +381,49 @@ const Hero: React.FC = () => {
         .magnetic-social {
           transform-style: preserve-3d;
           perspective: 800px;
+        }
+        .enhanced-social-icon {
+          position: relative;
+          overflow: visible;
+          background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+          border: 2px solid transparent;
+          background-clip: padding-box;
+        }
+        .enhanced-social-icon::before {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          background: linear-gradient(135deg, #38bdf8, #007BFF, #38bdf8);
+          border-radius: 50%;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: -1;
+        }
+        .enhanced-social-icon:hover::before {
+          opacity: 1;
+        }
+        .social-icon-content {
+          position: relative;
+          z-index: 2;
+        }
+        .glowing-ring {
+          position: absolute;
+          inset: -8px;
+          border: 2px solid #38bdf8;
+          border-radius: 50%;
+          opacity: 0;
+          pointer-events: none;
+        }
+        .pulse-effect {
+          position: absolute;
+          inset: -4px;
+          border: 2px solid #38bdf8;
+          border-radius: 50%;
+          pointer-events: none;
+        }
+        .enhanced-social-icon:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
         }
       `}</style>
     </motion.section>
