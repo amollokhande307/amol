@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Github, Linkedin, Instagram, Download } from 'lucide-react';
+import { Github, Linkedin, Download } from 'lucide-react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const socialLinks = {
@@ -123,118 +123,7 @@ const Hero: React.FC = () => {
     );
   };
 
-  // Magnetic effect for social icons
-  const MagneticSocialIcon: React.FC<{ children: React.ReactNode; href: string; delay?: number }> = ({ children, href, delay = 0 }) => {
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-    
-    const rotateX = useTransform(y, [-30, 30], [10, -10]);
-    const rotateY = useTransform(x, [-30, 30], [-10, 10]);
-    
-    const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      x.set(e.clientX - centerX);
-      y.set(e.clientY - centerY);
-    };
-    
-    const handleMouseLeave = () => {
-      x.set(0);
-      y.set(0);
-    };
 
-    const handleTouchMove = (e: React.TouchEvent<HTMLAnchorElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const touch = e.touches[0];
-      x.set(touch.clientX - centerX);
-      y.set(touch.clientY - centerY);
-    };
-
-    const handleTouchEnd = () => {
-      x.set(0);
-      y.set(0);
-    };
-
-    return (
-      <motion.a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="p-3 bg-[#1e293b] rounded-full transition shadow-lg social-glow magnetic-social enhanced-social-icon relative z-10"
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        initial="hidden"
-        animate="visible"
-        whileHover="hover"
-        variants={{
-          hidden: { 
-            opacity: 0, 
-            x: -50, 
-            scale: 0.8,
-            rotateY: -15
-          },
-          visible: { 
-            opacity: 1, 
-            x: 0, 
-            scale: 1,
-            rotateY: 0,
-            transition: { 
-              type: 'spring', 
-              stiffness: 300, 
-              damping: 20,
-              delay: 0.3 + delay 
-            }
-          },
-          hover: { 
-            scale: 1.15,
-            rotateY: 5,
-            boxShadow: '0 0 0 4px #38bdf8, 0 0 20px #38bdf8, 0 0 40px #38bdf8',
-            filter: 'brightness(1.2)',
-            transition: { 
-              type: 'spring', 
-              stiffness: 400, 
-              damping: 15 
-            }
-          }
-        }}
-        transition={{ delay: 0.3 + delay, type: 'spring', stiffness: 400, damping: 18 }}
-      >
-        <motion.div 
-          style={{ transform: "translateZ(15px)" }}
-          className="social-icon-content"
-        >
-          {children}
-        </motion.div>
-        {/* Glowing Ring Effect */}
-        <motion.div
-          className="glowing-ring"
-          initial={{ scale: 0, opacity: 0 }}
-          whileHover={{ scale: 1.2, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        />
-        {/* Pulse Effect */}
-        <motion.div
-          className="pulse-effect"
-          animate={{ 
-            scale: [1, 1.1, 1],
-            opacity: [0.5, 0, 0.5]
-          }}
-          transition={{ 
-            duration: 2, 
-            repeat: Infinity, 
-            ease: "easeInOut",
-            delay: delay * 0.5
-          }}
-        />
-      </motion.a>
-    );
-  };
 
   return (
     <motion.section
@@ -287,18 +176,7 @@ const Hero: React.FC = () => {
             LinkedIn
           </MagneticButton>
         </div>
-        {/* Social Icons */}
-        <div className="flex gap-5 mt-2">
-          <MagneticSocialIcon href={socialLinks.linkedin} delay={0}>
-            <Linkedin className="w-6 h-6" />
-          </MagneticSocialIcon>
-          <MagneticSocialIcon href={socialLinks.github} delay={0.15}>
-            <Github className="w-6 h-6" />
-          </MagneticSocialIcon>
-          <MagneticSocialIcon href={socialLinks.instagram} delay={0.3}>
-            <Instagram className="w-6 h-6" />
-          </MagneticSocialIcon>
-        </div>
+
       </div>
       {/* Bottom Animated Wave */}
       <div className="absolute left-0 bottom-0 w-full overflow-hidden pointer-events-none z-0" style={{height: 90}}>
@@ -371,83 +249,9 @@ const Hero: React.FC = () => {
           60% { transform: translateY(2px); }
           100% { transform: translateY(0); }
         }
-        .social-glow:hover {
-          box-shadow: 0 0 0 4px #38bdf8, 0 0 16px #38bdf8;
-        }
         .magnetic-btn {
           transform-style: preserve-3d;
           perspective: 1000px;
-        }
-        .magnetic-social {
-          transform-style: preserve-3d;
-          perspective: 800px;
-        }
-        .enhanced-social-icon {
-          position: relative;
-          overflow: visible;
-          background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-          border: 2px solid transparent;
-          background-clip: padding-box;
-        }
-        .enhanced-social-icon::before {
-          content: '';
-          position: absolute;
-          inset: -2px;
-          background: linear-gradient(135deg, #38bdf8, #007BFF, #38bdf8);
-          border-radius: 50%;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          z-index: -1;
-        }
-        .enhanced-social-icon:hover::before {
-          opacity: 1;
-        }
-        .social-icon-content {
-          position: relative;
-          z-index: 2;
-        }
-        .glowing-ring {
-          position: absolute;
-          inset: -8px;
-          border: 2px solid #38bdf8;
-          border-radius: 50%;
-          opacity: 0;
-          pointer-events: none;
-        }
-        .pulse-effect {
-          position: absolute;
-          inset: -4px;
-          border: 2px solid #38bdf8;
-          border-radius: 50%;
-          pointer-events: none;
-        }
-        .enhanced-social-icon:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
-        }
-        
-        /* Ensure social icons are always visible */
-        .enhanced-social-icon {
-          opacity: 1 !important;
-          visibility: visible !important;
-          z-index: 10;
-          will-change: transform;
-        }
-        
-        .enhanced-social-icon:hover {
-          opacity: 1 !important;
-          visibility: visible !important;
-        }
-        
-        .magnetic-social {
-          opacity: 1 !important;
-          visibility: visible !important;
-          z-index: 10;
-        }
-        
-        .magnetic-social:hover {
-          opacity: 1 !important;
-          visibility: visible !important;
         }
       `}</style>
     </motion.section>

@@ -188,89 +188,7 @@ const Loading: React.FC = () => {
           </motion.div>
         </div>
         
-        {/* Floating DevOps Tools */}
-        <div className="floating-tools">
-          <motion.img
-            src="/assets/aws.svg"
-            alt="AWS"
-            className="tool-icon aws-icon"
-            animate={{ 
-              y: [0, -20, 0],
-              rotate: [0, 8, -8, 0],
-              scale: [1, 1.15, 1]
-            }}
-            transition={{ 
-              duration: 5, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 0
-            }}
-          />
-          <motion.img
-            src="/assets/docker.svg"
-            alt="Docker"
-            className="tool-icon docker-icon"
-            animate={{ 
-              y: [0, -20, 0],
-              rotate: [0, -8, 8, 0],
-              scale: [1, 1.15, 1]
-            }}
-            transition={{ 
-              duration: 5, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 0.8
-            }}
-          />
-          <motion.img
-            src="/assets/terraform.svg"
-            alt="Terraform"
-            className="tool-icon terraform-icon"
-            animate={{ 
-              y: [0, -20, 0],
-              rotate: [0, 8, -8, 0],
-              scale: [1, 1.15, 1]
-            }}
-            transition={{ 
-              duration: 5, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 1.6
-            }}
-          />
-          <motion.img
-            src="/assets/jenkins.svg"
-            alt="Jenkins"
-            className="tool-icon jenkins-icon"
-            animate={{ 
-              y: [0, -20, 0],
-              rotate: [0, -8, 8, 0],
-              scale: [1, 1.15, 1]
-            }}
-            transition={{ 
-              duration: 5, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 2.4
-            }}
-          />
-          <motion.img
-            src="/assets/github.svg"
-            alt="GitHub"
-            className="tool-icon github-icon"
-            animate={{ 
-              y: [0, -20, 0],
-              rotate: [0, 8, -8, 0],
-              scale: [1, 1.15, 1]
-            }}
-            transition={{ 
-              duration: 5, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 3.2
-            }}
-          />
-        </div>
+
       </div>
       <h1 className="welcome-text">Welcome to My Portfolio</h1>
       <style>{`
@@ -418,47 +336,7 @@ const Loading: React.FC = () => {
           filter: drop-shadow(0 0 4px #38bdf8);
         }
         
-        /* Floating Tools */
-        .floating-tools {
-          position: absolute;
-          top: -50px;
-          left: -50px;
-          width: 500px;
-          height: 500px;
-          pointer-events: none;
-          z-index: 25;
-          overflow: visible;
-        }
-        .tool-icon {
-          position: absolute;
-          width: 36px;
-          height: 36px;
-          filter: drop-shadow(0 0 8px #38bdf8);
-          z-index: 26;
-          opacity: 1;
-          visibility: visible;
-        }
-        .aws-icon {
-          top: 25px;
-          left: 25px;
-        }
-        .docker-icon {
-          top: 25px;
-          right: 25px;
-        }
-        .terraform-icon {
-          bottom: 25px;
-          left: 25px;
-        }
-        .jenkins-icon {
-          bottom: 25px;
-          right: 25px;
-        }
-        .github-icon {
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
+
         
         .welcome-text {
           font-size: 2.2rem;
@@ -499,16 +377,7 @@ const Loading: React.FC = () => {
             top: -20px;
             left: -20px;
           }
-          .floating-tools {
-            width: 380px;
-            height: 380px;
-            top: -30px;
-            left: -30px;
-          }
-          .tool-icon {
-            width: 28px;
-            height: 28px;
-          }
+
           .cloud1, .cloud2 {
             transform: scale(0.8) !important;
           }
@@ -543,16 +412,7 @@ const Loading: React.FC = () => {
             top: -10px;
             left: -10px;
           }
-          .floating-tools {
-            width: 300px;
-            height: 300px;
-            top: -20px;
-            left: -20px;
-          }
-          .tool-icon {
-            width: 24px;
-            height: 24px;
-          }
+
         }
       `}</style>
     </div>
