@@ -144,8 +144,8 @@ const Hero: React.FC = () => {
       <div className="flex-shrink-0 mb-8 md:mb-0 md:mr-12 flex justify-center items-center w-full md:w-auto z-10">
         <motion.div
           className="hero-float-img-glow"
-          animate={{ y: [0, -18, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          animate={{ y: [0, -12, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         >
           <img
             src="/profile.jpg"
