@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Github, Linkedin, Instagram, Download } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const socialLinks = {
   linkedin: 'https://www.linkedin.com/in/amol-lokhande-382976361',
@@ -61,6 +61,95 @@ const Hero: React.FC = () => {
     hover: { boxShadow: '0 0 0 4px #38bdf8, 0 0 16px #38bdf8', scale: 1.15 },
   };
 
+  // Magnetic effect for CTA buttons
+  const MagneticButton: React.FC<{ children: React.ReactNode; href: string; delay?: number; download?: boolean }> = ({ children, href, delay = 0, download = false }) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    
+    const rotateX = useTransform(y, [-50, 50], [15, -15]);
+    const rotateY = useTransform(x, [-50, 50], [-15, 15]);
+    
+    const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      x.set(e.clientX - centerX);
+      y.set(e.clientY - centerY);
+    };
+    
+    const handleMouseLeave = () => {
+      x.set(0);
+      y.set(0);
+    };
+
+    return (
+      <motion.a
+        href={href}
+        download={download}
+        target={download ? undefined : "_blank"}
+        rel={download ? undefined : "noopener noreferrer"}
+        className="cta-btn magnetic-btn"
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }}
+        variants={socialIconVariants}
+        transition={{ delay: 0.1 + delay }}
+      >
+        <motion.div style={{ transform: "translateZ(20px)" }}>
+          {children}
+        </motion.div>
+      </motion.a>
+    );
+  };
+
+  // Magnetic effect for social icons
+  const MagneticSocialIcon: React.FC<{ children: React.ReactNode; href: string; delay?: number }> = ({ children, href, delay = 0 }) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    
+    const rotateX = useTransform(y, [-30, 30], [10, -10]);
+    const rotateY = useTransform(x, [-30, 30], [-10, 10]);
+    
+    const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      x.set(e.clientX - centerX);
+      y.set(e.clientY - centerY);
+    };
+    
+    const handleMouseLeave = () => {
+      x.set(0);
+      y.set(0);
+    };
+
+    return (
+      <motion.a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="p-3 bg-[#1e293b] rounded-full transition shadow-lg social-glow magnetic-social"
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
+        variants={socialIconVariants}
+        transition={{ delay: 0.3 + delay, type: 'spring', stiffness: 400, damping: 18 }}
+      >
+        <motion.div style={{ transform: "translateZ(15px)" }}>
+          {children}
+        </motion.div>
+      </motion.a>
+    );
+  };
+
   return (
     <motion.section
       className="relative min-h-[70vh] flex flex-col md:flex-row justify-center items-center bg-gradient-to-b from-[#0f172a] to-[#19376d] text-white font-['Inter','Poppins',sans-serif] pt-24 pb-16 overflow-hidden"
@@ -99,76 +188,30 @@ const Hero: React.FC = () => {
         <h2 className="text-xl md:text-2xl font-medium mb-6 text-[#38bdf8]">DevOps Engineer | Cloud Enthusiast</h2>
         <p className="max-w-xl mb-8 text-[#cbd5e1]">I build scalable cloud solutions, automate workflows, and love all things DevOps, Docker, and Kubernetes.</p>
         <div className="flex gap-4 mb-4">
-          {/* Resume Button Example (add your link) */}
-          <motion.a
-            href="/assets/resume.pdf"
-            download
-            className="cta-btn"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            variants={socialIconVariants}
-            transition={{ delay: 0.1 }}
-          >
+          <MagneticButton href="/assets/resume.pdf" download>
             <Download className="w-5 h-5 cta-icon" />
             Resume
-          </motion.a>
-          <motion.a
-            href={socialLinks.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cta-btn"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            variants={socialIconVariants}
-            transition={{ delay: 0.2 }}
-          >
+          </MagneticButton>
+          <MagneticButton href={socialLinks.github} delay={0.1}>
             <Github className="w-5 h-5 cta-icon" />
             GitHub
-          </motion.a>
-          <motion.a
-            href={socialLinks.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cta-btn"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            variants={socialIconVariants}
-            transition={{ delay: 0.3 }}
-          >
+          </MagneticButton>
+          <MagneticButton href={socialLinks.linkedin} delay={0.2}>
             <Linkedin className="w-5 h-5 cta-icon" />
             LinkedIn
-          </motion.a>
+          </MagneticButton>
         </div>
         {/* Social Icons */}
         <div className="flex gap-5 mt-2">
-          {[socialLinks.linkedin, socialLinks.github, socialLinks.instagram].map((link, i) => {
-            const Icon = [Linkedin, Github, Instagram][i];
-            return (
-              <motion.a
-                key={link}
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-[#1e293b] rounded-full transition shadow-lg social-glow"
-                initial="hidden"
-                animate="visible"
-                whileHover="hover"
-                variants={socialIconVariants}
-                transition={{ delay: 0.3 + i * 0.15, type: 'spring', stiffness: 400, damping: 18 }}
-              >
-                <Icon className="w-6 h-6" />
-              </motion.a>
-            );
-          })}
+          <MagneticSocialIcon href={socialLinks.linkedin} delay={0}>
+            <Linkedin className="w-6 h-6" />
+          </MagneticSocialIcon>
+          <MagneticSocialIcon href={socialLinks.github} delay={0.15}>
+            <Github className="w-6 h-6" />
+          </MagneticSocialIcon>
+          <MagneticSocialIcon href={socialLinks.instagram} delay={0.3}>
+            <Instagram className="w-6 h-6" />
+          </MagneticSocialIcon>
         </div>
       </div>
       {/* Bottom Animated Wave */}
@@ -244,6 +287,14 @@ const Hero: React.FC = () => {
         }
         .social-glow:hover {
           box-shadow: 0 0 0 4px #38bdf8, 0 0 16px #38bdf8;
+        }
+        .magnetic-btn {
+          transform-style: preserve-3d;
+          perspective: 1000px;
+        }
+        .magnetic-social {
+          transform-style: preserve-3d;
+          perspective: 800px;
         }
       `}</style>
     </motion.section>

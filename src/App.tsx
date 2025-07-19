@@ -4,6 +4,8 @@ import { ThemeToggle } from './components/ThemeToggle';
 import { Hero } from './components/Hero';
 import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
+import { BlogCaseStudy } from './components/BlogCaseStudy';
+import { Certifications } from './components/Certifications';
 import { Contact } from './components/Contact';
 import { Navbar } from './components/Navbar';
 import Loading from './components/Loading';
@@ -39,28 +41,28 @@ function App() {
       <div className="global-waves-bg">
         {/* Parallax SVG Waves */}
         <svg className="wave wave1" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path fill="url(#grad1)" fillOpacity="1">
+          <path fill="url(#grad1)" fillOpacity="0.3">
             <animate attributeName="d" dur="15s" repeatCount="indefinite"
               values="M0,160L60,170C120,180,240,200,360,197C480,194,600,170,720,154C840,138,960,130,1080,144C1200,158,1320,194,1380,208L1440,222L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z;M0,180L60,170C120,160,240,140,360,150C480,160,600,200,720,210C840,220,960,200,1080,180C1200,160,1320,140,1380,130L1440,120L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z;M0,160L60,170C120,180,240,200,360,197C480,194,600,170,720,154C840,138,960,130,1080,144C1200,158,1320,194,1380,208L1440,222L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
             />
           </path>
           <defs>
             <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#38bdf8" />
-              <stop offset="100%" stopColor="#6d3adf" />
+              <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#6d3adf" stopOpacity="0.4" />
             </linearGradient>
           </defs>
         </svg>
         <svg className="wave wave2" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path fill="url(#grad2)" fillOpacity="0.7">
+          <path fill="url(#grad2)" fillOpacity="0.2">
             <animate attributeName="d" dur="15s" repeatCount="indefinite"
               values="M0,240L80,230C160,220,320,200,480,210C640,220,800,250,960,240C1120,230,1280,190,1360,170L1440,150L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z;M0,260L80,250C160,240,320,220,480,230C640,240,800,270,960,260C1120,250,1280,210,1360,190L1440,170L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z;M0,240L80,230C160,220,320,200,480,210C640,220,800,250,960,240C1120,230,1280,190,1360,170L1440,150L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
             />
           </path>
           <defs>
             <linearGradient id="grad2" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#6d3adf" />
-              <stop offset="100%" stopColor="#38bdf8" />
+              <stop offset="0%" stopColor="#6d3adf" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.3" />
             </linearGradient>
           </defs>
         </svg>
@@ -80,6 +82,8 @@ function App() {
             <motion.section variants={sectionVariants} id="hero"><Hero /></motion.section>
             <motion.section variants={sectionVariants} id="skills"><Skills /></motion.section>
             <motion.section variants={sectionVariants} id="projects"><Projects /></motion.section>
+            <motion.section variants={sectionVariants} id="blog"><BlogCaseStudy /></motion.section>
+            <motion.section variants={sectionVariants} id="certifications"><Certifications /></motion.section>
             <motion.section variants={sectionVariants} id="contact"><Contact /></motion.section>
           </motion.div>
         </AnimatePresence>
@@ -128,7 +132,7 @@ function App() {
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 2.5, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut', delay: 1 }}
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41.59.22 1.01.48 1.45.92.44.44.7.86.92 1.45.17.46.354 1.26.41 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43-.22.59-.48 1.01-.92 1.45-.44.44-.7-.86-.92-1.45-.17-.46-.354-1.26-.41-2.43C2.212 15.784 2.2 15.4 2.2 12s.012-3.584.07-4.85c.056-1.17.24-1.97.41-2.43.22-.59.48-1.01.92-1.45.44-.44.86-.7 1.45-.92.46-.17 1.26-.354 2.43-.41C8.416 2.212 8.8 2.2 12 2.2zm0-2.2C8.736 0 8.332.012 7.052.07c-1.276.058-2.15.24-2.91.51-.8.28-1.48.66-2.15 1.33-.67.67-1.05 1.35-1.33 2.15-.27.76-.452 1.634-.51 2.91C.012 8.332 0 8.736 0 12c0 3.264.012 3.668.07 4.948.058 1.276.24 2.15.51 2.91.28.8.66 1.48 1.33 2.15.67.67 1.35 1.05 2.15 1.33.76.27 1.634.452 2.91.51C8.332 23.988 8.736 24 12 24s3.668-.012 4.948-.07c1.276-.058 2.15-.24 2.91-.51.8-.28 1.48-.66 2.15-1.33.67-.67 1.05-1.35 1.33-2.15.27-.76.452-1.634.51-2.91.058-1.28.07-1.684.07-4.948s-.012-3.668-.07-4.948c-.058-1.276-.24-2.15-.51-2.91-.28-.8-.66-1.48-1.33-2.15-.67-.67-1.35-1.05-2.15-1.33-.76-.27-1.634-.452-2.91-.51C15.668.012 15.264 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.844-10.406a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41.59.22 1.01.48 1.45.92.44.44.7.86.92 1.45.17.46.354 1.26.41 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43-.22.59-.48 1.01-.92 1.45-.44.44-.7-.86-.92-1.45-.17-.46-.354-1.26-.41-2.43C2.212 15.784 2.2 15.4 2.2 12s.012-3.584.07-4.85c.056-1.17.24-1.97.41-2.43.22-.59.48-1.01.92-1.45.44-.44.86-.7 1.45-.92.46-.17 1.26-.354 2.43-.41C8.416 2.212 8.8 2.2 12 2.2zm0-2.2C8.736 0 8.332.012 7.052.07c-1.276.058-2.15.24-2.91.51-.8.28-1.48.66-2.15 1.33-.67.67-1.05 1.35-1.33 2.15-.27.76-.452 1.634-.51 2.91C.012 8.332 0 8.736 0 12c0 3.264.012 3.668.07 4.948.058 1.276.24 2.15.51 2.91.28.8.66 1.48 1.33 2.15.67.67 1.35 1.05 1.33-2.15.27-.76.452-1.634.51-2.91.058-1.28.07-1.684.07-4.948s-.012-3.668-.07-4.948c-.058-1.276-.24-2.15-.51-2.91-.28-.8-.66-1.48-1.33-2.15-.67-.67-1.35-1.05-2.15-1.33-.76-.27-1.634-.452-2.91-.51C15.668.012 15.264 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.844-10.406a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
               </motion.a>
             </div>
             <motion.p
@@ -164,8 +168,8 @@ function App() {
               height: 100vh;
               min-height: 320px;
             }
-            .wave1 { top: 0; opacity: 0.7; }
-            .wave2 { top: 0; opacity: 0.5; }
+            .wave1 { top: 0; opacity: 0.3; }
+            .wave2 { top: 0; opacity: 0.2; }
           `}</style>
         </footer>
       </div>

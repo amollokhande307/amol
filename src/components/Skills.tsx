@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const skills = [
   'AWS', 'Docker', 'Kubernetes', 'Terraform', 'Linux', 'CI/CD', 'Git', 'Python', 'Jenkins', 'GitHub Actions', 'Prometheus', 'TypeScript', 'Node.js',
@@ -47,6 +47,61 @@ export const Skills: React.FC = () => {
     };
   }, []);
 
+  // Magnetic effect for skill cards
+  const MagneticSkillCard: React.FC<{ skill: string }> = ({ skill }) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    
+    const rotateX = useTransform(y, [-30, 30], [8, -8]);
+    const rotateY = useTransform(x, [-30, 30], [-8, 8]);
+    
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      x.set(e.clientX - centerX);
+      y.set(e.clientY - centerY);
+    };
+    
+    const handleMouseLeave = () => {
+      x.set(0);
+      y.set(0);
+    };
+
+    return (
+      <motion.div
+        className="glass-card bg-opacity-80 rounded-xl shadow-md flex items-center justify-center h-20 text-black font-bold text-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-lg hover:bg-[#223] hover:text-[#007BFF] hover:underline hover:underline-offset-4 animate-skill-card skill-3d magnetic-skill-card"
+        style={{
+          backdropFilter: 'blur(14px)',
+          background: 'rgba(30, 41, 59, 0.35)',
+          border: '1.5px solid rgba(56, 189, 248, 0.18)',
+          perspective: 600,
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d"
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        variants={cardVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        whileHover={{ 
+          rotateY: 16, 
+          scale: 1.08, 
+          boxShadow: '0 0 32px 8px #38bdf8, 0 2px 8px #007BFF33', 
+          background: 'rgba(56, 189, 248, 0.18)',
+          z: 20
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+      >
+        <motion.div style={{ transform: "translateZ(10px)" }}>
+          {skill}
+        </motion.div>
+      </motion.div>
+    );
+  };
+
   return (
     <motion.section
       className="py-16 px-4 bg-gradient-to-br from-[#0a2342] via-[#19376d] to-[#22223b] font-['Inter','Poppins',sans-serif] relative overflow-hidden"
@@ -75,24 +130,7 @@ export const Skills: React.FC = () => {
       <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-10 relative z-10">Skills & Tools</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto relative z-10">
         {skills.map((skill) => (
-          <motion.div
-            key={skill}
-            className="glass-card bg-opacity-80 rounded-xl shadow-md flex items-center justify-center h-20 text-black font-bold text-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-lg hover:bg-[#223] hover:text-[#007BFF] hover:underline hover:underline-offset-4 animate-skill-card skill-3d"
-            style={{
-              backdropFilter: 'blur(14px)',
-              background: 'rgba(30, 41, 59, 0.35)',
-              border: '1.5px solid rgba(56, 189, 248, 0.18)',
-              perspective: 600,
-            }}
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            whileHover={{ rotateY: 16, scale: 1.08, boxShadow: '0 0 32px 8px #38bdf8, 0 2px 8px #007BFF33', background: 'rgba(56, 189, 248, 0.18)' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 18 }}
-          >
-            {skill}
-          </motion.div>
+          <MagneticSkillCard key={skill} skill={skill} />
         ))}
       </div>
       <style>{`
@@ -119,6 +157,10 @@ export const Skills: React.FC = () => {
         }
         .animate-float-keyword {
           animation: floatKeyword 8s ease-in-out infinite;
+        }
+        .magnetic-skill-card {
+          transform-style: preserve-3d;
+          perspective: 600px;
         }
       `}</style>
     </motion.section>

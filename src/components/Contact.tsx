@@ -9,7 +9,7 @@ import {
   Clock
 } from 'lucide-react';
 import MagneticButton from './MagneticButton';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -32,6 +32,101 @@ export const Contact: React.FC = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  // Magnetic effect for form inputs
+  const MagneticInput: React.FC<{ 
+    type: string; 
+    id: string; 
+    name: string; 
+    value: string; 
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void; 
+    placeholder: string; 
+    required?: boolean; 
+    rows?: number;
+  }> = ({ type, id, name, value, onChange, placeholder, required = false, rows }) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    
+    const rotateX = useTransform(y, [-20, 20], [2, -2]);
+    const rotateY = useTransform(x, [-20, 20], [-2, 2]);
+    
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      x.set(e.clientX - centerX);
+      y.set(e.clientY - centerY);
+    };
+    
+    const handleMouseLeave = () => {
+      x.set(0);
+      y.set(0);
+    };
+
+    const InputComponent = type === 'textarea' ? 'textarea' : 'input';
+    
+    return (
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="magnetic-input-container"
+      >
+        <motion.div style={{ transform: "translateZ(5px)" }}>
+          <InputComponent
+            type={type === 'textarea' ? undefined : type}
+            id={id}
+            name={name}
+            value={value}
+            onChange={onChange}
+            required={required}
+            rows={rows}
+            className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow input-glow"
+            placeholder={placeholder}
+          />
+        </motion.div>
+      </motion.div>
+    );
+  };
+
+  // Magnetic effect for submit button
+  const MagneticSubmitButton: React.FC = () => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    
+    const rotateX = useTransform(y, [-30, 30], [5, -5]);
+    const rotateY = useTransform(x, [-30, 30], [-5, 5]);
+    
+    const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      x.set(e.clientX - centerX);
+      y.set(e.clientY - centerY);
+    };
+    
+    const handleMouseLeave = () => {
+      x.set(0);
+      y.set(0);
+    };
+
+    return (
+      <motion.button
+        type="submit"
+        className="magnetic-submit-btn"
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <motion.div style={{ transform: "translateZ(10px)" }} className="flex items-center gap-2">
+          <Send className="w-5 h-5" />
+          {submitted ? 'Message Sent!' : 'Send Message'}
+        </motion.div>
+      </motion.button>
+    );
   };
 
   return (
@@ -158,14 +253,13 @@ export const Contact: React.FC = () => {
                 <label htmlFor="name" className="block text-sm font-medium text-royal-navy dark:text-yellow-200 mb-2">
                   Name
                 </label>
-                <input
+                <MagneticInput
                   type="text"
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow input-glow"
                   placeholder="Your Name"
                 />
               </div>
@@ -173,14 +267,13 @@ export const Contact: React.FC = () => {
                 <label htmlFor="email" className="block text-sm font-medium text-royal-navy dark:text-yellow-200 mb-2">
                   Email
                 </label>
-                <input
+                <MagneticInput
                   type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow input-glow"
                   placeholder="your@email.com"
                 />
               </div>
@@ -188,38 +281,18 @@ export const Contact: React.FC = () => {
                 <label htmlFor="message" className="block text-sm font-medium text-royal-navy dark:text-yellow-200 mb-2">
                   Message
                 </label>
-                <textarea
+                <MagneticInput
+                  type="textarea"
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 royal-luxury-card rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-500 text-white placeholder-gray-300 bg-[#1e2233] border border-[#2d3650] focus:shadow-glow input-glow resize-none"
                   placeholder="Tell me about your project..."
                 />
               </div>
-              <motion.button
-                type="submit"
-                className="relative overflow-hidden w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 submit-btn"
-                whileHover={{ boxShadow: '0 0 24px 4px #38bdf8' }}
-                whileTap={{ scale: 0.95 }}
-                disabled={submitted}
-              >
-                {submitted ? (
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 18 }}
-                    className="inline-block"
-                  >
-                    ✅
-                  </motion.span>
-                ) : (
-                  <Send className="w-5 h-5" />
-                )}
-                {submitted ? 'Sent!' : 'Send Message'}
-              </motion.button>
+              <MagneticSubmitButton />
             </form>
           </div>
         </div>
@@ -247,6 +320,25 @@ export const Contact: React.FC = () => {
         .submit-btn:disabled {
           opacity: 0.7;
           cursor: not-allowed;
+        }
+        .magnetic-input-container {
+          transform-style: preserve-3d;
+          perspective: 600px;
+        }
+        .magnetic-submit-btn {
+          background: linear-gradient(135deg, #007BFF, #38bdf8);
+          color: white;
+          font-weight: 600;
+          border-radius: 0.5rem;
+          padding: 0.75rem 2rem;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          transform-style: preserve-3d;
+          perspective: 800px;
+        }
+        .magnetic-submit-btn:hover {
+          box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
         }
       `}</style>
     </section>

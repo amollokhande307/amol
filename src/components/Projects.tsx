@@ -98,12 +98,20 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useTransform(x, v => v);
-  const rotateY = useTransform(y, v => v);
+  const rotateX = useTransform(y, v => v);
+  const rotateY = useTransform(x, v => v);
+  
+  // Magnetic effect values
+  const magneticX = useMotionValue(0);
+  const magneticY = useMotionValue(0);
+  const magneticRotateX = useTransform(magneticY, [-30, 30], [5, -5]);
+  const magneticRotateY = useTransform(magneticX, [-30, 30], [-5, 5]);
+  
   const setTilt = (rx: number, ry: number) => {
     x.set(rx);
     y.set(ry);
   };
+  
   // Water ripple effect on click
   const handleRipple = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const card = e.currentTarget;
@@ -114,7 +122,8 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     card.appendChild(ripple);
     setTimeout(() => ripple.remove(), 700);
   };
-  // 3D tilt effect handler
+  
+  // Combined 3D tilt and magnetic effect handler
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) return;
     const card = cardRef.current;
@@ -127,15 +136,23 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const rotateXVal = ((yVal - centerY) / centerY) * 10;
     const rotateYVal = ((xVal - centerX) / centerX) * -10;
     setTilt(rotateXVal, rotateYVal);
+    
+    // Magnetic effect
+    magneticX.set(e.clientX - centerX);
+    magneticY.set(e.clientY - centerY);
   };
+  
   const handleMouseLeave = () => {
     setTilt(0, 0);
+    magneticX.set(0);
+    magneticY.set(0);
   };
+  
   return (
     <motion.div
       key={project.title}
       ref={cardRef}
-      className="relative glass-card bg-opacity-90 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 flex flex-col gap-3 sm:gap-4 transition-transform duration-200 cursor-pointer group overflow-hidden project-card min-h-[170px]"
+      className="relative glass-card bg-opacity-90 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 flex flex-col gap-3 sm:gap-4 transition-transform duration-200 cursor-pointer group overflow-hidden project-card min-h-[170px] magnetic-project-card"
       style={{
         rotateX,
         rotateY,
@@ -145,6 +162,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
         background: 'rgba(30, 41, 59, 0.35)',
         border: '1.5px solid rgba(56, 189, 248, 0.18)',
         perspective: 800,
+        transformStyle: "preserve-3d"
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -161,26 +179,34 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       }}
       transition={{ type: 'spring', stiffness: 300, damping: 18 }}
     >
-      <h3 className="text-lg sm:text-xl font-bold text-black mb-1 sm:mb-2 break-words">{project.title}</h3>
-      <div className="flex gap-2 sm:gap-3 mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        {project.github && (
-          <motion.a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="code-btn p-2 sm:p-2 bg-[#22223b] rounded-full hover:bg-[#007BFF] transition relative overflow-hidden group"
-            whileTap={{ scale: 0.92 }}
-          >
-            <Github className="w-5 h-5 text-[#38bdf8] group-hover:text-white" />
-            <span className="absolute left-1/2 bottom-1.5 w-0 h-0.5 bg-[#38bdf8] group-hover:w-4/5 transition-all duration-300 origin-center rounded-full" />
-          </motion.a>
-        )}
-        {project.linkedin && (
-          <a href={project.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 sm:p-2 bg-[#22223b] rounded-full hover:bg-[#38bdf8] transition">
-            <Linkedin className="w-5 h-5 text-[#007BFF] group-hover:text-white" />
-          </a>
-        )}
-      </div>
+      <motion.div style={{ transform: "translateZ(15px)" }}>
+        <h3 className="text-lg sm:text-xl font-bold text-black mb-1 sm:mb-2 break-words">{project.title}</h3>
+        <div className="flex gap-2 sm:gap-3 mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          {project.github && (
+            <motion.a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="code-btn p-2 sm:p-2 bg-[#22223b] rounded-full hover:bg-[#007BFF] transition relative overflow-hidden group"
+              whileTap={{ scale: 0.92 }}
+            >
+              <Github className="w-5 h-5 text-[#38bdf8] group-hover:text-white" />
+              <span className="absolute left-1/2 bottom-1.5 w-0 h-0.5 bg-[#38bdf8] group-hover:w-4/5 transition-all duration-300 origin-center rounded-full" />
+            </motion.a>
+          )}
+          {project.linkedin && (
+            <motion.a
+              href={project.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 sm:p-2 bg-[#22223b] rounded-full hover:bg-[#38bdf8] transition"
+              whileTap={{ scale: 0.92 }}
+            >
+              <Linkedin className="w-5 h-5 text-[#007BFF] group-hover:text-white" />
+            </motion.a>
+          )}
+        </div>
+      </motion.div>
       {/* Water Ripple Animation */}
       <span className="absolute inset-0 pointer-events-none">
         {/* Ripple will be injected here on click */}
@@ -265,6 +291,10 @@ export const Projects: React.FC = () => {
           0% { box-shadow: 0 0 0 0 #38bdf8; }
           70% { box-shadow: 0 0 0 8px #38bdf822; }
           100% { box-shadow: 0 0 0 0 #38bdf8; }
+        }
+        .magnetic-project-card {
+          transform-style: preserve-3d;
+          perspective: 800px;
         }
       `}</style>
     </motion.section>
