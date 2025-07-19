@@ -64,6 +64,20 @@ export const Contact: React.FC = () => {
       y.set(0);
     };
 
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const touch = e.touches[0];
+      x.set(touch.clientX - centerX);
+      y.set(touch.clientY - centerY);
+    };
+
+    const handleTouchEnd = () => {
+      x.set(0);
+      y.set(0);
+    };
+
     const InputComponent = type === 'textarea' ? 'textarea' : 'input';
     
     return (
@@ -71,6 +85,8 @@ export const Contact: React.FC = () => {
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         className="magnetic-input-container"
       >
         <motion.div style={{ transform: "translateZ(5px)" }}>
@@ -111,6 +127,20 @@ export const Contact: React.FC = () => {
       y.set(0);
     };
 
+    const handleTouchMove = (e: React.TouchEvent<HTMLButtonElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const touch = e.touches[0];
+      x.set(touch.clientX - centerX);
+      y.set(touch.clientY - centerY);
+    };
+
+    const handleTouchEnd = () => {
+      x.set(0);
+      y.set(0);
+    };
+
     return (
       <motion.button
         type="submit"
@@ -118,6 +148,8 @@ export const Contact: React.FC = () => {
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >

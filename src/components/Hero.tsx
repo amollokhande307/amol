@@ -82,6 +82,20 @@ const Hero: React.FC = () => {
       y.set(0);
     };
 
+    const handleTouchMove = (e: React.TouchEvent<HTMLAnchorElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const touch = e.touches[0];
+      x.set(touch.clientX - centerX);
+      y.set(touch.clientY - centerY);
+    };
+
+    const handleTouchEnd = () => {
+      x.set(0);
+      y.set(0);
+    };
+
     return (
       <motion.a
         href={href}
@@ -92,6 +106,8 @@ const Hero: React.FC = () => {
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         initial="hidden"
@@ -128,6 +144,20 @@ const Hero: React.FC = () => {
       y.set(0);
     };
 
+    const handleTouchMove = (e: React.TouchEvent<HTMLAnchorElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const touch = e.touches[0];
+      x.set(touch.clientX - centerX);
+      y.set(touch.clientY - centerY);
+    };
+
+    const handleTouchEnd = () => {
+      x.set(0);
+      y.set(0);
+    };
+
     return (
       <motion.a
         href={href}
@@ -137,6 +167,8 @@ const Hero: React.FC = () => {
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         initial="hidden"
         animate="visible"
         whileHover="hover"

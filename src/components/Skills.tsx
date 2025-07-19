@@ -68,6 +68,20 @@ export const Skills: React.FC = () => {
       y.set(0);
     };
 
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const touch = e.touches[0];
+      x.set(touch.clientX - centerX);
+      y.set(touch.clientY - centerY);
+    };
+
+    const handleTouchEnd = () => {
+      x.set(0);
+      y.set(0);
+    };
+
     return (
       <motion.div
         className="glass-card bg-opacity-80 rounded-xl shadow-md flex items-center justify-center h-20 text-black font-bold text-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-lg hover:bg-[#223] hover:text-[#007BFF] hover:underline hover:underline-offset-4 animate-skill-card skill-3d magnetic-skill-card"
@@ -82,6 +96,8 @@ export const Skills: React.FC = () => {
         }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         variants={cardVariants}
         initial="hidden"
         whileInView="visible"

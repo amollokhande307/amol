@@ -104,8 +104,6 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   // Magnetic effect values
   const magneticX = useMotionValue(0);
   const magneticY = useMotionValue(0);
-  const magneticRotateX = useTransform(magneticY, [-30, 30], [5, -5]);
-  const magneticRotateY = useTransform(magneticX, [-30, 30], [-5, 5]);
   
   const setTilt = (rx: number, ry: number) => {
     x.set(rx);
@@ -147,6 +145,30 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     magneticX.set(0);
     magneticY.set(0);
   };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const touch = e.touches[0];
+    const xVal = touch.clientX - rect.left;
+    const yVal = touch.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateXVal = ((yVal - centerY) / centerY) * 5; // Reduced for touch
+    const rotateYVal = ((xVal - centerX) / centerX) * -5; // Reduced for touch
+    setTilt(rotateXVal, rotateYVal);
+    
+    // Magnetic effect
+    magneticX.set(touch.clientX - centerX);
+    magneticY.set(touch.clientY - centerY);
+  };
+
+  const handleTouchEnd = () => {
+    setTilt(0, 0);
+    magneticX.set(0);
+    magneticY.set(0);
+  };
   
   return (
     <motion.div
@@ -166,6 +188,8 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       onClick={handleRipple}
       variants={cardVariants}
       initial="hidden"
