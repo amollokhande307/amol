@@ -220,26 +220,29 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     >
       <motion.div style={{ transform: "translateZ(15px)" }}>
         <h3 className="text-lg sm:text-xl font-bold text-black mb-1 sm:mb-2 break-words">{project.title}</h3>
-        <div className="flex gap-2 sm:gap-3 mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="flex gap-3 sm:gap-4 mt-2 mb-1 w-full justify-start items-center project-card-btns">
           {project.github && (
             <motion.button
               onClick={() => window.open(project.github, '_blank')}
-              className="code-btn p-2 sm:p-2 bg-[#22223b] rounded-full hover:bg-[#007BFF] transition relative overflow-hidden group"
+              className="code-btn p-3 sm:p-3 bg-[#22223b] rounded-full hover:bg-[#007BFF] focus:bg-[#007BFF] focus:outline-none transition relative overflow-hidden group shadow-md focus:ring-2 focus:ring-[#38bdf8]"
               whileTap={{ scale: 0.92 }}
               whileHover={{ scale: 1.1 }}
+              aria-label="View GitHub Repository"
             >
-              <Github className="w-5 h-5 text-[#38bdf8] group-hover:text-white" />
-              <span className="absolute left-1/2 bottom-1.5 w-0 h-0.5 bg-[#38bdf8] group-hover:w-4/5 transition-all duration-300 origin-center rounded-full" />
+              <Github className="w-6 h-6 text-[#38bdf8] group-hover:text-white group-focus:text-white" />
+              <span className="sr-only">GitHub</span>
             </motion.button>
           )}
           {project.linkedin && (
             <motion.button
               onClick={() => window.open(project.linkedin, '_blank')}
-              className="p-2 sm:p-2 bg-[#22223b] rounded-full hover:bg-[#38bdf8] transition"
+              className="p-3 sm:p-3 bg-[#22223b] rounded-full hover:bg-[#38bdf8] focus:bg-[#38bdf8] focus:outline-none transition shadow-md focus:ring-2 focus:ring-[#007BFF]"
               whileTap={{ scale: 0.92 }}
               whileHover={{ scale: 1.1 }}
+              aria-label="View LinkedIn Post"
             >
-              <Linkedin className="w-5 h-5 text-[#007BFF] group-hover:text-white" />
+              <Linkedin className="w-6 h-6 text-[#007BFF] group-hover:text-white group-focus:text-white" />
+              <span className="sr-only">LinkedIn</span>
             </motion.button>
           )}
         </div>
@@ -540,6 +543,26 @@ export const Projects: React.FC = () => {
         .magnetic-project-card {
           transform-style: preserve-3d;
           perspective: 800px;
+        }
+        .project-card-btns {
+          opacity: 1 !important;
+          transition: opacity 0.2s;
+        }
+        .project-card .project-card-btns {
+          opacity: 1 !important;
+        }
+        .project-card .code-btn, .project-card .project-card-btns button {
+          min-width: 44px;
+          min-height: 44px;
+          font-size: 1rem;
+          touch-action: manipulation;
+        }
+        @media (max-width: 640px) {
+          .project-card .code-btn, .project-card .project-card-btns button {
+            min-width: 48px;
+            min-height: 48px;
+            font-size: 1.1rem;
+          }
         }
       `}</style>
     </motion.section>

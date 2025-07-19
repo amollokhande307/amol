@@ -102,7 +102,7 @@ const Hero: React.FC = () => {
       </div>
       {/* Profile Photo with glow */}
       <div className="flex-shrink-0 mb-8 md:mb-0 md:mr-12 flex justify-center items-center w-full md:w-auto z-10">
-        <div className="hero-float-img-glow">
+        <div className="hero-float-img-glow animate-hero-float">
           <img
             src="/profile.jpg"
             alt="Amol Lokhande"
@@ -143,11 +143,18 @@ const Hero: React.FC = () => {
       </div>
       <style>{`
         .animate-hero-wave {
-          animation: heroWaveMove 7s linear infinite alternate;
+          animation: heroWaveMove 14s linear infinite alternate;
         }
         @keyframes heroWaveMove {
           0% { transform: translateX(0); }
           100% { transform: translateX(-40px); }
+        }
+        .animate-hero-float {
+          animation: heroFloat 7s ease-in-out infinite alternate;
+        }
+        @keyframes heroFloat {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-18px); }
         }
         .hero-float-img-glow {
           filter: drop-shadow(0 0 24px #38bdf8cc);
