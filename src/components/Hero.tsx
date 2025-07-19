@@ -163,7 +163,7 @@ const Hero: React.FC = () => {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="p-3 bg-[#1e293b] rounded-full transition shadow-lg social-glow magnetic-social enhanced-social-icon"
+        className="p-3 bg-[#1e293b] rounded-full transition shadow-lg social-glow magnetic-social enhanced-social-icon relative z-10"
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -424,6 +424,30 @@ const Hero: React.FC = () => {
         .enhanced-social-icon:hover {
           transform: translateY(-2px);
           box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+        }
+        
+        /* Ensure social icons are always visible */
+        .enhanced-social-icon {
+          opacity: 1 !important;
+          visibility: visible !important;
+          z-index: 10;
+          will-change: transform;
+        }
+        
+        .enhanced-social-icon:hover {
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+        
+        .magnetic-social {
+          opacity: 1 !important;
+          visibility: visible !important;
+          z-index: 10;
+        }
+        
+        .magnetic-social:hover {
+          opacity: 1 !important;
+          visibility: visible !important;
         }
       `}</style>
     </motion.section>

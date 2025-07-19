@@ -285,7 +285,7 @@ const Loading: React.FC = () => {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          overflow: hidden;
+          overflow: visible;
         }
         .lottie-wrapper {
           display: flex;
@@ -295,6 +295,7 @@ const Loading: React.FC = () => {
           position: relative;
           width: 400px;
           height: 400px;
+          overflow: visible;
         }
         
         /* AWS Cloud Infrastructure */
@@ -305,10 +306,15 @@ const Loading: React.FC = () => {
           width: 520px;
           height: 520px;
           pointer-events: none;
+          z-index: 10;
+          overflow: visible;
         }
         .cloud {
           position: absolute;
           filter: drop-shadow(0 0 12px #FF9900);
+          z-index: 12;
+          opacity: 1;
+          visibility: visible;
         }
         .cloud1 {
           top: 30px;
@@ -324,6 +330,9 @@ const Loading: React.FC = () => {
           left: 50%;
           transform: translate(-50%, -50%);
           filter: drop-shadow(0 0 15px #FF9900);
+          z-index: 13;
+          opacity: 1;
+          visibility: visible;
         }
         
         /* DevOps CI/CD Pipeline */
@@ -334,10 +343,15 @@ const Loading: React.FC = () => {
           width: 480px;
           height: 480px;
           pointer-events: none;
+          z-index: 15;
+          overflow: visible;
         }
         .gear {
           position: absolute;
           filter: drop-shadow(0 0 10px #38bdf8);
+          z-index: 16;
+          opacity: 1;
+          visibility: visible;
         }
         .gear1 {
           top: 50px;
@@ -384,6 +398,8 @@ const Loading: React.FC = () => {
           width: 440px;
           height: 440px;
           pointer-events: none;
+          z-index: 20;
+          overflow: visible;
         }
         .container {
           position: absolute;
@@ -410,12 +426,17 @@ const Loading: React.FC = () => {
           width: 500px;
           height: 500px;
           pointer-events: none;
+          z-index: 25;
+          overflow: visible;
         }
         .tool-icon {
           position: absolute;
           width: 36px;
           height: 36px;
           filter: drop-shadow(0 0 8px #38bdf8);
+          z-index: 26;
+          opacity: 1;
+          visibility: visible;
         }
         .aws-icon {
           top: 25px;
