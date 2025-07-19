@@ -159,7 +159,7 @@ export const BlogCaseStudy: React.FC = () => {
           display: inline-block;
           transition: transform 0.2s;
         }
-        .arrow.group-hover\:animate-arrow-bounce {
+        .arrow.group-hover\\:animate-arrow-bounce {
           animation: arrowBounce 0.7s;
         }
         @keyframes arrowBounce {

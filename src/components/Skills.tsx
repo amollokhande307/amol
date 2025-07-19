@@ -29,7 +29,7 @@ export const Skills: React.FC = () => {
     const container = containerRef.current;
     if (!container) return;
     const spans = Array.from(container.querySelectorAll('.floating-keyword')) as HTMLSpanElement[];
-    spans.forEach((span, i) => {
+    spans.forEach((span) => {
       const animate = () => {
         const x = Math.random() * 90;
         const y = Math.random() * 80;
