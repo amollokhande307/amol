@@ -140,27 +140,15 @@ const Hero: React.FC = () => {
           <path d="M0,60 C360,20 1080,100 1440,60 L1440,90 L0,90 Z" fill="#007BFF" fillOpacity="0.2" />
         </svg>
       </div>
-      {/* Profile Photo with floating animation and glow */}
+      {/* Profile Photo with glow */}
       <div className="flex-shrink-0 mb-8 md:mb-0 md:mr-12 flex justify-center items-center w-full md:w-auto z-10">
-        <motion.div
-          className="hero-float-img-glow"
-          animate={{ 
-            y: [0, -8, 0],
-            opacity: [1, 0.95, 1]
-          }}
-          transition={{ 
-            duration: 15, 
-            repeat: Infinity, 
-            ease: [0.4, 0, 0.6, 1],
-            repeatDelay: 0.5
-          }}
-        >
+        <div className="hero-float-img-glow">
           <img
             src="/profile.jpg"
             alt="Amol Lokhande"
             className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-4 border-[#38bdf8] shadow-xl bg-white profile-glow"
           />
-        </motion.div>
+        </div>
       </div>
       {/* Main Content */}
       <div className="flex flex-col items-center md:items-start text-center md:text-left z-10">
