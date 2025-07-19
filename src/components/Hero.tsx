@@ -145,7 +145,7 @@ const Hero: React.FC = () => {
         <motion.div
           className="hero-float-img-glow"
           animate={{ y: [0, -18, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         >
           <img
             src="/profile.jpg"
