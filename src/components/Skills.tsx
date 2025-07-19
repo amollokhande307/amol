@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 const skills = [
-  'AWS', 'Docker', 'Kubernetes', 'Terraform', 'Linux', 'CI/CD', 'Git', 'Python', 'Jenkins', 'GitHub Actions', 'Prometheus', 'Grafana', 'TypeScript', 'Node.js',
+  'AWS', 'Docker', 'Kubernetes', 'Terraform', 'Linux', 'CI/CD', 'Git', 'Python', 'Jenkins', 'GitHub Actions', 'Prometheus', 'TypeScript', 'Node.js',
 ];
 
 const keywords = [
@@ -57,9 +57,9 @@ export const Skills: React.FC = () => {
     >
       {/* Floating Keywords */}
       <div ref={containerRef} className="absolute inset-0 pointer-events-none z-0">
-        {keywords.map((kw, i) => (
+        {keywords.map((kw) => (
           <span
-            key={kw + i}
+            key={kw}
             className="floating-keyword text-[#38bdf8] text-xs md:text-base font-bold absolute animate-float-keyword select-none"
             style={{
               left: `${Math.random() * 90}%`,
@@ -74,10 +74,10 @@ export const Skills: React.FC = () => {
       </div>
       <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-10 relative z-10">Skills & Tools</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto relative z-10">
-        {skills.map((skill, idx) => (
+        {skills.map((skill) => (
           <motion.div
             key={skill}
-            className="glass-card bg-opacity-80 rounded-xl shadow-md flex items-center justify-center h-20 text-[#38bdf8] text-lg font-semibold transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-lg hover:bg-[#223] hover:text-[#007BFF] hover:underline hover:underline-offset-4 animate-skill-card skill-3d"
+            className="glass-card bg-opacity-80 rounded-xl shadow-md flex items-center justify-center h-20 text-black font-bold text-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-lg hover:bg-[#223] hover:text-[#007BFF] hover:underline hover:underline-offset-4 animate-skill-card skill-3d"
             style={{
               backdropFilter: 'blur(14px)',
               background: 'rgba(30, 41, 59, 0.35)',

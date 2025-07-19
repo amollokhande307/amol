@@ -16,6 +16,7 @@ body {
   color: #1e293b;
   line-height: 1.6;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* Navy Blue, Light Yellow & Black Theme Variables */

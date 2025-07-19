@@ -226,9 +226,9 @@ export const Contact: React.FC = () => {
       </div>
       <style>{`
         .contact-gradient-bg {
-          background: linear-gradient(135deg, #181c24 0%, #19376d 100%);
+          background: linear-gradient(135deg, #18181b 0%, #19376d 100%);
         }
-        .focus\:shadow-glow:focus {
+        .focus:shadow-glow:focus {
           box-shadow: 0 0 0 3px #38bdf8cc, 0 2px 8px #007BFF33;
           border-color: #38bdf8;
         }

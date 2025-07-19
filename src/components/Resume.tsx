@@ -8,39 +8,22 @@ const resumeData = {
   summary: 'Results-driven DevOps Engineer with experience in cloud infrastructure, automation, and CI/CD pipelines. Passionate about building scalable solutions and optimizing workflows.',
   education: [
     {
-      degree: 'B.Tech in Computer Science',
-      school: 'Savitribai Phule Pune University',
-      year: '2019 – 2023',
+      degree: 'BSC (HONS) Computer Science',
+      school: 'MGM University',
+      year: '2023 – 2027',
+      location: 'CHH Sambhaji Nagar',
     },
   ],
   experience: [
     {
       role: 'DevOps Engineer',
-      company: 'Tata Consultancy Services',
-      period: '2023 – Present',
-      details: [
-        'Implemented CI/CD pipelines using Jenkins and GitHub Actions.',
-        'Managed Kubernetes clusters and automated deployments.',
-        'Worked with AWS and Azure cloud services.'
-      ],
-    },
-    {
-      role: 'Cloud Intern',
-      company: 'Infosys',
-      period: '2022 – 2023',
-      details: [
-        'Assisted in cloud migration projects.',
-        'Automated infrastructure provisioning with Terraform.'
-      ],
+      company: 'Linux World Intern',
+      period: '',
+      details: [],
     },
   ],
   skills: [
     'AWS', 'Azure', 'Docker', 'Kubernetes', 'Terraform', 'Linux', 'CI/CD', 'Git', 'Python', 'Shell Scripting'
-  ],
-  certifications: [
-    'AWS Certified Solutions Architect – Associate',
-    'Certified Kubernetes Administrator (CKA)',
-    'Microsoft Certified: Azure Fundamentals',
   ],
 };
 
@@ -48,7 +31,7 @@ const cardVariants = {
   hidden: { opacity: 0, x: -60, scale: 0.98 },
   visible: (i: number) => ({
     opacity: 1, x: 0, scale: 1,
-    transition: { duration: 0.7, delay: i * 0.13, type: 'spring', stiffness: 180, damping: 18 },
+    transition: { duration: 0.7, delay: i * 0.13, type: 'spring' as const, stiffness: 180, damping: 18 },
   }),
 };
 
@@ -103,13 +86,8 @@ const Resume: React.FC = () => {
                 <li key={idx} className="mb-2">
                   <span className="font-bold">{edu.degree}</span><br />
                   <span>{edu.school}</span> <span className="text-[#94a3b8]">({edu.year})</span>
+                  <span className="text-[#94a3b8]"> ({edu.location})</span>
                 </li>
-              ))}
-            </ul>
-            <h3 className="text-xl font-semibold text-[#38bdf8] mt-6 mb-2">Certifications</h3>
-            <ul>
-              {resumeData.certifications.map((cert, idx) => (
-                <li key={idx} className="mb-1 list-disc list-inside">{cert}</li>
               ))}
             </ul>
           </motion.div>
@@ -133,14 +111,6 @@ const Resume: React.FC = () => {
                 </ul>
               </div>
             ))}
-            <h3 className="text-xl font-semibold text-[#38bdf8] mt-6 mb-2">Skills</h3>
-            <div className="flex flex-wrap gap-2">
-              {resumeData.skills.map((skill, idx) => (
-                <span key={idx} className="bg-[#1e293b] text-[#38bdf8] px-3 py-1 rounded-full text-sm font-medium shadow hover:scale-105 hover:bg-[#0f172a] transition-transform duration-200 cursor-pointer">
-                  {skill}
-                </span>
-              ))}
-            </div>
           </motion.div>
         </div>
         <style>{`

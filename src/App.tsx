@@ -4,8 +4,6 @@ import { ThemeToggle } from './components/ThemeToggle';
 import { Hero } from './components/Hero';
 import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
-import { BlogCaseStudy } from './components/BlogCaseStudy';
-import { Certifications } from './components/Certifications';
 import { Contact } from './components/Contact';
 import { Navbar } from './components/Navbar';
 import Loading from './components/Loading';
@@ -82,32 +80,30 @@ function App() {
             <motion.section variants={sectionVariants} id="hero"><Hero /></motion.section>
             <motion.section variants={sectionVariants} id="skills"><Skills /></motion.section>
             <motion.section variants={sectionVariants} id="projects"><Projects /></motion.section>
-            <motion.section variants={sectionVariants} id="blog"><BlogCaseStudy /></motion.section>
-            <motion.section variants={sectionVariants} id="certifications"><Certifications /></motion.section>
             <motion.section variants={sectionVariants} id="contact"><Contact /></motion.section>
           </motion.div>
         </AnimatePresence>
         {/* Footer */}
-        <footer className="relative py-8 bg-transparent text-[#222] dark:text-white text-center border-t-2 border-[#007BFF]/30 overflow-hidden">
+        <footer className="relative py-8 bg-transparent text-[#222] dark:text-white text-center border-t-2 border-[#007BFF]/30 overflow-hidden overflow-x-hidden">
           {/* Animated Footer Waves */}
-          <div className="absolute left-0 top-0 w-full overflow-hidden pointer-events-none z-0" style={{height: 60}}>
+          <div className="absolute left-0 top-0 w-full max-w-full overflow-hidden pointer-events-none z-0" style={{height: 60}}>
             <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full animate-footer-wave">
               <path d="M0,20 C480,60 960,0 1440,20 L1440,60 L0,60 Z" fill="#38bdf8" fillOpacity="0.3" />
               <path d="M0,40 C360,10 1080,50 1440,40 L1440,60 L0,60 Z" fill="#007BFF" fillOpacity="0.2" />
             </svg>
           </div>
           <motion.div
-            className="relative z-10 flex flex-col items-center gap-4"
+            className="relative z-10 flex flex-col items-center gap-4 sm:gap-3"
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: 0.3 }}
           >
-            <div className="flex gap-5 mb-2">
+            <div className="flex gap-5 sm:gap-3 mb-2 flex-wrap justify-center">
               <motion.a
                 href="https://github.com/amollokhande307"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-[#1e293b] rounded-full transition shadow-lg text-white hover:bg-[#38bdf8]"
+                className="p-3 sm:p-2 bg-[#1e293b] rounded-full transition shadow-lg text-white hover:bg-[#38bdf8]"
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 2.5, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut', delay: 0 }}
               >
@@ -118,7 +114,7 @@ function App() {
                 href="https://www.linkedin.com/in/amol-lokhande-382976361"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-[#1e293b] rounded-full transition shadow-lg text-white hover:bg-[#38bdf8]"
+                className="p-3 sm:p-2 bg-[#1e293b] rounded-full transition shadow-lg text-white hover:bg-[#38bdf8]"
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 2.5, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut', delay: 0.5 }}
               >
@@ -128,15 +124,15 @@ function App() {
                 href="https://www.instagram.com/amol_lokhande_02"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-[#1e293b] rounded-full transition shadow-lg text-white hover:bg-[#38bdf8]"
+                className="p-3 sm:p-2 bg-[#1e293b] rounded-full transition shadow-lg text-white hover:bg-[#38bdf8]"
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 2.5, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut', delay: 1 }}
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41.59.22 1.01.48 1.45.92.44.44.7.86.92 1.45.17.46.354 1.26.41 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43-.22.59-.48 1.01-.92 1.45-.44.44-.86.7-1.45.92-.46.17-1.26.354-2.43.41-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.43-.41-.59-.22-1.01-.48-1.45-.92-.44-.44-.7-.86-.92-1.45-.17-.46-.354-1.26-.41-2.43C2.212 15.784 2.2 15.4 2.2 12s.012-3.584.07-4.85c.056-1.17.24-1.97.41-2.43.22-.59.48-1.01.92-1.45.44-.44.86-.7 1.45-.92.46-.17 1.26-.354 2.43-.41C8.416 2.212 8.8 2.2 12 2.2zm0-2.2C8.736 0 8.332.012 7.052.07c-1.276.058-2.15.24-2.91.51-.8.28-1.48.66-2.15 1.33-.67.67-1.05 1.35-1.33 2.15-.27.76-.452 1.634-.51 2.91C.012 8.332 0 8.736 0 12c0 3.264.012 3.668.07 4.948.058 1.276.24 2.15.51 2.91.28.8.66 1.48 1.33 2.15.67.67 1.35 1.05 2.15 1.33.76.27 1.634.452 2.91.51C8.332 23.988 8.736 24 12 24s3.668-.012 4.948-.07c1.276-.058 2.15-.24 2.91-.51.8-.28 1.48-.66 2.15-1.33.67-.67 1.05-1.35 1.33-2.15.27-.76.452-1.634.51-2.91.058-1.28.07-1.684.07-4.948s-.012-3.668-.07-4.948c-.058-1.276-.24-2.15-.51-2.91-.28-.8-.66-1.48-1.33-2.15-.67-.67-1.35-1.05-2.15-1.33-.76-.27-1.634-.452-2.91-.51C15.668.012 15.264 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.844-10.406a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41.59.22 1.01.48 1.45.92.44.44.7.86.92 1.45.17.46.354 1.26.41 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43-.22.59-.48 1.01-.92 1.45-.44.44-.7-.86-.92-1.45-.17-.46-.354-1.26-.41-2.43C2.212 15.784 2.2 15.4 2.2 12s.012-3.584.07-4.85c.056-1.17.24-1.97.41-2.43.22-.59.48-1.01.92-1.45.44-.44.86-.7 1.45-.92.46-.17 1.26-.354 2.43-.41C8.416 2.212 8.8 2.2 12 2.2zm0-2.2C8.736 0 8.332.012 7.052.07c-1.276.058-2.15.24-2.91.51-.8.28-1.48.66-2.15 1.33-.67.67-1.05 1.35-1.33 2.15-.27.76-.452 1.634-.51 2.91C.012 8.332 0 8.736 0 12c0 3.264.012 3.668.07 4.948.058 1.276.24 2.15.51 2.91.28.8.66 1.48 1.33 2.15.67.67 1.35 1.05 2.15 1.33.76.27 1.634.452 2.91.51C8.332 23.988 8.736 24 12 24s3.668-.012 4.948-.07c1.276-.058 2.15-.24 2.91-.51.8-.28 1.48-.66 2.15-1.33.67-.67 1.05-1.35 1.33-2.15.27-.76.452-1.634.51-2.91.058-1.28.07-1.684.07-4.948s-.012-3.668-.07-4.948c-.058-1.276-.24-2.15-.51-2.91-.28-.8-.66-1.48-1.33-2.15-.67-.67-1.35-1.05-2.15-1.33-.76-.27-1.634-.452-2.91-.51C15.668.012 15.264 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.844-10.406a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
               </motion.a>
             </div>
             <motion.p
-              className="text-[#007BFF] dark:text-[#007BFF] mt-2"
+              className="text-[#007BFF] dark:text-[#007BFF] mt-2 text-base sm:text-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.2, delay: 1.2 }}

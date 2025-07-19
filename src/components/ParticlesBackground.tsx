@@ -1,74 +1,44 @@
 import React from 'react';
-import Particles from 'react-tsparticles';
-import { loadFull } from 'tsparticles';
+import { motion } from 'framer-motion';
 
-const ParticlesBackground: React.FC = () => {
-  const particlesInit = async (main: any) => {
-    await loadFull(main);
-  };
+const icons = [
+  '/assets/aws.svg',
+  '/assets/docker.svg',
+  '/assets/terraform.svg',
+  '/assets/jenkins.svg',
+  '/assets/github.svg',
+];
 
-  // Hide on mobile
-  if (typeof window !== 'undefined' && window.innerWidth < 768) return null;
-
-  return (
-    <div className="fixed inset-0 -z-10 pointer-events-none hidden md:block">
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={{
-          fullScreen: false,
-          background: { color: 'transparent' },
-          fpsLimit: 60,
-          interactivity: {
-            events: {
-              onHover: { enable: true, mode: 'repulse' },
-              resize: true,
-            },
-            modes: {
-              repulse: { distance: 80, duration: 0.4 },
-            },
-          },
-          particles: {
-            color: { value: ['#38bdf8', '#007BFF', '#fff'] },
-            links: {
-              enable: true,
-              color: '#38bdf8',
-              distance: 120,
-              opacity: 0.15,
-              width: 1,
-            },
-            move: {
-              enable: true,
-              speed: 0.6,
-              direction: 'none',
-              random: true,
-              straight: false,
-              outModes: { default: 'out' },
-              attract: { enable: false },
-            },
-            number: {
-              value: 40,
-              density: { enable: true, area: 900 },
-            },
-            opacity: {
-              value: 0.18,
-              random: true,
-              anim: { enable: false },
-            },
-            shape: {
-              type: ['circle', 'star'],
-            },
-            size: {
-              value: { min: 1, max: 3 },
-              random: true,
-              anim: { enable: false },
-            },
-          },
-          detectRetina: true,
+const ParticlesBackground: React.FC = () => (
+  <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+    {icons.map((icon, i) => (
+      <motion.img
+        key={icon}
+        src={icon}
+        alt="devops-icon"
+        className="absolute"
+        style={{
+          left: `${10 + (i * 18)}%`,
+          top: `${15 + (i * 12)}%`,
+          width: 36,
+          height: 36,
+          opacity: 0.18 + (i * 0.1),
+        }}
+        animate={{
+          y: [0, -24, 0],
+          x: [0, 12, 0],
+          rotate: [0, 12, -12, 0],
+        }}
+        transition={{
+          duration: 12 + i * 2,
+          repeat: Infinity,
+          repeatType: 'loop',
+          ease: 'easeInOut',
+          delay: i * 1.2,
         }}
       />
-    </div>
-  );
-};
+    ))}
+  </div>
+);
 
 export default ParticlesBackground; 

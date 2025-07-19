@@ -5,13 +5,18 @@ const Loading: React.FC = () => {
   return (
     <div className="loading-container">
       <div className="lottie-wrapper">
-        {/* Luffy's Straw Hat Lottie animation (replace src with actual Lottie JSON if available) */}
+        {/* Lottie robot with AWS cloud and DevOps tools */}
         <Player
           autoplay
           loop
-          src="https://assets2.lottiefiles.com/packages/lf20_1pxqjqps.json" // Placeholder Lottie (replace with Luffy's hat if available)
+          src="https://assets2.lottiefiles.com/packages/lf20_9wpyhdzo.json" // Example robot Lottie
           style={{ height: '180px', width: '180px' }}
         />
+        <div className="devops-icons">
+          <img src="/assets/aws.svg" alt="AWS" className="icon" />
+          <img src="/assets/docker.svg" alt="Docker" className="icon" />
+          <img src="/assets/ci-cd.svg" alt="CI/CD" className="icon" />
+        </div>
       </div>
       <h1 className="welcome-text">Welcome to My Portfolio</h1>
       <style>{`
@@ -41,6 +46,17 @@ const Loading: React.FC = () => {
           letter-spacing: 1px;
           font-family: 'Poppins', 'Inter', sans-serif;
           text-align: center;
+        }
+        .devops-icons {
+          display: flex;
+          gap: 1.2rem;
+          margin-top: 1rem;
+          justify-content: center;
+        }
+        .icon {
+          width: 36px;
+          height: 36px;
+          filter: drop-shadow(0 2px 8px #19376d88);
         }
         @media (max-width: 600px) {
           .lottie-wrapper { margin-bottom: 1rem; }

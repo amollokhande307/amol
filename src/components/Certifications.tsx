@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, Clock } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 export const Certifications: React.FC = () => {
   const platforms = [

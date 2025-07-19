@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Github, Linkedin, Instagram, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
-import MagneticButton from './MagneticButton';
 
 const socialLinks = {
   linkedin: 'https://www.linkedin.com/in/amol-lokhande-382976361',
@@ -26,7 +25,6 @@ const Hero: React.FC = () => {
   const [phraseIdx, setPhraseIdx] = useState(0);
   const [charIdx, setCharIdx] = useState(0);
   const [typing, setTyping] = useState(true);
-  const [deleting, setDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
@@ -39,13 +37,11 @@ const Hero: React.FC = () => {
     } else if (typing && charIdx === typewriterPhrases[phraseIdx].length) {
       timeout = setTimeout(() => setTyping(false), 1200);
     } else if (!typing && charIdx > 0) {
-      setDeleting(true);
       timeout = setTimeout(() => {
         setDisplayed(prev => prev.slice(0, -1));
         setCharIdx(charIdx - 1);
       }, 40);
     } else if (!typing && charIdx === 0) {
-      setDeleting(false);
       setTyping(true);
       setPhraseIdx((phraseIdx + 1) % typewriterPhrases.length);
     }
@@ -104,35 +100,53 @@ const Hero: React.FC = () => {
         <p className="max-w-xl mb-8 text-[#cbd5e1]">I build scalable cloud solutions, automate workflows, and love all things DevOps, Docker, and Kubernetes.</p>
         <div className="flex gap-4 mb-4">
           {/* Resume Button Example (add your link) */}
-          <MagneticButton
-            as="a"
+          <motion.a
             href="/assets/resume.pdf"
-            className="cta-btn"
             download
+            className="cta-btn"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            variants={socialIconVariants}
+            transition={{ delay: 0.1 }}
           >
             <Download className="w-5 h-5 cta-icon" />
             Resume
-          </MagneticButton>
-          <MagneticButton
-            as="a"
+          </motion.a>
+          <motion.a
             href={socialLinks.github}
             target="_blank"
             rel="noopener noreferrer"
             className="cta-btn"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            variants={socialIconVariants}
+            transition={{ delay: 0.2 }}
           >
             <Github className="w-5 h-5 cta-icon" />
             GitHub
-          </MagneticButton>
-          <MagneticButton
-            as="a"
+          </motion.a>
+          <motion.a
             href={socialLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="cta-btn"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            variants={socialIconVariants}
+            transition={{ delay: 0.3 }}
           >
             <Linkedin className="w-5 h-5 cta-icon" />
             LinkedIn
-          </MagneticButton>
+          </motion.a>
         </div>
         {/* Social Icons */}
         <div className="flex gap-5 mt-2">
