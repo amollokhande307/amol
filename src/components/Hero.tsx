@@ -61,64 +61,24 @@ const Hero: React.FC = () => {
     hover: { boxShadow: '0 0 0 4px #38bdf8, 0 0 16px #38bdf8', scale: 1.15 },
   };
 
-  // Magnetic effect for CTA buttons
-  const MagneticButton: React.FC<{ children: React.ReactNode; href: string; delay?: number; download?: boolean }> = ({ children, href, delay = 0, download = false }) => {
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-    
-    const rotateX = useTransform(y, [-50, 50], [15, -15]);
-    const rotateY = useTransform(x, [-50, 50], [-15, 15]);
-    
-    const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      x.set(e.clientX - centerX);
-      y.set(e.clientY - centerY);
-    };
-    
-    const handleMouseLeave = () => {
-      x.set(0);
-      y.set(0);
-    };
-
-    const handleTouchMove = (e: React.TouchEvent<HTMLAnchorElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const touch = e.touches[0];
-      x.set(touch.clientX - centerX);
-      y.set(touch.clientY - centerY);
-    };
-
-    const handleTouchEnd = () => {
-      x.set(0);
-      y.set(0);
-    };
-
+  // Simple CTA buttons without magnetic effect
+  const CTAButton: React.FC<{ children: React.ReactNode; href: string; delay?: number; download?: boolean }> = ({ children, href, delay = 0, download = false }) => {
     return (
       <motion.a
         href={href}
         download={download}
         target={download ? undefined : "_blank"}
         rel={download ? undefined : "noopener noreferrer"}
-        className="cta-btn magnetic-btn"
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
+        className="cta-btn"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
+        viewport={{ once: true, amount: 0.2 }}
         variants={socialIconVariants}
         transition={{ delay: 0.1 + delay }}
       >
-        <motion.div style={{ transform: "translateZ(20px)" }}>
-          {children}
-        </motion.div>
+        {children}
       </motion.a>
     );
   };
@@ -130,7 +90,7 @@ const Hero: React.FC = () => {
       className="relative min-h-[70vh] flex flex-col md:flex-row justify-center items-center bg-gradient-to-b from-[#0f172a] to-[#19376d] text-white font-['Inter','Poppins',sans-serif] pt-24 pb-16 overflow-hidden"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.4 }}
+      viewport={{ once: true, amount: 0.2 }}
       variants={heroVariants}
     >
       {/* Top Animated Wave */}
@@ -159,18 +119,18 @@ const Hero: React.FC = () => {
         <h2 className="text-xl md:text-2xl font-medium mb-6 text-[#38bdf8]">DevOps Engineer | Cloud Enthusiast</h2>
         <p className="max-w-xl mb-8 text-[#cbd5e1]">I build scalable cloud solutions, automate workflows, and love all things DevOps, Docker, and Kubernetes.</p>
         <div className="flex gap-4 mb-4">
-          <MagneticButton href="/assets/resume.pdf" download>
+          <CTAButton href="/assets/resume.pdf" download>
             <Download className="w-5 h-5 cta-icon" />
             Resume
-          </MagneticButton>
-          <MagneticButton href={socialLinks.github} delay={0.1}>
+          </CTAButton>
+          <CTAButton href={socialLinks.github} delay={0.1}>
             <Github className="w-5 h-5 cta-icon" />
             GitHub
-          </MagneticButton>
-          <MagneticButton href={socialLinks.linkedin} delay={0.2}>
+          </CTAButton>
+          <CTAButton href={socialLinks.linkedin} delay={0.2}>
             <Linkedin className="w-5 h-5 cta-icon" />
             LinkedIn
-          </MagneticButton>
+          </CTAButton>
         </div>
 
       </div>
@@ -245,10 +205,7 @@ const Hero: React.FC = () => {
           60% { transform: translateY(2px); }
           100% { transform: translateY(0); }
         }
-        .magnetic-btn {
-          transform-style: preserve-3d;
-          perspective: 1000px;
-        }
+
       `}</style>
     </motion.section>
   );

@@ -222,27 +222,25 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
         <h3 className="text-lg sm:text-xl font-bold text-black mb-1 sm:mb-2 break-words">{project.title}</h3>
         <div className="flex gap-2 sm:gap-3 mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           {project.github && (
-            <motion.a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              onClick={() => window.open(project.github, '_blank')}
               className="code-btn p-2 sm:p-2 bg-[#22223b] rounded-full hover:bg-[#007BFF] transition relative overflow-hidden group"
               whileTap={{ scale: 0.92 }}
+              whileHover={{ scale: 1.1 }}
             >
               <Github className="w-5 h-5 text-[#38bdf8] group-hover:text-white" />
               <span className="absolute left-1/2 bottom-1.5 w-0 h-0.5 bg-[#38bdf8] group-hover:w-4/5 transition-all duration-300 origin-center rounded-full" />
-            </motion.a>
+            </motion.button>
           )}
           {project.linkedin && (
-            <motion.a
-              href={project.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              onClick={() => window.open(project.linkedin, '_blank')}
               className="p-2 sm:p-2 bg-[#22223b] rounded-full hover:bg-[#38bdf8] transition"
               whileTap={{ scale: 0.92 }}
+              whileHover={{ scale: 1.1 }}
             >
               <Linkedin className="w-5 h-5 text-[#007BFF] group-hover:text-white" />
-            </motion.a>
+            </motion.button>
           )}
         </div>
       </motion.div>
@@ -344,7 +342,7 @@ export const Projects: React.FC = () => {
       className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.1 }}
       variants={projectsVariants}
     >
       {/* Background Elements */}

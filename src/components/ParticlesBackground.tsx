@@ -22,19 +22,19 @@ const ParticlesBackground: React.FC = () => (
           top: `${15 + (i * 12)}%`,
           width: 36,
           height: 36,
-          opacity: 0.18 + (i * 0.1),
+          opacity: 0.25 + (i * 0.12),
         }}
         animate={{
-          y: [0, -24, 0],
-          x: [0, 12, 0],
-          rotate: [0, 12, -12, 0],
+          y: [0, -32, 0],
+          x: [0, 16, 0],
+          rotate: [0, 15, -15, 0],
         }}
         transition={{
-          duration: 12 + i * 2,
+          duration: 10 + i * 1.5,
           repeat: Infinity,
           repeatType: 'loop',
           ease: 'easeInOut',
-          delay: i * 1.2,
+          delay: i * 0.8,
         }}
       />
     ))}

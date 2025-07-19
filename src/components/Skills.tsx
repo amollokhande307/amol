@@ -138,10 +138,10 @@ export const Skills: React.FC = () => {
 
   return (
     <motion.section
-      className="py-16 px-4 bg-gradient-to-br from-[#0a2342] via-[#19376d] to-[#22223b] font-['Inter','Poppins',sans-serif] relative overflow-hidden"
+      className="py-16 px-4 bg-gradient-to-br from-[#0a2342] via-[#19376d] to-[#22223b] font-['Inter','Poppins',sans-serif] relative overflow-visible"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.2 }}
       variants={skillsVariants}
     >
       {/* Floating Keywords */}
@@ -162,7 +162,7 @@ export const Skills: React.FC = () => {
         ))}
       </div>
       <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-10 relative z-10">Skills & Tools</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto relative z-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto relative z-10 pb-8">
         {skills.map((skill) => (
           <MagneticSkillCard key={skill} skill={skill} />
         ))}
