@@ -510,10 +510,10 @@ const Loading: React.FC = () => {
             height: 28px;
           }
           .cloud1, .cloud2 {
-            transform: scale(0.8);
+            transform: scale(0.8) !important;
           }
           .aws-logo {
-            transform: translate(-50%, -50%) scale(0.8);
+            transform: translate(-50%, -50%) scale(0.8) !important;
           }
         }
         
