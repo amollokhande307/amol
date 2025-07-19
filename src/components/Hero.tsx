@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Github, Linkedin, Download } from 'lucide-react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const socialLinks = {
   linkedin: 'https://www.linkedin.com/in/amol-lokhande-382976361',
