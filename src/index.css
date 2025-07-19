@@ -348,6 +348,30 @@ p {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 
+/* Focus shadow glow effect */
+.focus\:shadow-glow:focus {
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3), 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+[data-theme="dark"] .focus\:shadow-glow:focus {
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.4), 0 0 25px rgba(56, 189, 248, 0.3);
+}
+
+/* Input glow effect */
+.input-glow {
+  transition: all 0.3s ease;
+}
+
+.input-glow:focus {
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.3), 0 0 15px rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+}
+
+[data-theme="dark"] .input-glow:focus {
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.4), 0 0 20px rgba(56, 189, 248, 0.3);
+  border-color: #38bdf8;
+}
+
 /* Professional Ornamental Border */
 .royal-ornamental-border {
   position: relative;
